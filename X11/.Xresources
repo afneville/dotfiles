@@ -1,1 +1,9 @@
+#include ".Xresources.conf.d/colours"
+XTerm.termName: xterm-256color
 Xft.dpi: 192
+
+xterm*faceName: Monospace
+xterm*faceSize: 12
+
+xterm*loginshell: true
+xterm*savelines: 16384
