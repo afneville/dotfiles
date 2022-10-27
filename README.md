@@ -6,7 +6,7 @@ A version controlled repository for some of my system configuration files. The w
 
 For quick deployment on new machines, the files in this repository are organised in the fashion of *GNU Stow*, a symlink farm manager. Less attractive ways to manage deployment would involve either a messy deployment script or a lot of manual copying/symlinking. Stow, on the other hand, can automatically make and remove symlinks for files and directories. 
 
-I have organised this project so that each subdirectory acts as a reference to `~/`. Files positioned within each of these subdirectories will be placed in the same position relative to `~/` when *stowed*. Taking the X11 directory as an example, the files within will map to the same directory level / structure in the home directory if Stow is directed to do so.
+I have organised this project so that each subdirectory acts as a reference point to `~/`. Files positioned at a given point relative to each of these subdirectories will be placed in the same position relative to `~/` when *stowed*. Taking the X11 directory as an example, the files within will map to the same directory level / structure in the home directory if Stow is directed to do so.
 
 ```
 ./X11/ --> ~/
