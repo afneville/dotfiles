@@ -1,0 +1,36 @@
+! b16-ayu-mirage
+#define base00 #171B24
+#define base01 #1F2430
+#define base02 #242936
+#define base03 #707A8C
+#define base04 #8A9199
+#define base05 #CCCAC2
+#define base06 #D9D7CE
+#define base07 #F3F4F5
+#define base08 #F28779
+#define base09 #FFAD66
+#define base0A #FFD173
+#define base0B #D5FF80
+#define base0C #95E6CB
+#define base0D #5CCFE6
+#define base0E #D4BFFF
+#define base0F #F29E74
+*foreground:   base05
+*background:   base00
+*cursorColor:  base05
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07

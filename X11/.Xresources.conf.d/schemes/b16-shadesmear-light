@@ -1,0 +1,36 @@
+! b16-shadesmear-light
+#define base00 #DBDBDB
+#define base01 #E4E4E4
+#define base02 #C0C0C0
+#define base03 #4E4E4E
+#define base04 #1C1C1C
+#define base05 #232323
+#define base06 #1C1C1C
+#define base07 #E4E4E4
+#define base08 #CC5450
+#define base09 #A64270
+#define base0A #307878
+#define base0B #71983B
+#define base0C #C57D42
+#define base0D #376388
+#define base0E #D7AB54
+#define base0F #6D6D6D
+*foreground:   base05
+*background:   base00
+*cursorColor:  base05
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07

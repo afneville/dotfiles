@@ -1,0 +1,36 @@
+! b16-tokyo-city-terminal-light
+#define base00 #FBFBFD
+#define base01 #F6F6F8
+#define base02 #D8E2EC
+#define base03 #B7C5D3
+#define base04 #526270
+#define base05 #28323A
+#define base06 #1D252C
+#define base07 #171D23
+#define base08 #8C4351
+#define base09 #965027
+#define base0A #8f5E15
+#define base0B #33635C
+#define base0C #0F4B6E
+#define base0D #34548A
+#define base0E #5A4A78
+#define base0F #7E5140
+*foreground:   base05
+*background:   base00
+*cursorColor:  base05
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07

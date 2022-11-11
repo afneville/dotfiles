@@ -1,0 +1,36 @@
+! b16-blueish
+#define base00 #182430
+#define base01 #243C54
+#define base02 #46290A
+#define base03 #616D78
+#define base04 #74AFE7
+#define base05 #C8E1F8
+#define base06 #DDEAF6
+#define base07 #8F98A0
+#define base08 #4CE587
+#define base09 #F6A85C
+#define base0A #82AAFF
+#define base0B #C3E88D
+#define base0C #5FD1FF
+#define base0D #82AAFF
+#define base0E #FF84DD
+#define base0F #BBD2E8
+*foreground:   base05
+*background:   base00
+*cursorColor:  base05
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07
