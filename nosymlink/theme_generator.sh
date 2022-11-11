@@ -20,8 +20,16 @@ get_schemes() {
     echo "Done."
 }
 
+
+format_colour () {
+    original=$1
+    echo "${original:0:2}/${original:2:2}/${original:4:2}"
+}
+
 write_xresources() {
     
+    echo "! b16-$1"
+
     echo "#define base00 #${colours[0]}"
     echo "#define base01 #${colours[1]}"
     echo "#define base02 #${colours[2]}"
@@ -61,7 +69,28 @@ write_xresources() {
 }
 
 write_shell_escape_codes() {
-    echo ""
+    echo "#!/bin/sh"
+    echo "source ansi_colour_functions.sh"
+    echo "put_template 0  `format_colour ${colours[0]}`"
+    echo "put_template 1  `format_colour ${colours[8]}`"
+    echo "put_template 2  `format_colour ${colours[11]}`"
+    echo "put_template 3  `format_colour ${colours[10]}`"
+    echo "put_template 4  `format_colour ${colours[13]}`"
+    echo "put_template 5  `format_colour ${colours[14]}`"
+    echo "put_template 6  `format_colour ${colours[12]}`"
+    echo "put_template 7  `format_colour ${colours[5]}`"
+    echo "put_template 8  `format_colour ${colours[3]}`"
+
+    echo "put_template 9  `format_colour ${colours[9]}`"
+    echo "put_template 10 `format_colour ${colours[1]}`"
+    echo "put_template 11 `format_colour ${colours[2]}`"
+    echo "put_template 12 `format_colour ${colours[4]}`"
+    echo "put_template 13 `format_colour ${colours[6]}`"
+    echo "put_template 14 `format_colour ${colours[15]}`"
+    echo "put_template 15 `format_colour ${colours[7]}`"
+    echo "put_template_var 10 `format_colour ${colours[5]}`"
+    echo "put_template_var 11 `format_colour ${colours[0]}`"
+    echo "put_template_custom 12 \";7\""
 }
 
 process_themes() {
@@ -74,7 +103,7 @@ process_themes() {
         do
             colours+=(`sed -ne 's/'"${c}"': "\(.*\)".*/\1/p' $f`)
         done
-        write_xresources > ${X_DIR}/b16-${fname} &
+        write_xresources ${fname} > ${X_DIR}/b16-${fname} &
         write_shell_escape_codes > ${SHELL_DIR}/b16-${fname}.sh &
     done
     wait
