@@ -238,3 +238,5 @@ alacritty_colours
 # shell_colours
 # rofi_colours
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+
+$1.sh
