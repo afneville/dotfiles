@@ -5,30 +5,31 @@
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
+local scheme = xresources.get_current_theme()
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "Jetbrains Mono Nerd Font 8"
+theme.font          = "Jetbrains Mono Nerd Font Bold 8"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
-theme.bg_systray    = theme.bg_normal
+theme.bg_normal     = scheme["color0"]
+theme.bg_focus      = scheme["color11"]
+theme.bg_urgent     = scheme["color0"]
+theme.bg_minimize   = scheme["color0"]
+theme.bg_systray    = scheme["color0"]
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_normal     = scheme["color7"]
+theme.fg_focus      = scheme["color7"]
+theme.fg_urgent     = scheme["color7"]
+theme.fg_minimize   = scheme["color7"]
 
-theme.useless_gap   = dpi(2)
-theme.border_width  = dpi(2)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.useless_gap   = dpi(0)
+theme.border_width  = dpi(3)
+theme.border_normal = scheme["color10"]
+theme.border_focus  = scheme["color11"]
+theme.border_marked = scheme["color10"]
 
 -- There are other variable sets
 -- overriding the default one when
@@ -44,7 +45,7 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
+local taglist_square_size = dpi(5)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
@@ -71,31 +72,31 @@ theme.menu_width  = dpi(100)
 --theme.bg_widget = "#cc0000"
 
 -- Define the image to load
-theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = themes_path.."default/titlebar/close_focus.png"
+theme.titlebar_close_button_normal = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_close_button_focus  = "/home/alex/imgs/icons/circle_button.png"
 
-theme.titlebar_minimize_button_normal = themes_path.."default/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = themes_path.."default/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_minimize_button_focus  = "/home/alex/imgs/icons/circle_button.png"
 
-theme.titlebar_ontop_button_normal_inactive = themes_path.."default/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = themes_path.."default/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = themes_path.."default/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = themes_path.."default/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_ontop_button_focus_inactive  = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_ontop_button_normal_active = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_ontop_button_focus_active  = "/home/alex/imgs/icons/circle_button.png"
 
-theme.titlebar_sticky_button_normal_inactive = themes_path.."default/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = themes_path.."default/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = themes_path.."default/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = themes_path.."default/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_sticky_button_focus_inactive  = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_sticky_button_normal_active = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_sticky_button_focus_active  = "/home/alex/imgs/icons/circle_button.png"
 
-theme.titlebar_floating_button_normal_inactive = themes_path.."default/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = themes_path.."default/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = themes_path.."default/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = themes_path.."default/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_floating_button_focus_inactive  = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_floating_button_normal_active = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_floating_button_focus_active  = "/home/alex/imgs/icons/circle_button.png"
 
-theme.titlebar_maximized_button_normal_inactive = themes_path.."default/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_maximized_button_focus_inactive  = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_maximized_button_normal_active = "/home/alex/imgs/icons/circle_button.png"
+theme.titlebar_maximized_button_focus_active  = "/home/alex/imgs/icons/circle_button.png"
 
 theme.wallpaper = "/home/alex/imgs/walls/waves_1_noise_4k.png"
 
@@ -119,7 +120,7 @@ theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
+    theme.menu_height, theme.bg_normal, theme.fg_normal
 )
 
 -- Define the icon theme for application icons. If not set then the icons
