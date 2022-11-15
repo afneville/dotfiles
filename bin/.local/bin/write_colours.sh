@@ -53,7 +53,7 @@ get_colours () {
 
 polybar_colours () {
 
-	cat > $HOME/.config/polybar/colours <<- EOF	
+	cat > $HOME/.config/polybar/colours.ini <<- EOF	
 	[color]
 	foreground = ${FOREGROUND}
 	background = ${BACKGROUND}
@@ -148,29 +148,29 @@ zathura_colours () {
 
 	cat > $HOME/.config/zathura/zathurarc <<- EOF
 	set default-bg                  "${BACKGROUND}"
-        set default-fg                  "${FOREGROUND}"
-        set statusbar-fg                "${FOREGROUND}"
-        set statusbar-bg                "${BACKGROUND}"
-        set inputbar-bg                 "${BACKGROUND}"
-        set inputbar-fg                 "${CYAN}"
-        set notification-bg             "${BACKGROUND}"
-        set notification-fg             "${FOREGROUND}"
-        set notification-error-bg       "${BACKGROUND}"
-        set notification-error-fg       "${FOREGROUND}"
-        set notification-warning-bg     "${BACKGROUND}"
-        set notification-warning-fg     "${FOREGROUND}"
-        set highlight-color             "${BLUE}"
-        set highlight-active-color      "${BLUE}"
-        set completion-bg               "${FOREGROUND}"
-        set completion-fg               "${BLUE}"
-        set completion-highlight-fg     "${CYAN}"
-        set completion-highlight-bg     "${BLUE}"
-        set recolor-lightcolor          "${BACKGROUND}"
-        set recolor-darkcolor           "${FOREGROUND}"
-        set selection-clipboard clipboard       
-        set recolor                     "false"
-        set recolor-keephue             "true"
-        set guioptions none
+    set default-fg                  "${FOREGROUND}"
+    set statusbar-fg                "${FOREGROUND}"
+    set statusbar-bg                "${BACKGROUND}"
+    set inputbar-bg                 "${BACKGROUND}"
+    set inputbar-fg                 "${CYAN}"
+    set notification-bg             "${BACKGROUND}"
+    set notification-fg             "${FOREGROUND}"
+    set notification-error-bg       "${BACKGROUND}"
+    set notification-error-fg       "${FOREGROUND}"
+    set notification-warning-bg     "${BACKGROUND}"
+    set notification-warning-fg     "${FOREGROUND}"
+    set highlight-color             "${BLUE}"
+    set highlight-active-color      "${BLUE}"
+    set completion-bg               "${FOREGROUND}"
+    set completion-fg               "${BLUE}"
+    set completion-highlight-fg     "${CYAN}"
+    set completion-highlight-bg     "${BLUE}"
+    set recolor-lightcolor          "${BACKGROUND}"
+    set recolor-darkcolor           "${FOREGROUND}"
+    set selection-clipboard clipboard       
+    set recolor                     "false"
+    set recolor-keephue             "true"
+    set guioptions none
 	EOF
 
 }
@@ -232,11 +232,11 @@ xrdb ~/.Xresources
 get_colours
 
 alacritty_colours
-# polybar_colours
-# kitty_colours
-# zathura_colours
+zathura_colours
+kitty_colours
+polybar_colours
 # shell_colours
 # rofi_colours
-# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 
+hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 $1.sh

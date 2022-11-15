@@ -42,4 +42,7 @@ if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
 fi
 
-exec awesome
+xsetroot -cursor_name left_ptr
+xbanish &
+numlockx &
+exec bspwm
