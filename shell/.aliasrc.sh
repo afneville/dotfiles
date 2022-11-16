@@ -4,7 +4,7 @@ alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI
 alias ls='/usr/bin/exa -a --group-directories-first --icons'
 alias lsl='/usr/bin/exa -lag --group-directories-first --icons'
 alias sudo="doas"
-alias tree='exa --tree --icons'
+alias tree='exa --tree --icons --color=always -a --ignore-glob="*.git"'
 
 alias locate='updatedb && locate'
 alias volume='alsamixer'
