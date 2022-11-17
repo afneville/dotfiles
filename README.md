@@ -2,6 +2,11 @@
 
 A version controlled repository for some of my system configuration files. The word *dotfile* refers to the leading `.` used to hide a file (eg. a configuration file) on most Unix systems. For an older more complete set of configuration files, have a look at [this repository](https://github.com/alexander-neville/config_archive), which I have deprecated and no longer use.
 
+## Screenshots
+
+![gruvboxmaterialdarkhard](screenshots/gruvboxmaterialdarkhard.png)
+![nord](screenshots/nord.png)
+
 ## Deployment
 
 For quick deployment on new machines, the files in this repository are organised in the fashion of *GNU Stow*, a symlink farm manager. Less attractive ways to manage deployment would involve either a messy deployment script or a lot of manual copying/symlinking. Stow, on the other hand, can automatically make and remove symlinks for files and directories. 
