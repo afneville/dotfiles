@@ -34,4 +34,7 @@ I use two computers currently, a relatively modern Acer laptop running Arch and 
 
 I am versioning my Emacs and Neovim configurations in separate repositories. Most other applications require less in the way of initialisation and so those plain text files are stored here. I have written some shell scripts that edit configuration files automatically, such as those for changing the terminal colour scheme. These automated changes should not be committed.
 
+- [Neovim Configuration](https://github.com/alexander-neville/nvim_config) 
+- [Emacs Configuration](https://github.com/alexander-neville/emacs_config) 
+
 In the near future I plan to use some sort of reproducible declarative package managment tool, such as Nix or Guix. As mentioned above, I don't face any issues with version numbers at the moment, although I shouldn't count on this.
