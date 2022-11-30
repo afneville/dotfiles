@@ -78,3 +78,8 @@ alias senable="systemctl enable"
 alias accept="doas nvim /etc/portage/package.accept_keywords"
 alias package.use="doas nvim /etc/portage/package.use"
 alias make.conf="doas nvim /etc/portage/make.conf"
+
+# Misc
+
+alias copy_png="xclip -selection clipboard -target image/png -i"
+alias paste_png="xclip -selection clipboard -target image/png -o"

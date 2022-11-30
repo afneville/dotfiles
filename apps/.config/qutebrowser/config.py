@@ -21,15 +21,15 @@ c.fonts.prompts = 'default_size sans-serif'
 c.fonts.statusbar = '11pt "Jetbrains Mono Nerd Font"'
 c.fonts.hints = '9pt "Jetbrains Mono Nerd Font"'
 
-config.bind('<Tab>', 'tab-next')
-config.bind('<Shift+Tab>', 'tab-prev')
+# config.bind('<Tab>', 'tab-next')
+# config.bind('<Shift+Tab>', 'tab-prev')
 config.bind('D', 'tab-only')
 config.bind('x', 'tab-close')
-config.bind('T', 'open -t')
-config.bind('rr', 'reload -f')
-config.bind('R', 'restart')
-config.bind('<Ctrl-j>', 'set-cmd-text -sr :tab-focus')
-config.bind('<Ctrl-k>', 'set-cmd-text -sr :tab-focus')
+# config.bind('T', 'open -t')
+# config.bind('rr', 'reload -f')
+# config.bind('R', 'restart')
+# config.bind('<Ctrl-j>', 'set-cmd-text -sr :tab-focus')
+# config.bind('<Ctrl-k>', 'set-cmd-text -sr :tab-focus')
 config.bind('tb', 'config-cycle statusbar.show always never')
 config.bind('tt', 'config-cycle tabs.show always never')
 config.bind('ta', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')

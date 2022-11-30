@@ -362,6 +362,7 @@ filetype *.tudu tudu -f %c
 filextype *.pro qtcreator %f &
 
 fileviewer */,.*/ exa --tree --icons --color=always -a --ignore-glob="*.git" %c 
+fileviewer *[^/],.*[^/] bat --theme=base16 --wrap=never --plain --color=always --paging=never %c
 
 " Syntax highlighting in preview
 "
