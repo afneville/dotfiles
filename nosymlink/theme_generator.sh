@@ -1,14 +1,14 @@
 #!/bin/sh
 
-SCHEME_REPO_NAME="base16-schemes"
-SCHEME_REPO_HTTPS="https://github.com/tinted-theming/base16-schemes.git"
+SCHEME_REPO_NAME="src"
 WORKING_DIR="$(dirname $(realpath $0))"
 LOCAL_REPO="${WORKING_DIR}/${SCHEME_REPO_NAME}"
 TMP_DIR="${WORKING_DIR}/schemes"
 X_DIR="${WORKING_DIR}/xresources"
+VIM_DIR="${WORKING_DIR}/vim"
 SHELL_DIR="${WORKING_DIR}/shell_escape_codes"
 
-get_schemes() {
+get_remote_schemes() {
     echo $LOCAL_REPO
     if [ ! -d "$LOCAL_REPO" ]; then
         git clone $SCHEME_REPO_HTTPS & 
@@ -19,7 +19,6 @@ get_schemes() {
     wait
     echo "Done."
 }
-
 
 format_colour () {
     original=$1
@@ -93,6 +92,17 @@ write_shell_escape_codes() {
     echo "put_template_custom 12 \";7\""
 }
 
+write_vim () {
+    echo "let g:colors_name = 'b16-${2}'"
+    printf "lua require('b16-theme').setup({"
+    for c in base0{0..9} base0{A..F}
+    do
+        printf " ${c} = '#`sed -ne 's/'"${c}"': "\(.*\)".*/\1/p' $1`'"
+        [ ${c} != "base0F" ] && printf ","
+    done
+    printf " })\n"
+}
+
 process_themes() {
     echo "Writing themes ..."
     for f in $TMP_DIR/*.yaml
@@ -103,6 +113,7 @@ process_themes() {
         do
             colours+=(`sed -ne 's/'"${c}"': "\(.*\)".*/\1/p' $f`)
         done
+        write_vim $f $fname > ${VIM_DIR}/b16-${fname}.vim &
         write_xresources ${fname} > ${X_DIR}/b16-${fname} &
         write_shell_escape_codes > ${SHELL_DIR}/b16-${fname}.sh &
     done
@@ -114,9 +125,10 @@ main() {
     mkdir -p $TMP_DIR
     mkdir -p $X_DIR
     mkdir -p $SHELL_DIR
-    get_schemes
+    mkdir -p $VIM_DIR
     cp $SCHEME_REPO_NAME/*.yaml $TMP_DIR
     process_themes
 }
 
 main
+

@@ -36,6 +36,8 @@ if [ ! -z  "$monitor" ]; then
         xrandr --output HDMI-A-0 --set TearFree on
         ln -s ~/.config/bspwm/uhd ~/.config/bspwm/bspwmrc 
         sed -i -E 's/^Xft.dpi:\ 96/Xft.dpi:\ 192/' ~/.Xresources
+        # export GDK_SCALE=2
+        # export GDK_DPI_SCALE=0.5
     else
         xrandr --output HDMI-A-0 --primary --mode 1920x1080 --right-of eDP --output eDP --off
         xrandr --output HDMI-A-0 --set TearFree on
