@@ -1,21 +1,18 @@
-# terminal emulator
-super + Return
-        alacritty
-
-# program launcher
-super + p
-        rofi -show run
-        # dmenu_run
+super + {Return, p,e,s}
+        {alacritty, rofi -show run, emacs, firefox}
 
 super + shift + q
         killall xinit
 
-# #audio
-# XF86AudioLowerVolume
-# 	amixer set Master 5%-
-# 
-# XF86AudioRaiseVolume
-# 	amixer set Master 5%+
-# 
-# XF86AudioMute
-#     amixer -q -D pulse sset Master toggle
+super + g; {f,c,b,w,s}
+        screenshot.sh {-f,-c,-b,-w,-s}
+
+#audio
+XF86AudioLowerVolume
+	amixer set Master 5%-
+
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+
+XF86AudioMute
+    amixer -q -D pulse sset Master toggle
