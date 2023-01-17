@@ -1,6 +1,7 @@
 #!/bin/sh
 
-SCHEME_REPO_NAME="src"
+SCHEME_REPO_NAME="base16-schemes"
+SCHEME_REPO_HTTPS="https://github.com/tinted-theming/base16-schemes.git"
 WORKING_DIR="$(dirname $(realpath $0))"
 LOCAL_REPO="${WORKING_DIR}/${SCHEME_REPO_NAME}"
 TMP_DIR="${WORKING_DIR}/schemes"
@@ -9,9 +10,9 @@ VIM_DIR="${WORKING_DIR}/vim"
 SHELL_DIR="${WORKING_DIR}/shell_escape_codes"
 
 get_remote_schemes() {
-    echo $LOCAL_REPO
+    echo "$LOCAL_REPO"
     if [ ! -d "$LOCAL_REPO" ]; then
-        git clone $SCHEME_REPO_HTTPS & 
+        git clone "$SCHEME_REPO_HTTPS" & 
     else
         git --git-dir=${LOCAL_REPO}/.git pull &
     fi
@@ -126,9 +127,16 @@ main() {
     mkdir -p $X_DIR
     mkdir -p $SHELL_DIR
     mkdir -p $VIM_DIR
-    cp $SCHEME_REPO_NAME/*.yaml $TMP_DIR
     process_themes
 }
 
-main
+# if [ $# -eq 1 ] then
+# fi
 
+case "${1}" in
+    -r)
+        get_remote_schemes
+        cp $SCHEME_REPO_NAME/*.yaml $TMP_DIR
+        ;;
+esac
+main
