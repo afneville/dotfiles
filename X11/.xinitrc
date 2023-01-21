@@ -25,7 +25,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-rm -f ~/.config/bspwm/bspwmrc
+cp ~/.config/bspwm/bspwmrc.in ~/.config/bspwm/bspwmrc
 
 monitor=`xrandr | grep 'HDMI-A-0 connected'`
 hidpi=`xrandr -q | grep '3840x2160'`
@@ -34,20 +34,22 @@ if [ ! -z  "$monitor" ]; then
     if [ ! -z  "$hidpi" ]; then
         xrandr --output HDMI-A-0 --primary --mode 3840x2160 --right-of eDP --output eDP --off
         xrandr --output HDMI-A-0 --set TearFree on
-        ln -s ~/.config/bspwm/uhd ~/.config/bspwm/bspwmrc 
+        sed -i "s/%bar_dpi%/uhd/g" ~/.config/bspwm/bspwmrc
+        sed -i "s/%top_padding%/52/g" ~/.config/bspwm/bspwmrc
+        sed -i "s/%border_width%/4/g" ~/.config/bspwm/bspwmrc
         sed -i -E 's/^Xft.dpi:\ 96/Xft.dpi:\ 192/' ~/.Xresources
-        # export GDK_SCALE=2
-        # export GDK_DPI_SCALE=0.5
     else
         xrandr --output HDMI-A-0 --primary --mode 1920x1080 --right-of eDP --output eDP --off
         xrandr --output HDMI-A-0 --set TearFree on
-        ln -s ~/.config/bspwm/hd ~/.config/bspwm/bspwmrc 
+        sed -i "s/%bar_dpi%/hd/g" ~/.config/bspwm/bspwmrc
+        sed -i "s/%top_padding%/26/g" ~/.config/bspwm/bspwmrc
+        sed -i "s/%border_width%/2/g" ~/.config/bspwm/bspwmrc
         sed -i -E 's/^Xft.dpi:\ 192/Xft.dpi:\ 96/' ~/.Xresources
     fi
 else
     xrandr --output eDP --set TearFree on
     xrandr --dpi 96
-    ln -s ~/.config/bspwm/hd ~/.config/bspwm/bspwmrc 
+    ln -s ~/.config/bspwm/hd ~/.config/bspwm/bspwmrc
     sed -i -E 's/^Xft.dpi:\ 192/Xft.dpi:\ 96/' ~/.Xresources
 fi
 

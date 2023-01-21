@@ -40,7 +40,7 @@ alias pls="doas"
 # Directories:
 alias ..='cd ..'
 alias ...='cd ../..'
-alias ...='cd ../../..'
+alias ....='cd ../../..'
 alias web="cd /srv/http/"
 alias code="cd ~/code/"
 alias config="cd ~/code/dotfiles"

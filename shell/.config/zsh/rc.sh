@@ -2,7 +2,10 @@ HISTFILE=~/.cache/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-export PATH=$PATH:$HOME/.local/bin:$HOME/.local/bin/schemes:$HOME/.emacs.d/bin:$HOME/.npm_global/bin
+# export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/.emacs.d/bin:$HOME/.npm_global/bin
+# for i in $(find -L $HOME/bin -mindepth 1 -type d | xargs); do
+#     export PATH=${PATH}:${i}
+# done
 # vim mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -47,20 +50,14 @@ source_zsh_file "search.sh"
 source_zsh_file "prompt.sh"
 add_zsh_plugin "zsh-users/zsh-autosuggestions"
 add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
-# add_zsh_plugin "romkatv/powerlevel10k"
-
-# BASE16_SHELL="$ZDOTDIR/plugins/base16-shell/"
-# [ -n "$PS1" ] && \
-#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-#         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # uncomment for space before and after output.
 # preexec() {
-# 
+#
 #     echo ""
-# 
+#
 # }
-# 
+#
 # precmd() {
 #     if [ -z "$OPTIONAL_NEW_LINE" ]; then
 #         OPTIONAL_NEW_LINE=1
