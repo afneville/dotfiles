@@ -1,0 +1,32 @@
+#+TITLE: Personal Configuration Files
+
+A version control repository for some of my system configuration files. The word /dotfile/ is a colloquialism reffering to the leading =.= character used to hide a file in most Unix-like systems.
+
+Initially, a single repository was sufficient for managing my configuration files, but gradually different parts have been separated into their own repositories. The original, archived repository - which I no longer use - is [[https://github.com/alexanderneville/config_archive][here]]. Some other currently in-use, related repositories are:
+
+- [[https://github.com/alexanderneville/nvim_config][Neovim Configuration]]
+- [[https://github.com/alexanderneville/emacs_config][Emacs Configuration]]
+- [[https://github.com/alexanderneville/b16-themes][Colour Themes]]
+
+* Screenshots
+
+[[./screenshots/onedark.png]]
+[[./screenshots/codedark.png]]
+[[./screenshots/gruvbox_dark_hard.png]]
+[[./screenshots/gruvbox_material_dark_hard.png]]
+
+* Deployment
+
+For quick deployment on new machines, the files in this repository are organised in the fashion of *GNU Stow*, a symlink farm manager. Less attractive ways to manage deployment would involve either a messy deployment script or a lot of manual copying/symlinking. Stow, on the other hand, can automatically make and remove symlinks for both files and directories. 
+
+I have organised this project so that each subdirectory acts as a reference point to =~/=. Files positioned at a given point relative to each of these subdirectories will be placed in the same position relative to =~/= when /stowed/. An example of =stow -t ~/ shell= invocation:
+
+#+begin_src text
+./shell/ -> ~/
+|--.bashrc -> ~/.bashrc
+|--.zshnenv -> ~/.zshenv
+`--.config/ -> ~/.config/
+    `--zsh/ -> ~/.config/zsh/
+        |--rc.sh -> ~/.config/zsh/rc.sh
+        `--...
+#+end_src
