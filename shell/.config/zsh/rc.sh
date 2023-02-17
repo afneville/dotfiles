@@ -51,6 +51,9 @@ source_zsh_file "prompt.sh"
 add_zsh_plugin "zsh-users/zsh-autosuggestions"
 add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
+[ -f "$HOME/.sh_theme.sh" ] && source "$HOME/.sh_theme.sh"
+theme.sh -s -t $shell_theme
+
 # uncomment for space before and after output.
 # preexec() {
 #

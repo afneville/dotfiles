@@ -1,0 +1,10 @@
+[color]
+fg = #%col5%
+bg = #%col1%
+border = #%col3%
+red = #%col8%
+green = #%col11%
+yellow = #%col10%
+blue = #%col13%
+magenta = #%col14%
+cyan = #%col12%
