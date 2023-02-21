@@ -47,14 +47,14 @@ function new_tmux_session() {
 
 function pp () {
     choice=$(echo "$(find ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev)" | fzf --height=20 --border=none --reverse --no-separator --ansi --color=16) 
-    echo "choice: $choice"
+    # echo "choice: $choice"
     if [[ ! -z $choice ]] # if a choice was made ...
     then
         tmux has-session -t $choice 2>/dev/null
         if [ $? != 0 ] # if the session does not exist ...
         then
             # create a new tmux session
-            echo "session does not exist"
+            # echo "session does not exist"
             new_tmux_session $choice ~/vcon/$choice
         fi
         # connect to the session
@@ -64,5 +64,18 @@ function pp () {
         else
             tmux switch-client -t $choice
         fi
+    fi
+}
+
+function tat () {
+    choice=$(tmux list-sessions | cut -d " " -f1 | cut -d ":" -f1 | fzf --height=20 --border=none --reverse --no-separator --ansi --color=16) 
+    if [[ ! -z $choice ]] # if a choice was made ...
+    then
+        if [[ -z "$TMUX" ]] # if not in a tmux session
+        then
+            tmux attach-session -t $choice
+        else
+            tmux switch-client -t $choice
         fi
-    }
+    fi
+}

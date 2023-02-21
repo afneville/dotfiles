@@ -21,13 +21,13 @@ alias merge="xrdb -merge ~/.Xresources"
 
 # tmux
 alias tls="tmux ls"
-alias tat="tmux attach -t"
-alias tdat="tmux detach"
-alias tnew="tmux new -s"
-alias trens="tmux rename-session"
-alias trenw="tmux rename-window"
-alias tkill="tmux kill-session -t"
-alias tend="tmux kill-server"
+# alias tat="tmux attach -t"
+# alias tdat="tmux detach"
+# alias tnew="tmux new -s"
+# alias trens="tmux rename-session"
+# alias trenw="tmux rename-window"
+# alias tkill="tmux kill-session -t"
+# alias tend="tmux kill-server"
 
 # Fun
 alias hello="figlet hi"
