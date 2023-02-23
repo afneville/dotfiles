@@ -33,3 +33,11 @@ bspc config window_gap 0
 
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
+bspc rule -a scratchpad sticky=on state=floating hidden=off
+
+tmux has-session -t scratchpad 2>/dev/null
+if [ $? != 0 ] # if the session does not exist ...
+then
+    tmux new-session -d -s scratchpad &
+    tmux rename-window -t scratchpad 'main' &
+fi

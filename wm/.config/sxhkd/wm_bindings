@@ -44,3 +44,6 @@ super + alt + {h,j,k,l}
     bspc node @parent/second -z top 0 -20, \
     bspc node @parent/first -z right +20 0; \
     bspc node @parent/second -z left +20 0}
+
+super + y
+   scratchpad-toggle.sh scratchpad
