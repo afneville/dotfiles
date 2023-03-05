@@ -84,5 +84,7 @@ alias make.conf="doas nvim /etc/portage/make.conf"
 
 alias copy_png="xclip -selection clipboard -target image/png -i"
 alias paste_png="xclip -selection clipboard -target image/png -o"
+alias copy_text="xclip -selection clipboard -i"
+alias paste_text="xclip -selection clipboard -o"
 
-alias scratchpad="tmux attach-session -t scratchpad"
+alias scratchpad="tmux new-session -As scratchpad"

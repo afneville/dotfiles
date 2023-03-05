@@ -40,18 +40,35 @@ zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
 _comp_options+=(globdots)
 
-
 # source aliases
-[ -f "$HOME/.aliasrc.sh" ] && source "$HOME/.aliasrc.sh"
 
 # custom "plugin manager"
-[ -f "$ZDOTDIR/functions.sh" ] && source "$ZDOTDIR/functions.sh"
-source_zsh_file "search.sh"
-source_zsh_file "prompt.sh"
+# [ -f "$HOME/.aliasrc.sh" ] && source "$HOME/.aliasrc.sh"
+# [ -f "$HOME/.sh_theme.sh" ] && source "$HOME/.sh_theme.sh"
+# [ -f "$ZDOTDIR/plugin_manager.sh" ] && source "$ZDOTDIR/plugin_manager.sh"
+
+function source_file() {
+    [ -f "$1" ] && source "$1"
+}
+
+function add_zsh_plugin() {
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+        source_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        source_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh-theme" || \
+        source_file "$ZDOTDIR/plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+    else
+        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    fi
+}
+
+source_file "$ZDOTDIR/functions.sh"
+source_file "$ZDOTDIR/prompt.sh"
+source_file "$HOME/.aliasrc.sh"
+source_file "$HOME/.sh_theme.sh"
 add_zsh_plugin "zsh-users/zsh-autosuggestions"
 add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
-[ -f "$HOME/.sh_theme.sh" ] && source "$HOME/.sh_theme.sh"
 theme.sh -s -t $shell_theme
 
 # uncomment for space before and after output.
