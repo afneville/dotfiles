@@ -47,6 +47,8 @@ if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
 fi
 
+emacs --daemon &
+
 xsetroot -cursor_name left_ptr
 xbanish &
 numlockx &

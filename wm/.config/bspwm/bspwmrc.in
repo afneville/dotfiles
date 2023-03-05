@@ -28,7 +28,7 @@ bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config focus_follows_pointer true
-bspc config pointer_follows_focus true
+bspc config pointer_follows_focus false
 bspc config window_gap 0
 
 bspc rule -a Emacs state=tiled

@@ -1,5 +1,8 @@
-super + {Return, p,e,s}
-        {alacritty, rofi -show run, emacs, firefox}
+super + {Return, p,s}
+        {alacritty, rofi -show run,  firefox}
+
+super + e; {c, k, s}
+    {emacsclient --create-frame --alternate-editor=emacs, killall emacs, emacs --daemon &}
 
 super + shift + q
         killall xinit
