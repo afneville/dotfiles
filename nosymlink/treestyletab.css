@@ -1,107 +1,71 @@
-/* Show title of unread tabs with red and italic font */
-/*
-:root.sidebar tab-item.unread .label-content {
-  color: red !important;
-  font-style: italic !important;
-}
-*/
-
-/* Add private browsing indicator per tab */
-/*
-:root.sidebar tab-item.private-browsing tab-label:before {
-  content: "🕶";
-}
-*/
-:root {
-  --tab-surface-regular: var(--theme-colors-tab,
-                             var(--theme-colors-frame_inactive));
-  --tab-surface-active: var(--theme-colors-tab_selected,
-                            var(--theme-colors-toolbar,
-                                var(--browser-bg-for-header-image,
-                                    var(--tab-like-surface))));
-  --tab-surface-active-hover: var(--theme-colors-tab_selected,
-                                  var(--theme-colors-toolbar,
-                                      var(--browser-bg-for-header-image,
-                                          var(--tab-like-surface))));
-  --tab-surface-hover: rgba(255,255,255,.1) /* from https://searchfox.org/mozilla-central/rev/8d722de75886d6bffc116772a1db8854e34ee6a7/browser/themes/shared/tabs.inc.css#590 */;
-  --tab-border: var(--theme-colors-tab_background_separator,
-                    var(--theme-colors-tab_line,
-                        var(--theme-colors-tab_background_text-30,
-                            hsl(240,9%,32%) /* from https://searchfox.org/mozilla-central/rev/8d722de75886d6bffc116772a1db8854e34ee6a7/browser/themes/shared/tabs.inc.css#684 : --tab-text-regular * 0.3 opacity */)));
-  --tab-text-regular: var(--theme-colors-tab_background_text,
-                          hsl(240,9%,98%) /* from https://searchfox.org/mozilla-central/rev/8d722de75886d6bffc116772a1db8854e34ee6a7/toolkit/themes/windows/global/tabbox.css#27 */);
-  --tab-text-active: var(--theme-colors-tab_text,
-                         var(--theme-colors-toolbar_text,
-                             -moz-DialogText /* from https://searchfox.org/mozilla-central/rev/8d722de75886d6bffc116772a1db8854e34ee6a7/toolkit/themes/windows/global/tabbox.css#27 */));
-  --tabbar-bg: var(--theme-colors-frame,
-                   hsl(235,33%,19%) /* from https://searchfox.org/mozilla-central/rev/8d722de75886d6bffc116772a1db8854e34ee6a7/browser/themes/windows/browser-aero.css#59 */);
-}
-
-#tabbar {
-  counter-reset: vtabs atabs tabs;
-  /* vtabs tracks visible tabs, atabs tracks active tabs, tabs tracks all tabs */
-}
-tab-item:not(.collapsed):not(.discarded) {
-  counter-increment: vtabs atabs tabs;
-}
-tab-item:not(.collapsed) {
-  counter-increment: vtabs tabs;
-}
-tab-item:not(.discarded) {
-  counter-increment: atabs tabs;
-}
 tab-item {
-  counter-increment: tabs;
-}
-
-tab-item .extra-items-container.behind {
-  z-index: unset !important;
-}
-tab-item .extra-items-container.behind::after {
-  background: Highlight;
-  color: HighlightText;
-  content: counter(vtabs);
-  font-size: small;
-  left: 0.2em;
-  padding: 0.2em;
-  pointer-events: none;
-  position: absolute;
-  bottom: 0.4em;
-
-  z-index: 1000;
-}
-/* Less visible tab dividers. 
-   A black border with a very low alpha slightly darkens any color. */
-tab-item-substance {
-  border: solid 1px #00000012; 
-}
-/* As little space before the tab name as possible.
-   The fold/unfold icon is not affected. */
-tab-item:not(.pinned) tab-item-substance {
-  padding-left: 15px !important; /* !important is required when there are enough tabs to cause a scrollbar */
-}
-tab-item {
-  --tab-size: 30px !important;
+  --tab-size: 35px !important;
 }
 tab-item  tab-item-substance {
   height: var(--tab-size);
 }
-tab-item tab-item-substance:hover {
-  background: #00000008 !important;
-  opacity: 1;
+/* Less visible tab dividers. 
+   A black border with a very low alpha slightly darkens any color. */
+tab-item-substance {
+  border: solid 1px #313244;
+  color: #cdd6f4;
 }
-
 tab-item.active .background {
-  background-color: #00000018;
+  background-color: #313244;
 }
-tab-item.active .label-content {
-  font-weight: normal;
+tab-item:not(.pinned) tab-item-substance {
+  padding-left: 0px !important; /* !important is required when there are enough tabs to cause a scrollbar */
 }
-tab-item.active tab-twisty,
-tab-item.active .label-content,
-tab-item.active tab-counter {
-  color: #000000;
+.newtab-button-box {
+  display: none;
+}
+#tabbar {
+  bottom: 0 !important; /* Eliminate dead space on bottom */
+}
+tab-closebox::after {
+  /*
+    There are some possible characters for this purpose:
+    https://en.wikipedia.org/wiki/X_mark
+    - X: upper case X
+      * Too narrow
+    - ×: U+00D7 MULTIPLICATION SIGN (z notation Cartesian product)
+      * Too small on macOSX
+    - ╳: U+2573 BOX DRAWINGS LIGHT DIAGONAL CROSS
+      * Too large on Ubuntu
+    - ☓ : U+2613 SALTIRE (St Andrew's Cross)
+      * Narrow a little on Windows and macOS
+    - ✕: U+2715 MULTIPLICATION X
+      * Too small on macOSX
+    - ✖: U+2716 HEAVY MULTIPLICATION X
+      * Too small on macOSX
+    - ❌ : U+274C CROSS MARK
+      * Colored on macOS
+    - ❎ : U+274E NEGATIVE SQUARED CROSS MARK
+      * Colored on macOS
+      * Box around the mark is unnecessary
+    - ⨉ : U+2A09 N-ARY TIMES OPERATOR
+    - ⨯: U+2A2F VECTOR OR CROSS PRODUCT
+      * Too small on macOSX
+    - 🗙: U+1F5D9 CANCELLATION X
+      * Unavailable on macOSX
+    - 🗴 : U+1F5F4 BALLOT SCRIPT X
+      * Unavailable on macOSX
+    - 🞩: U+1F7A9 LIGHT SALTIRE
+      * Unavailable on macOSX
+    So ⨉ (U+2A09) looks good for me on Windows, macOS, and Linux (tested on Ubuntu).
+  */
+  content: "⨉";
+
+  background: none;
+  line-height: 1;
+  mask: none;
+  text-align: center;
+  width: 1.25em;
+}
+/* "#tabbar" is required for TST 3.4.0 and later! */
+#tabbar tab-item tab-item-substance:not(:hover) tab-closebox {
+  display: none;
 }
 tab-favicon {
-  margin: 2px
+  margin-right: 5px;
 }

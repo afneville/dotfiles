@@ -80,7 +80,7 @@ done
 # echo "${theme[@]}"
 
 # shell colours
-put_template 0  $(add_slashes ${theme[3]})
+put_template 0  $(add_slashes ${theme[2]})
 put_template 1  $(add_slashes ${theme[8]})
 put_template 2  $(add_slashes ${theme[11]})
 put_template 3  $(add_slashes ${theme[10]})

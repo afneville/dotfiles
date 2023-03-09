@@ -1,2 +1,9 @@
 plugins/
-.zcompdump
+*.zcompdump
+
+X11/.Xresources.conf.d/colours
+apps/.config/alacritty/colours.yml
+apps/.config/kitty/colours.conf
+apps/.config/zathura/zathurarc
+wm/.config/bspwm/bspwmrc
+wm/.config/polybar/colours.ini

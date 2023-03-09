@@ -1,15 +1,15 @@
 @-moz-document url("about:home"),url(about:preferences),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
     body{
-        background-color: #ffffff !important;
+        background-color: #1E1E2E !important;
     }
     #newtab-search-text {
-        background-color: #ffffff !important;
+        background-color: #1E1E2E !important;
     }
     .search-wrapper {
-        background-color: #ffffff !important;
+        background-color: #1E1E2E !important;
     }
     .search-inner-wrapper {
-        background-color: #ffffff !important;
+        background-color: #1E1E2E !important;
     }
 }
 

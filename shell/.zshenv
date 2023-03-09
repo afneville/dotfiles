@@ -7,7 +7,7 @@ export BAT_THEME="base16"
 export MANPAGER='nvim +Man!'
 # export MANPAGER="nvim -c 'set ft=man' -"
 export ZDOTDIR="$HOME/.config/zsh"
-
+export FZF_DEFAULT_OPTS="--ansi --color=16"
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/.emacs.d/bin:$HOME/.npm_global/bin
 for i in $(find -L $HOME/bin -mindepth 1 -type d | xargs); do
     export PATH=${PATH}:${i}
