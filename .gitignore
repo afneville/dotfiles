@@ -1,5 +1,7 @@
 plugins/
-*.zcompdump
+.zcompdump
+*.bak
+*.DS_store
 
 X11/.Xresources.conf.d/colours
 apps/.config/alacritty/colours.yml

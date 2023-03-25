@@ -1,6 +1,7 @@
 HISTFILE=~/.cache/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+ZSH_DISABLE_COMPFIX=true
 
 # export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/.emacs.d/bin:$HOME/.npm_global/bin
 # for i in $(find -L $HOME/bin -mindepth 1 -type d | xargs); do
@@ -33,7 +34,7 @@ unsetopt BEEP
 
 autoload -U colors && colors
 autoload -Uz compinit
-compinit
+compinit -u
 
 zstyle :compinstall filename '/home/alex/.config/zsh/.zshrc'
 zstyle ':completion:*' menu select

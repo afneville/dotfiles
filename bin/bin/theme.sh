@@ -124,14 +124,14 @@ printf "#!/bin/sh\nshell_theme=\"$choice\"\n" > ~/.sh_theme.sh
 [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && cp ~/.config/nvim/colors/b16-inherit-from-shell.vim.in ~/.config/nvim/colors/b16-inherit-from-shell.vim
 
 for i in {0..15}; do
-    [ -f "$HOME/.Xresources.conf.d/colours.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.Xresources.conf.d/colours
-    [ -f "$HOME/.config/alacritty/colours.yml.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.config/alacritty/colours.yml.tmp
-    [ -f "$HOME/.config/kitty/colours.conf.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.config/kitty/colours.conf
-    [ -f "$HOME/.config/zathura/zathurarc.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.config/zathura/zathurarc
-    [ -f "$HOME/.config/polybar/colours.ini.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.config/polybar/colours.ini
-    [ -f "$HOME/.config/bspwm/bspwmrc.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.config/bspwm/bspwmrc
-    [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && sed -i "s/%col${i}%/${theme[$i]}/g" ~/.config/nvim/colors/b16-inherit-from-shell.vim
+    [ -f "$HOME/.Xresources.conf.d/colours.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.Xresources.conf.d/colours
+    [ -f "$HOME/.config/alacritty/colours.yml.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/alacritty/colours.yml.tmp
+    [ -f "$HOME/.config/kitty/colours.conf.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/kitty/colours.conf
+    [ -f "$HOME/.config/zathura/zathurarc.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/zathura/zathurarc
+    [ -f "$HOME/.config/polybar/colours.ini.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/polybar/colours.ini
+    [ -f "$HOME/.config/bspwm/bspwmrc.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/bspwm/bspwmrc
+    [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/nvim/colors/b16-inherit-from-shell.vim
 done
 
 mv ~/.config/alacritty/colours.yml.tmp ~/.config/alacritty/colours.yml
-xrdb ~/.Xresources
+# xrdb ~/.Xresources
