@@ -33,6 +33,7 @@ bspc config window_gap 0
 
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
+bspc rule -a Sxiv state=floating
 bspc rule -a scratchpad sticky=on state=floating
 
 tmux has-session -t scratchpad 2>/dev/null

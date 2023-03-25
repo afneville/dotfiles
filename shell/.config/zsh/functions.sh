@@ -47,26 +47,29 @@ function new_tmux_session() {
     tmux rename-window -t ${1}:1 'edit'
 }
 
-function pp () {
-    choice=$(echo "$(find ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev)" | fzf_select) 
-    # echo "choice: $choice"
-    if [[ ! -z $choice ]] # if a choice was made ...
+function custom_tmux_attach() {
+    if [[ ! -z $1 ]] # if passed an agrument
     then
-        tmux has-session -t $choice 2>/dev/null
+        tmux has-session -t $1 2>/dev/null
         if [ $? != 0 ] # if the session does not exist ...
         then
             # create a new tmux session
             # echo "session does not exist"
-            new_tmux_session $choice ~/vcon/$choice
+            new_tmux_session $1 $2
         fi
         # connect to the session
         if [[ -z "$TMUX" ]] # if not in a tmux session
         then
-            tmux attach-session -t $choice
+            tmux attach-session -t $1
         else
-            tmux switch-client -t $choice
+            tmux switch-client -t $1
         fi
     fi
+}
+
+function pp () {
+    choice=$(echo "$(find ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev)" | fzf_select) 
+    custom_tmux_attach $choice ~/vcon/$choice
 }
 
 function tat () {
@@ -80,4 +83,8 @@ function tat () {
             tmux switch-client -t $choice
         fi
     fi
+}
+
+function tnew() {
+    custom_tmux_attach $(basename $(pwd))
 }

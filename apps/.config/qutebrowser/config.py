@@ -7,11 +7,11 @@ c.completion.height = "50%"
 c.downloads.location.directory = '~/tmp'
 c.tabs.show = "never"
 c.statusbar.show = "never"
-c.url.default_page = 'https://google.com/'
-c.url.start_pages = 'https://google.com/'
+c.url.default_page = 'https://alexneville.co.uk/start.html'
+c.url.start_pages = 'https://alexneville.co.uk/start.html'
 c.completion.open_categories = ["searchengines", "quickmarks", "bookmarks", "filesystem"]
 
-c.fonts.default_family = '"Jetbrains Mono Nerd Font"'
+c.fonts.default_family = '"Iosevka Nerd Font"'
 c.fonts.default_size = '10pt'
 c.fonts.completion.entry = '10pt "Jetbrains Mono Nerd Font"'
 c.fonts.debug_console = '10pt "Jetbrains Mono Nerd Font"'
