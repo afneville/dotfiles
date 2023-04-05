@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-theme_dir="$HOME/vcon/b16-themes/themes"
+theme_dir="$HOME/.themes/themes"
+
+if [ ! -d "${theme_dir}" ]; then
+    echo "No theme files found!"
+    exit 1
+fi
 
 if [ -n "$TMUX" ]; then
     put_template() { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' $@; }

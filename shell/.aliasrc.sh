@@ -88,5 +88,5 @@ alias copy_png="xclip -selection clipboard -target image/png -i"
 alias paste_png="xclip -selection clipboard -target image/png -o"
 alias copy_text="xclip -selection clipboard -i"
 alias paste_text="xclip -selection clipboard -o"
-
+alias laptop="ssh alex@192.168.1.115"
 alias scratchpad="tmux new-session -As scratchpad"

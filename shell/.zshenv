@@ -1,5 +1,5 @@
 export QT_QPA_PLATFORMTHEME=qt5ct
-export VISUAL=/usr/bin/nvim
+export VISUAL=nvim
 export EDITOR=/usr/bin/nvim
 export _JAVA_AWT_WM_NONREPARENTING=1
 export BAT_THEME="base16"

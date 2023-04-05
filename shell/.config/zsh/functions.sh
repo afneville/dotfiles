@@ -2,14 +2,14 @@
 
 alias fzf_select="fzf --height=20 --border=none --reverse --no-separator --ansi --color=16"
 
-function fd() {
+fd() {
     choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' \) -prune -false -o -type d)" | fzf_select)
     if [[ ! -z $choice ]]; then
         pushd $choice
     fi
 }
 
-function ff(){
+ff(){
     choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' \) -prune -false -o -type f)" | fzf_select)
     if [[ ! -z "$choice" ]]; then
         # pushd $(dirname $choice)
@@ -18,21 +18,21 @@ function ff(){
     fi
 }
 
-function fff(){
+fff(){
     choice=$(echo "$(find ./* \( -name '.git' -o -name 'env' \) -prune -false -o -type f)" | fzf_select)
     if [[ ! -z "$choice" ]]; then
         nvim $choice
     fi
 }
 
-function fdd() {
+fdd() {
     choice=$(echo "$(find ./* \( -name '.git' -o -name 'env' \) -prune -false -o -type d)" | fzf_select)
     if [[ ! -z $choice ]]; then
         pushd $choice
     fi
 }
 
-function new_tmux_session() {
+new_tmux_session() {
     # create the session
     if [[ -z "$2" ]]
     then
@@ -47,7 +47,7 @@ function new_tmux_session() {
     tmux rename-window -t ${1}:1 'edit'
 }
 
-function custom_tmux_attach() {
+custom_tmux_attach() {
     if [[ ! -z $1 ]] # if passed an agrument
     then
         tmux has-session -t $1 2>/dev/null
@@ -67,12 +67,12 @@ function custom_tmux_attach() {
     fi
 }
 
-function pp () {
+pp () {
     choice=$(echo "$(find ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev)" | fzf_select) 
     custom_tmux_attach $choice ~/vcon/$choice
 }
 
-function tat () {
+tat () {
     choice=$(tmux list-sessions | cut -d " " -f1 | cut -d ":" -f1 | fzf_select) 
     if [[ ! -z $choice ]] # if a choice was made ...
     then
@@ -85,6 +85,10 @@ function tat () {
     fi
 }
 
-function tnew() {
-    custom_tmux_attach $(basename $(pwd))
+tnew() {
+    if [ -z "$1" ]; then
+        custom_tmux_attach "$(basename "$(pwd)")"
+    else
+        custom_tmux_attach "$1"
+    fi
 }
