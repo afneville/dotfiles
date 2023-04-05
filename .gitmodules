@@ -1,0 +1,6 @@
+[submodule "submodules/.config/nvim"]
+	path = submodules/.config/nvim
+	url = https://github.com/alexanderneville/nvim-config
+[submodule "submodules/.config/emacs"]
+	path = submodules/.config/emacs
+	url = https://github.com/alexanderneville/emacs-config

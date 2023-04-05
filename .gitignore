@@ -2,6 +2,8 @@ plugins/
 .zcompdump
 *.bak
 *.DS_store
+.zsh_history
+.zsh_sessions/
 
 X11/.Xresources.conf.d/colours
 apps/.config/alacritty/colours.yml
