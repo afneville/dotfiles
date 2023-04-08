@@ -4,8 +4,8 @@ A version control repository for some of my system configuration files. The word
 
 Initially, a single repository was sufficient for managing my configuration files, but gradually different parts have been separated into their own repositories and included as submodules. The original, archived repository - which I no longer use - is [[https://github.com/alexanderneville/config_archive][here]]. Other, currently in-use repositories are:
 
-- [[https://github.com/alexanderneville/nvim_config][My Neovim Configuration]]
-- [[https://github.com/alexanderneville/emacs_config][My Emacs Configuration]]
+- [[https://github.com/alexanderneville/nvim-config][My Neovim Configuration]]
+- [[https://github.com/alexanderneville/emacs-config][My Emacs Configuration]]
 - [[https://github.com/alexanderneville/b16-themes][My Colour Themes]]
 
 * Screenshots
