@@ -40,6 +40,6 @@ To install: clone the repository; initialise the submodules and stow the relevan
 
 #+begin_src text
   git clone https://github.com/alexanderneville/dotfiles.git
-  git submodule update --init
+  git submodule update --init --remote --recursive
   stow -t ~/ apps shell wm bin X11 submodules
 #+end_src
