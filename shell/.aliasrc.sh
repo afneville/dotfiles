@@ -2,10 +2,10 @@
 
 # General:
 alias grep='grep --color=auto'
-alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
+# alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
 alias ls='exa -a --group-directories-first'
 alias lsl='exa -lag --group-directories-first'
-alias sudo="doas"
+# alias sudo="doas"
 alias tree='exa --tree --color=always -a --ignore-glob="*.git"'
 alias setbg='feh --bg-fill'
 
@@ -14,15 +14,14 @@ alias volume='alsamixer'
 alias nm='nm-connection-editor'
 alias off="poweroff"
 alias restart="reboot now"
-alias server="ssh alex@192.168.1.19"
 alias aliases="nvim ~/.aliasrc.sh"
 alias x="startx"
 alias c="unset OPTIONAL_NEW_LINE && clear"
 alias clear="unset OPTIONAL_NEW_LINE && clear"
-alias merge="xrdb -merge ~/.Xresources"
+alias xmerge="xrdb -merge ~/.Xresources"
 
 # tmux
-alias tls="tmux ls"
+# alias tls="tmux ls"
 # alias tat="tmux attach -t"
 # alias tdat="tmux detach"
 # alias tnew="tmux new -s"
@@ -31,24 +30,10 @@ alias tls="tmux ls"
 # alias tkill="tmux kill-session -t"
 # alias tend="tmux kill-server"
 
-# Fun
-alias hello="figlet hi"
-alias say="figlet"
-alias info="echo \"\" && pfetch"
-alias connection="ping archlinux.org"
-alias todo="nvim ~/TODO"
-alias pls="doas"
-
 # Directories:
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias web="cd /srv/http/"
-alias code="cd ~/code/"
-alias config="cd ~/code/dotfiles"
-alias sand="cd ~/code/sandbox"
-alias nea="cd ~/code/nea && source env/bin/activate"
-alias opt="cd /opt"
 
 # Utilities
 alias g="git"
@@ -83,10 +68,9 @@ alias package.use="doas nvim /etc/portage/package.use"
 alias make.conf="doas nvim /etc/portage/make.conf"
 
 # Misc
-
 alias copy_png="xclip -selection clipboard -target image/png -i"
 alias paste_png="xclip -selection clipboard -target image/png -o"
 alias copy_text="xclip -selection clipboard -i"
 alias paste_text="xclip -selection clipboard -o"
 alias laptop="ssh alex@192.168.1.115"
-alias scratchpad="tmux new-session -As scratchpad"
+alias scratchpad="tmux new-session -As scratchpad -c ~/"

@@ -1,6 +1,6 @@
 export QT_QPA_PLATFORMTHEME=qt5ct
 export VISUAL=nvim
-export EDITOR=/usr/bin/nvim
+export EDITOR=nvim
 export _JAVA_AWT_WM_NONREPARENTING=1
 export BAT_THEME="base16"
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"

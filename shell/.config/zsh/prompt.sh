@@ -41,4 +41,5 @@
 # zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
 # PROMPT="%B%{$fg[magenta]%}[%b%{$fg[cyan]%}%~%{$fg[magenta]%}%B]%b\$vcs_info_msg_0_ %{$fg[blue]%}%{$fg[green]%}%{$fg[yellow]%}%{$reset_color%} "
-PROMPT="%B%{$fg[magenta]%}[%b%{$fg[cyan]%}%~%{$fg[magenta]%}%B]%b %{$fg[blue]%}%{$fg[green]%}%{$fg[yellow]%}%{$reset_color%} "
+# PROMPT="%B%{$fg[magenta]%}[%b%{$fg[cyan]%}%~%{$fg[magenta]%}%B]%b %{$fg[blue]%}%{$fg[green]%}%{$fg[yellow]%}%{$reset_color%} "
+PROMPT="%B%{$fg[magenta]%}[%b%{$fg[cyan]%}%~%{$fg[magenta]%}%B]%b %{$fg[blue]%}$%{$reset_color%} "

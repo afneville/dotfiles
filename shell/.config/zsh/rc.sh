@@ -41,6 +41,10 @@ zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
 _comp_options+=(globdots)
 
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd ' ' edit-command-line
+
 # source aliases
 
 # custom "plugin manager"
@@ -86,6 +90,26 @@ theme.sh -s -t $shell_theme
 #         echo "\n"
 #     fi
 # }
+
+# paste after
+vi-append-x-selection () { RBUFFER=$(xclip -selection clipboard -o </dev/null)$RBUFFER; }
+zle -N vi-append-x-selection
+bindkey -M vicmd 'p' vi-append-x-selection
+
+# paste over
+vi-paste-x-selection () { zle vi-delete; RBUFFER=$(xclip -selection clipboard -o </dev/null)$RBUFFER; }
+zle -N vi-paste-x-selection
+bindkey -M visual 'p' vi-paste-x-selection
+
+# yank selection
+vi-yank-x-selection () { zle vi-yank;  print -rn -- $CUTBUFFER | xclip -selection clipboard -i; }
+zle -N vi-yank-x-selection
+bindkey -M visual 'y' vi-yank-x-selection
+
+# yank whole line
+vi-yank-x-line () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | xclip -selection clipboard -i; }
+zle -N vi-yank-x-line
+bindkey -M vicmd 'Y' vi-yank-x-line
 
 typeset -g -A key
 key[Home]="${terminfo[khome]}"
