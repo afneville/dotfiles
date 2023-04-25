@@ -74,3 +74,8 @@ alias copy_text="xclip -selection clipboard -i"
 alias paste_text="xclip -selection clipboard -o"
 alias laptop="ssh alex@192.168.1.115"
 alias scratchpad="tmux new-session -As scratchpad -c ~/"
+
+# aws cli
+alias s3="aws s3"
+alias ec2="aws ec2"
+alias cloudfront="aws cloudfront"
