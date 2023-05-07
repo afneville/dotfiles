@@ -21,7 +21,7 @@ alias clear="unset OPTIONAL_NEW_LINE && clear"
 alias xmerge="xrdb -merge ~/.Xresources"
 
 # tmux
-# alias tls="tmux ls"
+alias tls="tmux ls"
 # alias tat="tmux attach -t"
 # alias tdat="tmux detach"
 # alias tnew="tmux new -s"

@@ -92,22 +92,22 @@ theme.sh -s -t $shell_theme
 # }
 
 # paste after
-vi-append-x-selection () { RBUFFER=$(xclip -selection clipboard -o </dev/null)$RBUFFER; }
+vi-append-x-selection () { RBUFFER=$(wl-paste </dev/null)$RBUFFER; }
 zle -N vi-append-x-selection
 bindkey -M vicmd 'p' vi-append-x-selection
 
 # paste over
-vi-paste-x-selection () { zle vi-delete; RBUFFER=$(xclip -selection clipboard -o </dev/null)$RBUFFER; }
+vi-paste-x-selection () { zle vi-delete; RBUFFER=$(wl-paste </dev/null)$RBUFFER; }
 zle -N vi-paste-x-selection
 bindkey -M visual 'p' vi-paste-x-selection
 
 # yank selection
-vi-yank-x-selection () { zle vi-yank;  print -rn -- $CUTBUFFER | xclip -selection clipboard -i; }
+vi-yank-x-selection () { zle vi-yank;  print -rn -- $CUTBUFFER | wl-copy; }
 zle -N vi-yank-x-selection
 bindkey -M visual 'y' vi-yank-x-selection
 
 # yank whole line
-vi-yank-x-line () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | xclip -selection clipboard -i; }
+vi-yank-x-line () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | wl-copy; }
 zle -N vi-yank-x-line
 bindkey -M vicmd 'Y' vi-yank-x-line
 
