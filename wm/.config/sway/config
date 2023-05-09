@@ -1,9 +1,9 @@
 include catppuccin-mocha
-# target                 title     bg    text   indicator  border
-client.focused           $blue     $base $text  $red       $blue
-client.focused_inactive  $blue     $base $text  $overlay0  $overlay0
-client.unfocused         $overlay0     $base $text  $red       $overlay0
-client.urgent            $blue     $base $text  $overlay0  $blue
+# target                 title      bg     text   indicator  border
+client.focused           $blue  $base  $text  $blue      $blue
+client.focused_inactive  $sky  $base  $text  $overlay0  $overlay0
+client.unfocused         $sky  $base  $text  $overlay0  $overlay0
+client.urgent            $blue  $base  $text  $overlay0  $overlay0
 
 set $mod Mod4
 set $left h
@@ -151,10 +151,14 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-default_border pixel 3
-titlebar_border_thickness 3
+default_border pixel 2
+titlebar_border_thickness 2
+# titlebar_padding 1
+# hide_edge_borders both
+smart_borders on
+focus_wrapping no
 default_floating_border pixel 2
 # gaps inner 10
-font JetbrainsMono Nerd Font 9
+font JetbrainsMono Nerd Font 0
 
 include /etc/sway/config.d/*

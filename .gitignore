@@ -11,3 +11,5 @@ apps/.config/kitty/colours.conf
 apps/.config/zathura/zathurarc
 wm/.config/bspwm/bspwmrc
 wm/.config/polybar/colours.ini
+vifminfo.json
+vifm-help.txt
