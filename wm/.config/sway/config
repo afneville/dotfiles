@@ -1,20 +1,19 @@
-include catppuccin-mocha
+# include catppuccin-mocha
 # target                 title      bg     text   indicator  border
-client.focused           $blue  $base  $text  $blue      $blue
-client.focused_inactive  $sky  $base  $text  $overlay0  $overlay0
-client.unfocused         $sky  $base  $text  $overlay0  $overlay0
-client.urgent            $blue  $base  $text  $overlay0  $overlay0
+client.focused           #8ba4b0  #181616  #c5c9c5 #8ba4b0 #8ba4b0
+client.focused_inactive  #8ba4b0  #181616  #c5c9c5 #373634 #373634
+client.unfocused         #8ba4b0  #181616  #c5c9c5 #373634 #373634
+client.urgent            #8ba4b0  #181616  #c5c9c5 #373634 #373634
 
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term kitty
 set $menu wofi --show=drun --lines=5 --prompt=""
 
 output * bg ~/images/wavy_lines_v02_5120x2880.png fill
-output HDMI-A-1 resolution 3840x2160 scale 2
 exec_always ~/.config/sway/display_config.sh
 
 exec swayidle -w \
@@ -50,6 +49,7 @@ input "type:pointer" {
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
+    bindsym Print exec grimshot copy area
 
     bindsym $mod+Return exec $term
     bindsym $mod+c kill
@@ -150,6 +150,12 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+for_window {
+  [window_role="pop-up"] floating enable
+  [window_role="bubble"] floating enable
+  [window_role="dialog"] floating enable
+  [window_type="dialog"] floating enable
+}
 
 default_border pixel 2
 titlebar_border_thickness 2
@@ -157,6 +163,8 @@ titlebar_border_thickness 2
 # hide_edge_borders both
 smart_borders on
 focus_wrapping no
+mouse_warping container
+seat seat0 hide_cursor when-typing enable
 default_floating_border pixel 2
 # gaps inner 10
 font JetbrainsMono Nerd Font 0

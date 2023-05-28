@@ -3,10 +3,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 ZSH_DISABLE_COMPFIX=true
 
-# export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/.emacs.d/bin:$HOME/.npm_global/bin
-# for i in $(find -L $HOME/bin -mindepth 1 -type d | xargs); do
-#     export PATH=${PATH}:${i}
-# done
 # vim mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -45,13 +41,6 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd ' ' edit-command-line
 
-# source aliases
-
-# custom "plugin manager"
-# [ -f "$HOME/.aliasrc.sh" ] && source "$HOME/.aliasrc.sh"
-# [ -f "$HOME/.sh_theme.sh" ] && source "$HOME/.sh_theme.sh"
-# [ -f "$ZDOTDIR/plugin_manager.sh" ] && source "$ZDOTDIR/plugin_manager.sh"
-
 function source_file() {
     [ -f "$1" ] && source "$1"
 }
@@ -76,40 +65,31 @@ add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
 theme.sh -s -t $shell_theme
 
-# uncomment for space before and after output.
-# preexec() {
-#
-#     echo ""
-#
-# }
-#
-# precmd() {
-#     if [ -z "$OPTIONAL_NEW_LINE" ]; then
-#         OPTIONAL_NEW_LINE=1
-#     elif [ "$OPTIONAL_NEW_LINE" -eq 1 ]; then
-#         echo "\n"
-#     fi
-# }
+# paste before
+vi-prepend-gui-clipboard () { LBUFFER=$LBUFFER$(wl-paste </dev/null); }
+zle -N vi-prepend-gui-clipboard
+bindkey -M vicmd 'P' vi-prepend-gui-clipboard
 
 # paste after
-vi-append-x-selection () { RBUFFER=$(wl-paste </dev/null)$RBUFFER; }
-zle -N vi-append-x-selection
-bindkey -M vicmd 'p' vi-append-x-selection
+vi-append-gui-clipboard () { RBUFFER=${RBUFFER:0:1}$(wl-paste </dev/null)${RBUFFER:1}; }
+zle -N vi-append-gui-clipboard
+bindkey -M vicmd 'p' vi-append-gui-clipboard
 
 # paste over
-vi-paste-x-selection () { zle vi-delete; RBUFFER=$(wl-paste </dev/null)$RBUFFER; }
-zle -N vi-paste-x-selection
-bindkey -M visual 'p' vi-paste-x-selection
+vi-paste-gui-clipboard () { zle vi-delete; RBUFFER=$(wl-paste </dev/null)$RBUFFER; }
+zle -N vi-paste-gui-clipboard
+bindkey -M visual 'p' vi-paste-gui-clipboard
+bindkey -M visual 'P' vi-paste-gui-clipboard
 
 # yank selection
-vi-yank-x-selection () { zle vi-yank;  print -rn -- $CUTBUFFER | wl-copy; }
-zle -N vi-yank-x-selection
-bindkey -M visual 'y' vi-yank-x-selection
+vi-yank-gui-clipboard () { zle vi-yank;  print -rn -- $CUTBUFFER | wl-copy; }
+zle -N vi-yank-gui-clipboard
+bindkey -M visual 'y' vi-yank-gui-clipboard
 
 # yank whole line
-vi-yank-x-line () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | wl-copy; }
-zle -N vi-yank-x-line
-bindkey -M vicmd 'Y' vi-yank-x-line
+# vi-yank-line-gui-clipboard () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | wl-copy; }
+# zle -N vi-yank-line-gui-clipboard
+# bindkey -M vicmd 'yy' vi-yank-line-gui-clipboard
 
 typeset -g -A key
 key[Home]="${terminfo[khome]}"

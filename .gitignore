@@ -1,5 +1,5 @@
 plugins/
-.zcompdump
+.zcompdump*
 *.bak
 *.DS_store
 .zsh_history
@@ -12,4 +12,5 @@ apps/.config/zathura/zathurarc
 wm/.config/bspwm/bspwmrc
 wm/.config/polybar/colours.ini
 vifminfo.json
+vifminfo*
 vifm-help.txt

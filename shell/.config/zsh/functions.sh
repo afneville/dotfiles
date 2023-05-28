@@ -3,37 +3,34 @@
 alias fzf_select="fzf --height=20 --border=none --reverse --no-separator --ansi --color=16"
 
 fd() {
-    choice="$(find ~/* \( -name '.git' -o -name 'env' \) -prune -false -o -type d | fzf_select)"
+    choice="$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/cloud' \) -prune -false -o -type d | fzf_select)"
     if [ -n "$choice" ]; then
         cd "$choice" || exit
     fi
 }
 
-ff() {
-    choice="$(find ~/* \( -name '.git' -o -name 'env' \) -prune -false -o -type f | fzf_select)"
-    if [ -n "$choice" ]; then
-        # pushd $(dirname $choice)
-        nvim "$choice"
-        # popd
-    fi
-}
+# ff() {
+#     choice="$(find ~/* \( -name '.git' -o -name 'env' \) -prune -false -o -type f | fzf_select)"
+#     if [ -n "$choice" ]; then
+#         nvim "$choice"
+#     fi
+# }
+#
+# fff() {
+#     choice="$(find ./* \( -name '.git' -o -name 'env' \) -prune -false -o -type f | fzf_select)"
+#     if [ -n "$choice" ]; then
+#         nvim "$choice"
+#     fi
+# }
 
-fff() {
-    choice="$(find ./* \( -name '.git' -o -name 'env' \) -prune -false -o -type f | fzf_select)"
-    if [ -n "$choice" ]; then
-        nvim "$choice"
-    fi
-}
-
-fdd() {
-    choice="$(find ./* \( -name '.git' -o -name 'env' \) -prune -false -o -type d | fzf_select)"
-    if [ -b "$choice" ]; then
-        cd "$choice" || exit
-    fi
-}
+# fdd() {
+#     choice="$(find ./* \( -name '.git' -o -name 'env' \) -prune -false -o -type d | fzf_select)"
+#     if [ -b "$choice" ]; then
+#         cd "$choice" || exit
+#     fi
+# }
 
 new_tmux_session() {
-    echo "creating a new session"
     # create the session
     if [ -z "$2" ]; then
         tmux new-session -d -s "$1"
@@ -53,8 +50,6 @@ custom_tmux_attach() {
         # if ! tmux has-session -t "$1" 2>/dev/null; then
         if [ "$?" != 0 ]; then # if the session does not exist ...
             # create a new tmux session
-            # echo "session does not exist"
-            echo "about to create a new session"
             new_tmux_session "$1" "$2"
         fi
         # connect to the session

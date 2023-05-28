@@ -1,2 +1,2 @@
 #!/bin/sh
-shell_theme="catppuccin-mocha"
+shell_theme="kanagawa-dragon"
