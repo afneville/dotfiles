@@ -1,0 +1,6 @@
+@define-color bg #%col2%;
+@define-color fg #%col5%;
+@define-color border #%col3%;
+@define-color blue #%col13%;
+@define-color green #%col11%;
+@define-color magenta #%col14%;

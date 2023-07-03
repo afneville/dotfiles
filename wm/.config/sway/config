@@ -1,25 +1,21 @@
-# include catppuccin-mocha
-# target                 title      bg     text   indicator  border
-client.focused           #8ba4b0  #181616  #c5c9c5 #8ba4b0 #8ba4b0
-client.focused_inactive  #8ba4b0  #181616  #c5c9c5 #373634 #373634
-client.unfocused         #8ba4b0  #181616  #c5c9c5 #373634 #373634
-client.urgent            #8ba4b0  #181616  #c5c9c5 #373634 #373634
+include /etc/sway/config.d/*
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+include colours
 
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term kitty
+set $term alacritty
 set $menu wofi --show=drun --lines=5 --prompt=""
 
-output * bg ~/images/kanagawa.jpg fill
 exec_always ~/.config/sway/display_config.sh
+output * bg ~/images/gruvbox/3840x2160-dark-archlinux2.png fill
 
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 1e1e2e' \
-         timeout 310 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 1e1e2e'
+exec swayidle \
+         timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
 
 input "type:touchpad" {
     dwt enabled
@@ -45,95 +41,107 @@ input "type:pointer" {
 
 ### Key bindings
 
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
-    bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
-    bindsym --locked XF86AudioPlay exec playerctl play-pause
-    bindsym --locked XF86AudioNext exec playerctl next
-    bindsym --locked XF86AudioPrev exec playerctl previous
-    bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-    bindsym Print exec grimshot copy area
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym Print exec grimshot copy area
 
-    bindsym $mod+Return exec $term
-    bindsym $mod+c kill
-    bindsym $mod+p exec $menu
-    bindsym $mod+shift+Return exec firefox
-    floating_modifier $mod normal
-    bindsym $mod+Shift+r reload
-    bindsym $mod+Shift+q exec sway exit
+mode "firefox" {
+    bindsym d exec firefox -P default ; mode "default"
+    bindsym v exec firefox -P vanilla ; mode "default"
+    bindsym h exec firefox -P hardened ; mode "default"
+    bindsym p exec firefox -p ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+f mode "firefox"
 
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+bindsym $mod+Return exec $term
+bindsym $mod+c kill
+bindsym $mod+p exec $menu
+bindsym $mod+shift+Return exec firefox -P default
+floating_modifier $mod normal
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+q exec sway exit
 
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+bindsym $mod+Control+q exec systemctl suspend
 
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    bindsym $mod+bracketright workspace next
-    bindsym $mod+bracketleft workspace prev
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+v splith
-    bindsym $mod+s splitv
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+bracketright workspace next
+bindsym $mod+bracketleft workspace prev
 
-    # Switch the current container between different layout styles
-    bindsym $mod+t layout stacking
-    # bindsym $mod+t layout tabbed
-    bindsym $mod+w layout toggle split
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
 
-    # Make the current focus fullscreen
-    bindsym $mod+m fullscreen
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+v splith
+bindsym $mod+s splitv
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+# Switch the current container between different layout styles
+bindsym $mod+t layout stacking
+# bindsym $mod+t layout tabbed
+bindsym $mod+w layout toggle split
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+# Make the current focus fullscreen
+bindsym $mod+m fullscreen
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-    bindsym $mod+shift+a focus child
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+bindsym $mod+shift+a focus child
 #
 # Scratchpad:
 #
-    bindsym $mod+Shift+minus move scratchpad
-    bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 mode "resize" {
     bindsym $left resize shrink width 10px
@@ -158,8 +166,8 @@ for_window {
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
   [window_type="dialog"] floating enable
+  [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 }
-
 bar {
   swaybar_command waybar
   workspace_buttons yes
@@ -177,4 +185,3 @@ default_floating_border pixel 2
 # gaps inner 10
 font JetbrainsMono Nerd Font 0
 
-include /etc/sway/config.d/*

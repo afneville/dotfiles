@@ -3,7 +3,7 @@ colors:
     background: '#%col0%'
     foreground: '#%col5%'
   normal:
-    black:   '#%col3%'
+    black:   '#%col2%'
     red:     '#%col8%'
     green:   '#%col11%'
     yellow:  '#%col10%'

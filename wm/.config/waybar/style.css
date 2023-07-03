@@ -1,3 +1,4 @@
+@import 'colours.css';
 
 * {
   border: none;
@@ -11,18 +12,18 @@
 }
 .modules-right,
 .modules-left {
-  border-bottom: 2px solid #373634;
+  border-bottom: 2px solid @border;
 }
 
 window#waybar {
-  color: #c5c9c5;
-  background-color: #282727;
-  border-bottom: 2px solid #373634;
+  color: @fg;
+  background-color: @bg;
+  border-bottom: 2px solid @border;
 }
 
 #workspaces {
-  color: #c5c9c5;
-  background-color: #373634;
+  color: @border;
+  background-color: @bg;
   /* margin-top: 5px; */
   /* margin-left: 5px; */
   /* margin-bottom: 7px; */
@@ -30,23 +31,23 @@ window#waybar {
   /* padding: 0px 2px; */
 }
 #workspaces button {
-  color: #c5c9c5;
+  color: @fg;
   font-weight: bold;
 }
 
 #workspaces button.focused {
-  background-color: #8ba4b0;
-  color: #282727;
+  background-color: @blue;
+  color: @bg;
   font-weight: bold;
 }
 
 #workspaces button.persistent {
-  color: #888;
+  color: @border;
   font-weight: normal;
 }
 
 .modules-right {
-  color: #c5c9c5;
+  color: @fg;
 }
 
 #network,
@@ -56,9 +57,9 @@ window#waybar {
 #memory,
 #temperature,
 #clock,
+#backlight,
 #battery {
-  /* background-color: #373634; */
-  color: #282727;
+  color: @bg;
   padding-left: 5px;
 }
 
@@ -66,6 +67,7 @@ window#waybar {
 #disk {
   margin-left: 15px;
 }
+#network,
 #temperature,
 #battery {
   padding-right: 5px;
@@ -73,7 +75,7 @@ window#waybar {
 
 #network,
 #pulseaudio {
-  background-color: #a292a3;
+  background-color: @magenta;
 }
 
 
@@ -81,10 +83,11 @@ window#waybar {
 #cpu,
 #memory,
 #temperature {
-  background-color: #8ea4a2;
+  background-color: @blue;
 }
 
 #clock,
+#backlight,
 #battery {
-  background-color: #8a9a7b;
+  background-color: @green;
 }

@@ -32,7 +32,9 @@ custom_tmux_attach() {
 
 pp() {
     choice="$(find ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev | fzf_select)"
-    custom_tmux_attach "$choice" ~/vcon/"$choice"
+    if [ -n "$choice" ]; then
+        custom_tmux_attach "$choice" ~/vcon/"$choice"
+    fi
 }
 
 tat() {
@@ -43,7 +45,7 @@ tat() {
         choice=$(tmux list-sessions | cut -d " " -f1 | cut -d ":" -f1 | fzf_select)
     fi
     if [ -n "$choice" ]; then
-        [ -z "$TMUX" ] && tmux attach-session -t "$1" || tmux switch-client -t "$1"
+        [ -z "$TMUX" ] && tmux attach-session -t "$choice" || tmux switch-client -t "$choice"
     fi
 }
 

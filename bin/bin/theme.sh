@@ -25,13 +25,13 @@ else
     put_template_custom() { printf '\033]%s%s\033\\' $@; }
 fi
 
-add_slashes () {
+add_slashes() {
     original=$1
     echo "${original:0:2}/${original:2:2}/${original:4:2}"
 }
 
 # pass arguments
-usage () {
+usage() {
     echo "Usage: $(basename "$0") [-t string] [-s]"
     echo "    -t name of the theme to set"
     echo "    -s set shell escape sequences only"
@@ -39,8 +39,7 @@ usage () {
 }
 interactive=1
 shell_only=0
-while getopts "t:s" opt
-do
+while getopts "t:s" opt; do
     case "${opt}" in
         t)
             theme_name="$OPTARG"
@@ -51,16 +50,14 @@ do
     esac
 done
 
-
 #determine theme to set
-if [ $interactive -eq 0 ]
-then
+if [ $interactive -eq 0 ]; then
     if [ -z "${theme_name}" ]; then
         usage
     fi
     if [ ! -f "${theme_dir}/${theme_name}.yaml" ]; then
         # echo "theme \"${theme_name}\" not found"
-        exit 1;
+        exit 1
     else
         choice=$theme_name
     fi
@@ -72,30 +69,29 @@ else
     done
     choice=$(printf '%s\n' "${themes[@]}" | fzf --height=20 --border=none --reverse --no-separator --ansi --color=16)
     if [ -z "$choice" ]; then
-        exit 1;
+        exit 1
     fi
 fi
 
 theme_path="${theme_dir}/${choice}.yaml"
 theme=()
-for c in base0{0..9} base0{A..F}
-do
+for c in base0{0..9} base0{A..F}; do
     theme+=($(sed -ne 's/'"${c}"': "\(.*\)".*/\1/p' $theme_path))
 done
 # echo "${theme[@]}"
 
 # shell colours
-put_template 0  $(add_slashes ${theme[2]})
-put_template 1  $(add_slashes ${theme[8]})
-put_template 2  $(add_slashes ${theme[11]})
-put_template 3  $(add_slashes ${theme[10]})
-put_template 4  $(add_slashes ${theme[13]})
-put_template 5  $(add_slashes ${theme[14]})
-put_template 6  $(add_slashes ${theme[12]})
-put_template 7  $(add_slashes ${theme[5]})
+put_template 0 $(add_slashes ${theme[2]})
+put_template 1 $(add_slashes ${theme[8]})
+put_template 2 $(add_slashes ${theme[11]})
+put_template 3 $(add_slashes ${theme[10]})
+put_template 4 $(add_slashes ${theme[13]})
+put_template 5 $(add_slashes ${theme[14]})
+put_template 6 $(add_slashes ${theme[12]})
+put_template 7 $(add_slashes ${theme[5]})
 
-put_template 8  $(add_slashes ${theme[3]})
-put_template 9  $(add_slashes ${theme[8]})
+put_template 8 $(add_slashes ${theme[3]})
+put_template 9 $(add_slashes ${theme[8]})
 put_template 10 $(add_slashes ${theme[11]})
 put_template 11 $(add_slashes ${theme[10]})
 put_template 12 $(add_slashes ${theme[13]})
@@ -115,10 +111,10 @@ put_template 20 $(add_slashes ${theme[4]})
 put_template 21 $(add_slashes ${theme[6]})
 
 if [ $shell_only -eq 1 ]; then
-    exit; # done
+    exit # done
 fi
 
-printf "#!/bin/sh\nshell_theme=\"$choice\"\n" > ~/.sh_theme.sh
+printf "#!/bin/sh\nshell_theme=\"$choice\"\n" >~/.sh_theme.sh
 
 [ -f "$HOME/.Xresources.conf.d/colours.in" ] && cp ~/.Xresources.conf.d/colours.in ~/.Xresources.conf.d/colours
 [ -f "$HOME/.config/alacritty/colours.yml.in" ] && cp ~/.config/alacritty/colours.yml.in ~/.config/alacritty/colours.yml.tmp
@@ -126,6 +122,8 @@ printf "#!/bin/sh\nshell_theme=\"$choice\"\n" > ~/.sh_theme.sh
 [ -f "$HOME/.config/zathura/zathurarc.in" ] && cp ~/.config/zathura/zathurarc.in ~/.config/zathura/zathurarc
 [ -f "$HOME/.config/polybar/colours.ini.in" ] && cp ~/.config/polybar/colours.ini.in ~/.config/polybar/colours.ini
 [ -f "$HOME/.config/bspwm/bspwmrc.in" ] && cp ~/.config/bspwm/bspwmrc.in ~/.config/bspwm/bspwmrc
+[ -f "$HOME/.config/sway/colours.in" ] && cp ~/.config/sway/colours.in ~/.config/sway/colours
+[ -f "$HOME/.config/waybar/colours.css.in" ] && cp ~/.config/waybar/colours.css.in ~/.config/waybar/colours.css
 [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && cp ~/.config/nvim/colors/b16-inherit-from-shell.vim.in ~/.config/nvim/colors/b16-inherit-from-shell.vim
 
 for i in {0..15}; do
@@ -135,6 +133,8 @@ for i in {0..15}; do
     [ -f "$HOME/.config/zathura/zathurarc.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/zathura/zathurarc
     [ -f "$HOME/.config/polybar/colours.ini.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/polybar/colours.ini
     [ -f "$HOME/.config/bspwm/bspwmrc.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/bspwm/bspwmrc
+    [ -f "$HOME/.config/sway/colours.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/sway/colours
+    [ -f "$HOME/.config/waybar/colours.css.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/waybar/colours.css
     [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/nvim/colors/b16-inherit-from-shell.vim
 done
 
