@@ -2,7 +2,7 @@ HISTFILE=~/.cache/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 ZSH_DISABLE_COMPFIX=true
-
+export GPG_TTY=$(tty)
 # vim mode
 bindkey -v
 export KEYTIMEOUT=1
