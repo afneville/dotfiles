@@ -35,11 +35,18 @@ window#waybar {
   font-weight: bold;
 }
 
+#workspaces button.visible {
+  background-color: @green;
+  color: @bg;
+  font-weight: bold;
+}
+
 #workspaces button.focused {
   background-color: @blue;
   color: @bg;
   font-weight: bold;
 }
+
 
 #workspaces button.persistent {
   color: @border;
