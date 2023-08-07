@@ -22,24 +22,67 @@ zle -N zle-line-init
 echo -ne '\e[1 q'
 preexec() { echo -ne '\e[1 q' ;}
 
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+
+alias dirs='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
 # features
 setopt extendedglob nomatch menucomplete
 setopt interactive_comments
 zle_highlight=('paste:none')
 unsetopt BEEP
 
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect '^k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect '^j' vi-down-line-or-history
+bindkey -M menuselect '^[' undo
+bindkey -M menuselect '\e' undo
+
 autoload -U colors && colors
 autoload -Uz compinit
 compinit -u
-
+zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle :compinstall filename '/home/alex/.config/zsh/.zshrc'
+zstyle ':completion:*' use-cache on
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+zstyle ':completion:*' file-list all
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' complete-options true
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 _comp_options+=(globdots)
+setopt AUTO_PARAM_SLASH
 
 autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd ' ' edit-command-line
+# bindkey -M vicmd '\r' edit-command-line
 
 function source_file() {
     [ -f "$1" ] && source "$1"
@@ -68,28 +111,28 @@ theme.sh -s -t $shell_theme
 # paste before
 vi-prepend-gui-clipboard () { LBUFFER=$LBUFFER$(wl-paste </dev/null); }
 zle -N vi-prepend-gui-clipboard
-bindkey -M vicmd 'P' vi-prepend-gui-clipboard
+# bindkey -M vicmd 'P' vi-prepend-gui-clipboard
 
 # paste after
 vi-append-gui-clipboard () { RBUFFER=${RBUFFER:0:1}$(wl-paste </dev/null)${RBUFFER:1}; }
 zle -N vi-append-gui-clipboard
-bindkey -M vicmd 'p' vi-append-gui-clipboard
+# bindkey -M vicmd 'p' vi-append-gui-clipboard
 
 # paste over
 vi-paste-gui-clipboard () { zle vi-delete; RBUFFER=$(wl-paste </dev/null)$RBUFFER; }
 zle -N vi-paste-gui-clipboard
-bindkey -M visual 'p' vi-paste-gui-clipboard
-bindkey -M visual 'P' vi-paste-gui-clipboard
+# bindkey -M visual 'p' vi-paste-gui-clipboard
+# bindkey -M visual 'P' vi-paste-gui-clipboard
 
 # yank selection
 vi-yank-gui-clipboard () { zle vi-yank;  print -rn -- $CUTBUFFER | wl-copy; }
 zle -N vi-yank-gui-clipboard
-bindkey -M visual 'y' vi-yank-gui-clipboard
+# bindkey -M visual 'y' vi-yank-gui-clipboard
 
 # yank whole line
-# vi-yank-line-gui-clipboard () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | wl-copy; }
-# zle -N vi-yank-line-gui-clipboard
-# bindkey -M vicmd 'yy' vi-yank-line-gui-clipboard
+vi-yank-line-gui-clipboard () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER | wl-copy; }
+zle -N vi-yank-line-gui-clipboard
+# bindkey -M vicmd 'Y' vi-yank-line-gui-clipboard
 
 typeset -g -A key
 key[Home]="${terminfo[khome]}"

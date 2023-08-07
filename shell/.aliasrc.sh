@@ -73,7 +73,7 @@ alias paste_png="xclip -selection clipboard -target image/png -o"
 alias copy_text="xclip -selection clipboard -i"
 alias paste_text="xclip -selection clipboard -o"
 alias laptop="ssh alex@192.168.1.115"
-alias scratchpad="tmux new-session -As scratchpad -c ~/"
+alias main="tmux new-session -As main -c ~/"
 alias pick-colour="grim -g \"\$(slurp -p)\" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:-"
 
 # aws cli

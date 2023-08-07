@@ -1,1 +1,1 @@
-source "$ZDOTDIR/rc.sh"
+source "$ZDOTDIR/rc.zsh"
