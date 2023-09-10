@@ -3,9 +3,12 @@
 # General:
 alias grep='grep --color=auto'
 # alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
-alias ls='exa -a --group-directories-first'
-alias lsl='exa -lag --group-directories-first'
+# alias ls='exa -a --group-directories-first'
+# alias lsl='exa -lag --group-directories-first'
 # alias sudo="doas"
+alias ls='ls --color=auto'
+alias lsl='ls -l'
+alias lsla='ls -la'
 alias tree='exa --tree --color=always -a --ignore-glob="*.git"'
 alias setbg='feh --bg-fill'
 
