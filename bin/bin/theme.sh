@@ -124,6 +124,8 @@ printf "#!/bin/sh\nshell_theme=\"$choice\"\n" >~/.sh_theme.sh
 [ -f "$HOME/.config/bspwm/bspwmrc.in" ] && cp ~/.config/bspwm/bspwmrc.in ~/.config/bspwm/bspwmrc
 [ -f "$HOME/.config/sway/colours.in" ] && cp ~/.config/sway/colours.in ~/.config/sway/colours
 [ -f "$HOME/.config/waybar/colours.css.in" ] && cp ~/.config/waybar/colours.css.in ~/.config/waybar/colours.css
+[ -f "$HOME/.config/swaylock/config.in" ] && cp ~/.config/swaylock/config.in ~/.config/swaylock/config
+[ -f "$HOME/.config/swaync/colours.css.in" ] && cp ~/.config/swaync/colours.css.in ~/.config/swaync/colours.css
 [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && cp ~/.config/nvim/colors/b16-inherit-from-shell.vim.in ~/.config/nvim/colors/b16-inherit-from-shell.vim
 
 for i in {0..15}; do
@@ -135,6 +137,8 @@ for i in {0..15}; do
     [ -f "$HOME/.config/bspwm/bspwmrc.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/bspwm/bspwmrc
     [ -f "$HOME/.config/sway/colours.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/sway/colours
     [ -f "$HOME/.config/waybar/colours.css.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/waybar/colours.css
+    [ -f "$HOME/.config/swaync/colours.css.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/swaync/colours.css
+    [ -f "$HOME/.config/swaylock/config.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/swaylock/config
     [ -f "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in" ] && sed -i'.bak' -e "s/%col${i}%/${theme[$i]}/g" ~/.config/nvim/colors/b16-inherit-from-shell.vim
 done
 

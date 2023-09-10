@@ -1,6 +1,5 @@
 include /etc/sway/config.d/*
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
 include colours
 
 set $mod Mod4
@@ -15,7 +14,6 @@ set $left-display DP-2
 set $right-display HDMI-A-1
 
 exec_always ~/.config/sway/display_config.sh
-output * bg #1d2021 solid_color
 
 workspace 1 output $left-display
 workspace 2 output $right-display
@@ -26,8 +24,11 @@ workspace 6 output $right-display
 workspace 7 output $left-display
 workspace 8 output $right-display
 
-exec swayidle \
-         timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+exec swayidle -w \
+         timeout 300 'before-sleep.sh' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'before-sleep.sh'
+
 
 input "type:touchpad" {
     dwt enabled
@@ -58,8 +59,12 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
 bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
 bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86Messenger exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked Cancel exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86Go exec playerctl previous
+bindsym XF86Favorites exec systemctl suspend
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Print exec grimshot copy area
@@ -74,6 +79,17 @@ mode "firefox" {
 }
 bindsym $mod+f mode "firefox"
 
+mode "notifications" {
+    bindsym t exec swaync-client -t ; mode "default"
+    bindsym d exec swaync-client -d ; mode "default"
+    bindsym h exec swaync-client --hide-latest ; mode "default"
+    bindsym c exec swaync-client --close-latest ; mode "default"
+    bindsym shift+c exec swaync-client --close-all ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+n mode "notifications"
+
 bindsym $mod+Return exec $term
 bindsym $mod+c kill
 bindsym $mod+p exec $menu
@@ -81,7 +97,7 @@ bindsym $mod+shift+Return exec firefox -P default
 floating_modifier $mod normal
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+q exec sway exit
-
+bindsym $mod+Shift+f focus mode_toggle
 bindsym $mod+Control+q exec systemctl suspend
 
 bindsym $mod+$left focus left
@@ -124,27 +140,14 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
 bindsym $mod+v splith
 bindsym $mod+s splitv
 
-# Switch the current container between different layout styles
 bindsym $mod+t layout stacking
-# bindsym $mod+t layout tabbed
 bindsym $mod+w layout toggle split
-
-# Make the current focus fullscreen
 bindsym $mod+m fullscreen
-
-# Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
-
-# Swap focus between the tiling area and the floating area
 bindsym $mod+space focus mode_toggle
-
-# Move focus to the parent container
 bindsym $mod+a focus parent
 bindsym $mod+shift+a focus child
 #
@@ -177,7 +180,13 @@ for_window {
   [window_role="dialog"] floating enable
   [window_type="dialog"] floating enable
   [app_id="firefox" title="Firefox — Sharing Indicator"] kill
+  [app_id="imv"] floating enable
+  [app_id="signal"] floating enable
+  [app_id="signal"] move position center
+  [app_id="signal"] move workspace 6
+  [app_id="thunderbird"] move workspace 7
 }
+
 bar {
   swaybar_command waybar
   workspace_buttons yes
@@ -195,3 +204,8 @@ default_floating_border pixel 2
 # gaps inner 10
 font JetbrainsMono Nerd Font 0
 
+exec swaync
+exec thunderbird
+exec bash -c "sleep 5 && /usr/bin/birdtray"
+exec flatpak run org.signal.Signal
+# exec bash -c "sleep 5 && flatpak run org.signal.Signal"

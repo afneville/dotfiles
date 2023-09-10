@@ -1,0 +1,62 @@
+@import 'colours.css';
+
+* {
+  color: @fg;
+  background-color: @bg-light;
+  border: none;
+  border-radius: 0;
+  font-family: "VictorMono Nerd Font", FontAwesome, Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 10pt;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.control-center {
+  background: @bg;
+  border-left: 2px solid @border;
+}
+
+.control-center-list {
+  background: @bg;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.0;
+}
+
+.blank-window {
+  background: alpha(@bg, 0.0);
+}
+
+.notification {
+  margin: 0px;
+  padding: 0px;
+  border: 2px solid @border;
+  box-shadow: none;
+  background-color: @bg;
+}
+
+
+.close-button,
+.close-button:hover {
+  background: transparent;
+  color: transparent;
+}
+
+.notification-default-action,
+.notification-action,
+.notification-default-action:hover,
+.notification-action:hover {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+  background-color: red;
+}

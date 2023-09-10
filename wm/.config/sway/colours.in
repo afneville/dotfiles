@@ -3,3 +3,5 @@ client.focused          #%col13%  #%col2%  #%col5% #%col13% #%col13%
 client.focused_inactive #%col13%  #%col2%  #%col5% #%col3% #%col3%
 client.unfocused        #%col13%  #%col2%  #%col5% #%col3% #%col3%
 client.urgent           #%col13%  #%col2%  #%col5% #%col3% #%col3%
+
+output * bg #%col0% solid_color
