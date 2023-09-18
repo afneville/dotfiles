@@ -1,26 +1,66 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-dpi=$(xrdb -query | grep dpi | cut -f2)
+name_file() {
+    image_dir="$HOME/media/images/screenshots/"
+    if [ -f "${image_dir}${1}.png" ]; then
+        j=1
+        while [ -f "${image_dir}${1}(${j}).png" ]; do
+            j=$((j + 1))
+        done
+        echo "${image_dir}${1}(${j}).png"
+    else
+        echo "${image_dir}${1}.png"
+    fi
+}
 
-if [[ $dpi = "192" ]]; then
-    padding="-4"
+LONGOPTS=copy,display,monitor,window,area
+OPTS=c,d,m,w,a
+PARSED=$(getopt --options=$OPTS --longoptions=$LONGOPTS --name "$0" -- "$@")
+eval set -- "$PARSED"
+
+target="screen" copy="n"
+while true; do
+    case "$1" in
+        "-c" | "--copy")
+            copy="y"
+            shift
+            ;;
+        "-d" | "--display")
+            target="screen"
+            shift
+            ;;
+        "-m" | "--monitor")
+            target="output"
+            shift
+            ;;
+        "-w" | "--window")
+            target="active"
+            shift
+            ;;
+        "-a" | "--area")
+            target="area"
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            exit 3
+            ;;
+    esac
+done
+
+timestamp=$(date +%Y%m%d_%H%M%S)
+filename="$(name_file "${timestamp}")"
+
+if [ "$copy" = "y" ]; then
+    to="| tee ${filename} | wl-copy"
+    message="Screenshot Copied to Clipboard"
 else
-    padding="-2"
+    to="> ${filename}"
+    message="Screenshot Saved to File"
 fi
-case "${1}" in
-    -f) # full screen
-        maim -u -o | tee ~/imgs/scrshts/$(date +%s).png | xclip -selection clipboard -t image/png
-        ;;
-    -c) # current window with border
-        maim -u -o -i $(xdotool getactivewindow) | tee ~/imgs/scrshts/$(date +%s).png | xclip -selection clipboard -t image/png
-        ;;
-    -w) # selected window without border
-        maim -u -o -s --tolerance=999 --padding=$(echo $padding) | tee ~/imgs/scrshts/$(date +%s).png | xclip -selection clipboard -t image/png
-        ;;
-    -b) # selected window with border
-        maim -u -o -s --tolerance=999 | tee ~/imgs/scrshts/$(date +%s).png | xclip -selection clipboard -t image/png
-        ;;
-    -s) # selection
-        maim -u -o -s --bordersize=2 --tolerance=0 | tee ~/imgs/scrshts/$(date +%s).png | xclip -selection clipboard -t image/png
-        ;;
-esac
+
+eval "grimshot save ${target} - ${to}"
+notify-send "${message}" "${filename}"

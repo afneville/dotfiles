@@ -1,5 +1,6 @@
 plugins/
 .zcompdump*
+.zcompcache
 *.bak
 *.DS_store
 .zsh_history
