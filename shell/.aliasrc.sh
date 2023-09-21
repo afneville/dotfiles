@@ -6,7 +6,7 @@ alias grep='grep --color=auto'
 # alias ls='exa -a --group-directories-first'
 # alias lsl='exa -lag --group-directories-first'
 # alias sudo="doas"
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias lsl='ls -l'
 alias lsla='ls -la'
 alias tree='exa --tree --color=always -a --ignore-glob="*.git"'

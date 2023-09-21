@@ -102,9 +102,15 @@ mode "screenshot" {
     bindsym $mod+w exec screenshot.sh -wc ; mode "default"
     bindsym $mod+m exec screenshot.sh -mc ; mode "default"
     bindsym $mod+d exec screenshot.sh -dc ; mode "default"
+    bindsym $mod+b border none ; mode "default"
+    bindsym $mod+shift+b border pixel ; mode "default"
+    bindsym b border none ; mode "default"
+    bindsym shift+b border pixel ; mode "default"
     bindsym w exec screenshot.sh -wc ; mode "default"
     bindsym m exec screenshot.sh -mc ; mode "default"
     bindsym d exec screenshot.sh -dc ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+g mode "screenshot"
 
@@ -113,7 +119,7 @@ bindsym $mod+Tab focus mode_toggle
 bindsym $mod+Return exec $term
 bindsym $mod+c kill
 bindsym $mod+p exec $menu
-bindsym $mod+shift+Return exec firefox -P default
+bindsym $mod+shift+Return exec alacritty --class='float'
 floating_modifier $mod normal
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+q exec sway exit
@@ -190,6 +196,8 @@ for_window {
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
   [window_type="dialog"] floating enable
+  [app_id="float"] floating enable
+  [app_id="float"] resize set 80ppt 80ppt
   [app_id="scratchpad"] floating enable
   [app_id="scratchpad"] resize set 80ppt 80ppt
   [app_id="firefox" title="Firefox — Sharing Indicator"] kill
