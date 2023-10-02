@@ -4,9 +4,6 @@ hide-keyboard-layout
 disable-caps-lock-text
 indicator-idle-visible
 
-indicator-x-position=60
-indicator-y-position=60
-
 bs-hl-color=%col8%
 caps-lock-bs-hl-color=%col8%
 

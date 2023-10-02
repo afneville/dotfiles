@@ -20,10 +20,12 @@ input "type:touchpad" {
     middle_emulation enabled
     pointer_accel 0.3
 }
-input * {
-    xkb_options "caps:ctrl_modifier"
-}
+# input * {
+#     xkb_options ""
+# }
 input "type:keyboard" {
+    xkb_layout "uk_mac_remapped"
+    xkb_options "caps:ctrl_modifier"
     repeat_delay 250
     repeat_rate 40
 }
@@ -49,6 +51,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
 bindsym XF86AudioPlay exec playerctl play-pause
+bindsym $mod+XF86AudioPlay workspace 8; exec firefox --new-window https://spotify.com/
 bindsym XF86Messenger exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym Cancel exec playerctl next
@@ -57,6 +60,7 @@ bindsym XF86Go exec playerctl previous
 bindsym XF86Favorites exec systemctl suspend
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86Fn+space exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Print exec grimshot copy area
 
 ## Modes / Layers
@@ -196,6 +200,11 @@ for_window {
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
   [window_type="dialog"] floating enable
+  [window_role="pop-up"] resize set 80ppt 80ppt
+  [window_role="bubble"] resize set 80ppt 80ppt
+  [window_role="dialog"] resize set 80ppt 80ppt
+  [window_type="dialog"] resize set 80ppt 80ppt
+  [app_id="xdg-desktop-portal-gtk"] resize set 80ppt 80ppt
   [app_id="float"] floating enable
   [app_id="float"] resize set 80ppt 80ppt
   [app_id="scratchpad"] floating enable

@@ -29,3 +29,5 @@ set recolor                     "false"
 set recolor-keephue             "true"
 set guioptions none
 set font "JetbrainsMono Nerd Font 9"
+map D set "first-page-column 1:1"
+map <C-d> set "first-page-column 1:2"

@@ -18,6 +18,7 @@ alias nm='nm-connection-editor'
 alias off="poweroff"
 alias restart="reboot now"
 alias aliases="nvim ~/.aliasrc.sh"
+alias simple-prompt="PS1=\"$ \""
 alias x="startx"
 alias c="unset OPTIONAL_NEW_LINE && clear"
 alias clear="unset OPTIONAL_NEW_LINE && clear"
