@@ -1,6 +1,7 @@
 export GTK_USE_PORTAL=0
 export GNUPGHOME="~/.config/gpg/"
 export MOZ_ENABLE_WAYLAND=1
+export XDG_CURRENT_DESKTOP=sway
 export QT_QPA_PLATFORMTHEME=qt5ct
 export VISUAL=nvim
 export EDITOR=nvim

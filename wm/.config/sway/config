@@ -20,9 +20,6 @@ input "type:touchpad" {
     middle_emulation enabled
     pointer_accel 0.3
 }
-# input * {
-#     xkb_options ""
-# }
 input "type:keyboard" {
     xkb_layout "uk_mac_remapped"
     xkb_options "caps:ctrl_modifier"
@@ -92,15 +89,19 @@ mode "notifications" {
     bindsym Escape mode "default"
 }
 bindsym $mod+n mode "notifications"
-mode "temperature" {
+mode "settings" {
     bindsym $mod+d exec gammastep -PO 6500 ; mode "default"
     bindsym d exec gammastep -PO 6500 ; mode "default"
     bindsym $mod+n exec gammastep -PO 4500 ; mode "default"
     bindsym n exec gammastep -PO 4500 ; mode "default"
+    bindsym $mod+h exec set-sink.sh headphones ; mode "default"
+    bindsym h exec set-sink.sh headphones ; mode "default"
+    bindsym $mod+m exec set-sink.sh monitor ; mode "default"
+    bindsym m exec set-sink.sh monitor ; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+b mode "temperature"
+bindsym $mod+b mode "settings"
 mode "screenshot" {
     bindsym $mod+a exec screenshot.sh -ac ; mode "default"
     bindsym $mod+w exec screenshot.sh -wc ; mode "default"
@@ -209,7 +210,7 @@ for_window {
   [app_id="float"] resize set 80ppt 80ppt
   [app_id="scratchpad"] floating enable
   [app_id="scratchpad"] resize set 80ppt 80ppt
-  [app_id="firefox" title="Firefox — Sharing Indicator"] kill
+  [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
   [app_id="imv"] floating enable
   [app_id="imv"] splith
   [app_id="ferdium"] move workspace 5
@@ -236,14 +237,16 @@ default_floating_border pixel 2
 font JetbrainsMono Nerd Font 0
 
 # On Startup
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec swayidle -w \
          timeout 300 'before-sleep.sh' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'before-sleep.sh'
 exec swaync
-exec ferdium
 exec thunderbird
 exec bash -c "sleep 5 && /usr/bin/birdtray"
 exec flatpak run org.signal.Signal
-exec bash -c "sleep 5 && flatpak run org.signal.Signal"
+# exec bash -c "sleep 5 && flatpak run org.signal.Signal"

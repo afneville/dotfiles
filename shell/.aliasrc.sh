@@ -84,3 +84,4 @@ alias pick-colour="grim -g \"\$(slurp -p)\" -t ppm - | convert - -format '%[pixe
 alias s3="aws s3"
 alias ec2="aws ec2"
 alias cloudfront="aws cloudfront"
+alias codecommit="aws codecommit"
