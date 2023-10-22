@@ -1,0 +1,14 @@
+# vim: ft=swayconfig
+
+bar {
+  swaybar_command waybar
+  workspace_buttons yes
+}
+default_border pixel 2
+titlebar_border_thickness 2
+smart_borders on
+focus_wrapping no
+mouse_warping container
+seat seat0 hide_cursor when-typing enable
+default_floating_border pixel 2
+font JetbrainsMono Nerd Font 0

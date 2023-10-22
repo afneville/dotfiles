@@ -1,0 +1,184 @@
+# vim: ft=swayconfig
+
+## Media Keys
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86Messenger exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym Cancel exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Go exec playerctl previous
+bindsym XF86Favorites exec systemctl suspend
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86Fn+space exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym Print exec grimshot copy area
+
+## Modes / Layers
+mode "firefox" {
+    bindsym $mod+d exec firefox -P default ; mode "default"
+    bindsym d exec firefox -P default ; mode "default"
+    bindsym $mod+v exec firefox -P vanilla ; mode "default"
+    bindsym v exec firefox -P vanilla ; mode "default"
+    bindsym $mod+h exec firefox -P hardened ; mode "default"
+    bindsym h exec firefox -P hardened ; mode "default"
+    bindsym $mod+p exec firefox -p ; mode "default"
+    bindsym p exec firefox -p ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+f mode "firefox"
+
+mode "notifications" {
+    bindsym $mod+t exec swaync-client -t ; mode "default"
+    bindsym t exec swaync-client -t ; mode "default"
+    bindsym $mod+d exec swaync-client -d ; mode "default"
+    bindsym d exec swaync-client -d ; mode "default"
+    bindsym $mod+h exec swaync-client --hide-latest ; mode "default"
+    bindsym h exec swaync-client --hide-latest ; mode "default"
+    bindsym $mod+c exec swaync-client --close-latest ; mode "default"
+    bindsym c exec swaync-client --close-latest ; mode "default"
+    bindsym $mod+shift+c exec swaync-client --close-all ; mode "default"
+    bindsym shift+c exec swaync-client --close-all ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+n mode "notifications"
+
+mode "settings" {
+    bindsym $mod+d exec gammastep -PO 6500 ; mode "default"
+    bindsym d exec gammastep -PO 6500 ; mode "default"
+    bindsym $mod+n exec gammastep -PO 4500 ; mode "default"
+    bindsym n exec gammastep -PO 4500 ; mode "default"
+    bindsym $mod+h exec set-sink.sh headphones ; mode "default"
+    bindsym h exec set-sink.sh headphones ; mode "default"
+    bindsym $mod+m exec set-sink.sh monitor ; mode "default"
+    bindsym m exec set-sink.sh monitor ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+b mode "settings"
+
+mode "screenshot" {
+    bindsym $mod+a exec screenshot.sh -ac ; mode "default"
+    bindsym $mod+w exec screenshot.sh -wc ; mode "default"
+    bindsym $mod+m exec screenshot.sh -mc ; mode "default"
+    bindsym $mod+d exec screenshot.sh -dc ; mode "default"
+    bindsym $mod+b border none ; mode "default"
+    bindsym $mod+shift+b border pixel ; mode "default"
+    bindsym a exec screenshot.sh -ac ; mode "default"
+    bindsym w exec screenshot.sh -wc ; mode "default"
+    bindsym m exec screenshot.sh -mc ; mode "default"
+    bindsym d exec screenshot.sh -dc ; mode "default"
+    bindsym b border none ; mode "default"
+    bindsym shift+b border pixel ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+g mode "screenshot"
+
+mode "quit" {
+    bindsym $mod+l exec before-sleep.sh ; mode "default"
+    bindsym l exec before-sleep.sh ; mode "default"
+    bindsym $mod+s exec systemctl suspend ; mode "default"
+    bindsym s exec systemctl suspend ; mode "default"
+    bindsym $mod+q exec sway exit ; mode "default"
+    bindsym q exec sway exit ; mode "default"
+    bindsym $mod+r reload ; mode "default"
+    bindsym r reload ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+q mode "quit"
+
+mode "run" {
+    bindsym $mod+s exec "flatpak run org.signal.Signal"; workspace 11; mode "default"
+    bindsym s exec "flatpak run org.signal.Signal"; workspace 11; mode "default"
+    bindsym $mod+f exec firefox; mode "default"
+    bindsym f exec firefox; mode "default"
+    bindsym $mod+t exec thunderbird; workspace 9; mode "default"
+    bindsym t exec thunderbird; workspace 9; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "run"
+
+bindsym $mod+p exec wofi --show drun
+bindsym $mod+Tab focus mode_toggle
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec firefox
+bindsym $mod+c kill
+floating_modifier $mod normal
+
+## Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+XF86AudioPlay workspace 10
+bindsym $mod+minus workspace number 9
+bindsym $mod+equal workspace number 11
+bindsym $mod+bracketright workspace next_on_output
+bindsym $mod+bracketleft workspace prev_on_output
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+## Layouts & Navigation
+bindsym $mod+y exec [ -n "$(swaymsg -t get_tree -p | grep scratchpad)" ] && swaymsg -t get_tree -p | grep scratchpad | cut -d',' -f2 | cut -d' ' -f3 | xargs kill || alacritty --class scratchpad -e zsh -ic "tmux new-session -As scratchpad" &
+
+bindsym $mod+v splith
+bindsym $mod+s splitv
+bindsym $mod+t layout stacking
+bindsym $mod+w layout toggle split
+bindsym $mod+m fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+shift+a focus child
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+r mode "resize"

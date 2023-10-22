@@ -1,0 +1,27 @@
+# vim: ft=swayconfig
+
+for_window {
+  [window_role="pop-up"] floating enable
+  [window_role="bubble"] floating enable
+  [window_role="dialog"] floating enable
+  [window_type="dialog"] floating enable
+  [window_role="pop-up"] resize set 80ppt 80ppt
+  [window_role="bubble"] resize set 80ppt 80ppt
+  [window_role="dialog"] resize set 80ppt 80ppt
+  [window_type="dialog"] resize set 80ppt 80ppt
+  [app_id="xdg-desktop-portal-gtk"] resize set 80ppt 80ppt
+  [app_id="float"] floating enable
+  [app_id="float"] resize set 80ppt 80ppt
+  [app_id="scratchpad"] floating enable
+  [app_id="scratchpad"] resize set 80ppt 80ppt
+  [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
+  [app_id="imv"] floating enable
+  [app_id="imv"] splith
+  [app_id="ferdium"] move workspace 5
+  [app_id="signal"] move output $right-display
+  [app_id="signal"] resize set 90ppt 90ppt
+  [app_id="signal"] move position center
+  [app_id="signal"] floating enable
+  [app_id="signal"] move workspace 11
+  [app_id="thunderbird"] move workspace 9
+}

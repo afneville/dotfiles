@@ -21,6 +21,13 @@ window#waybar {
   border-bottom: 2px solid @border;
 }
 
+#mode {
+  background-color: @orange;
+  color: @bg;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 #workspaces {
   color: @border;
   background-color: @bg;
@@ -34,8 +41,8 @@ window#waybar {
 }
 
 #workspaces button.visible {
-  background-color: @green;
-  color: @bg;
+  background-color: @border;
+  color: @fg;
   font-weight: bold;
 }
 
@@ -66,7 +73,7 @@ window#waybar {
 }
 
 #workspaces button.visible:hover {
-    background: @green;
+    background: @border;
 }
 
 #workspaces button.focused:hover {

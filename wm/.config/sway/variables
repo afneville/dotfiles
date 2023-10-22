@@ -1,0 +1,11 @@
+# vim: ft=swayconfig
+
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term alacritty
+set $menu wofi --show=drun --lines=5 --prompt=""
+set $left-display DP-2
+set $right-display HDMI-A-1
