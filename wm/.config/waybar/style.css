@@ -80,6 +80,19 @@ window#waybar {
     background: @blue;
 }
 
+#workspaces button.visible:nth-last-child(4),
+#workspaces button.focused:nth-last-child(4),
+#workspaces button:nth-last-child(4),
+#workspaces button.visible:nth-last-child(3),
+#workspaces button.focused:nth-last-child(3),
+#workspaces button:nth-last-child(3),
+#workspaces button.visible:nth-last-child(2),
+#workspaces button.focused:nth-last-child(2),
+#workspaces button:nth-last-child(2) {
+  background-color: @bg;
+  color: @bg;
+}
+
 .modules-right {
   color: @fg;
 }

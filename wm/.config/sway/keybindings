@@ -1,8 +1,8 @@
 # vim: ft=swayconfig
 
 ## Media Keys
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightness.sh -
+bindsym XF86MonBrightnessUp exec brightness.sh +
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -48,7 +48,7 @@ mode "notifications" {
 }
 bindsym $mod+n mode "notifications"
 
-mode "settings" {
+mode "monitor-settings" {
     bindsym $mod+d exec gammastep -PO 6500 ; mode "default"
     bindsym d exec gammastep -PO 6500 ; mode "default"
     bindsym $mod+n exec gammastep -PO 4500 ; mode "default"
@@ -60,7 +60,7 @@ mode "settings" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+b mode "settings"
+bindsym $mod+b mode "monitor-settings"
 
 mode "screenshot" {
     bindsym $mod+a exec screenshot.sh -ac ; mode "default"
@@ -95,12 +95,12 @@ mode "quit" {
 bindsym $mod+q mode "quit"
 
 mode "run" {
-    bindsym $mod+s exec "flatpak run org.signal.Signal"; workspace 11; mode "default"
-    bindsym s exec "flatpak run org.signal.Signal"; workspace 11; mode "default"
+    bindsym $mod+s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
+    bindsym s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
     bindsym $mod+f exec firefox; mode "default"
     bindsym f exec firefox; mode "default"
-    bindsym $mod+t exec thunderbird; workspace 9; mode "default"
-    bindsym t exec thunderbird; workspace 9; mode "default"
+    bindsym $mod+t workspace $mail-workspace; exec thunderbird; mode "default"
+    bindsym t workspace $mail-workspace; exec thunderbird; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -114,19 +114,19 @@ bindsym $mod+c kill
 floating_modifier $mod normal
 
 ## Workspaces
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
-bindsym $mod+XF86AudioPlay workspace 10
-bindsym $mod+minus workspace number 9
-bindsym $mod+equal workspace number 11
+bindsym $mod+1 workspace --no-auto-back-and-forth number 1
+bindsym $mod+2 workspace --no-auto-back-and-forth number 2
+bindsym $mod+3 workspace --no-auto-back-and-forth number 3
+bindsym $mod+4 workspace --no-auto-back-and-forth number 4
+bindsym $mod+5 workspace --no-auto-back-and-forth number 5
+bindsym $mod+6 workspace --no-auto-back-and-forth number 6
+bindsym $mod+7 workspace --no-auto-back-and-forth number 7
+bindsym $mod+8 workspace --no-auto-back-and-forth number 8
+bindsym $mod+9 workspace --no-auto-back-and-forth number 9
+bindsym $mod+0 workspace --no-auto-back-and-forth number 10
+bindsym $mod+XF86AudioPlay workspace --no-auto-back-and-forth $music-workspace
+bindsym $mod+minus workspace --no-auto-back-and-forth $mail-workspace
+bindsym $mod+equal workspace --no-auto-back-and-forth $signal-workspace
 bindsym $mod+bracketright workspace next_on_output
 bindsym $mod+bracketleft workspace prev_on_output
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -168,6 +168,8 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+bindsym $mod+comma focus output $left-display
+bindsym $mod+period focus output $right-display
 
 mode "resize" {
     bindsym $left resize shrink width 10px
