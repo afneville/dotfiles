@@ -6,25 +6,25 @@ word _dotfile_ is a colloquialism referring to the leading `.` character
 used to hide a file in most Unix-like systems.
 
 Initially, a single repository was sufficient for managing all of my
-settings and configuration files, but, over time, different sections
-grew to warrant repositories of their own, now included here as a
-submodule. The original, archived repository - which I no longer use -
-is [here](https://github.com/alexanderneville/config_archive). Other,
-currently in use repositories are:
+settings and configuration files, however multiple sections gradually
+grew to warrant repositories of their own, now included here as
+submodules. The original, archived repository - which I no longer use -
+is [here](https://github.com/afneville/config_archive). Other, currently
+in use repositories are:
 
-- [My Neovim Configuration](https://github.com/alexanderneville/nvim-config)
-- [My Emacs Configuration](https://github.com/alexanderneville/emacs-config)
-- [My Colour Themes](https://github.com/alexanderneville/b16-themes)
+- [My Neovim Configuration](https://github.com/afneville/nvim-config)
+- [My Emacs Configuration](https://github.com/afneville/emacs-config)
+- [My Colour Themes](https://github.com/afneville/b16-themes)
 
 ## Screenshots
 
-- Wayland (Sway)
-  [main](https://github.com/alexanderneville/dotfiles/tree/main)
+- Wayland - Sway
+  ([main](https://github.com/afneville/dotfiles/tree/main))
 
 ![](./screenshots/sway.png)
 
-- X11 (BSPWM)
-  [45285b10](https://github.com/alexanderneville/dotfiles/tree/45285b104a26133633b52d3d702cfafe5407b046)
+- X11 - BSPWM
+  ([62c6aa1](https://github.com/afneville/dotfiles/tree/62c6aa14069445a6a77f61e61a72c85ce798d719))
 
 ![](./screenshots/onedark.png)
 
@@ -63,7 +63,7 @@ To install: clone the repository; initialise the submodules and stow the
 relevant configuration _modules_ in the home directory.
 
 ```text
-git clone https://github.com/alexanderneville/dotfiles.git
+git clone https://github.com/afneville/dotfiles.git
 git submodule update --init --remote --recursive
 stow -t ~/ apps shell wm bin X11 submodules
 ```
