@@ -18,9 +18,10 @@ for_window {
   [app_id="imv"] floating enable
   [app_id="imv"] splith
   [app_id="signal"] move output $right-display
-  [app_id="signal"] move $signal-workspace
   [app_id="signal"] floating enable
   [app_id="signal"] resize set 90ppt 90ppt
   [app_id="signal"] move position center
-  [app_id="thunderbird"] move $mail-workspace
+  [app_id="signal"] move workspace $signal-workspace
+  [app_id="thunderbird"] move output $left-display
+  [app_id="thunderbird"] move workspace $mail-workspace
 }

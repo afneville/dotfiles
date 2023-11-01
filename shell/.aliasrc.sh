@@ -23,6 +23,7 @@ alias x="startx"
 alias c="unset OPTIONAL_NEW_LINE && clear"
 alias clear="unset OPTIONAL_NEW_LINE && clear"
 alias xmerge="xrdb -merge ~/.Xresources"
+alias getbrightness="ddcutil -t -d 1 getvcp 10 && ddcutil -t -d 2 getvcp 10"
 
 # tmux
 alias tls="tmux ls"

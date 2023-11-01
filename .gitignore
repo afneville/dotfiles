@@ -13,6 +13,8 @@ apps/.config/zathura/zathurarc
 wm/.config/bspwm/bspwmrc
 wm/.config/polybar/colours.ini
 wm/.config/sway/colours
+wm/.config/sway/display_config.sh
+wm/.config/sway/display-config.sh
 wm/.config/waybar/colours.css
 vifminfo.json
 vifminfo*
