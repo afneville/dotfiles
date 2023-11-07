@@ -22,6 +22,7 @@ for_window {
   [app_id="signal"] resize set 90ppt 90ppt
   [app_id="signal"] move position center
   [app_id="signal"] move workspace $signal-workspace
-  [app_id="thunderbird"] move output $left-display
+  [app_id="ferdium"] move workspace $ferdium-workspace
   [app_id="thunderbird"] move workspace $mail-workspace
+  [title="Spotify"] move workspace $music-workspace
 }

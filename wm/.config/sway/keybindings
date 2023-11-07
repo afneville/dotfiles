@@ -8,19 +8,27 @@ bindsym $mod+XF86MonBrightnessUp exec brightness.sh high
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
 bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86Messenger exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
-bindsym Cancel exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86Go exec playerctl previous
 bindsym XF86Favorites exec systemctl suspend
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym XF86Fn+space exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Print exec grimshot copy area
 
+# laptop
+bindsym XF86Messenger exec playerctl play-pause
+bindsym Cancel exec playerctl next
+bindsym XF86Go exec playerctl previous
+
+# pseudo media keys
+bindsym $mod+Left exec playerctl previous
+bindsym $mod+Down exec playerctl play-pause
+bindsym $mod+Up workspace $music-workspace
+bindsym $mod+Right exec playerctl next
+
 ## Modes / Layers
-mode "firefox" {
+mode "browser" {
     bindsym $mod+d exec firefox -P default ; mode "default"
     bindsym d exec firefox -P default ; mode "default"
     bindsym $mod+v exec firefox -P vanilla ; mode "default"
@@ -32,7 +40,7 @@ mode "firefox" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+f mode "firefox"
+bindsym $mod+b mode "browser"
 
 mode "notifications" {
     bindsym $mod+t exec swaync-client -t ; mode "default"
@@ -57,12 +65,16 @@ mode "monitor-settings" {
     bindsym n exec gammastep -PO 4500 ; mode "default"
     bindsym $mod+h exec set-sink.sh headphones ; mode "default"
     bindsym h exec set-sink.sh headphones ; mode "default"
-    bindsym $mod+m exec set-sink.sh monitor ; mode "default"
-    bindsym m exec set-sink.sh monitor ; mode "default"
+    bindsym $mod+1 exec set-sink.sh 1 ; mode "default"
+    bindsym 1 exec set-sink.sh 1 ; mode "default"
+    bindsym $mod+2 exec set-sink.sh 2 ; mode "default"
+    bindsym 2 exec set-sink.sh 2 ; mode "default"
+    bindsym $mod+3 exec set-sink.sh 3 ; mode "default"
+    bindsym 3 exec set-sink.sh 3 ; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+b mode "monitor-settings"
+bindsym $mod+m mode "monitor-settings"
 
 mode "screenshot" {
     bindsym $mod+a exec screenshot.sh -ac ; mode "default"
@@ -99,21 +111,19 @@ bindsym $mod+q mode "quit"
 mode "run" {
     bindsym $mod+s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
     bindsym s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
-    bindsym $mod+f exec firefox; mode "default"
-    bindsym f exec firefox; mode "default"
+    bindsym $mod+f workspace $ferdium-workspace; exec ferdium; mode "default"
+    bindsym f workspace $ferdium-workspace; exec ferdium; mode "default"
     bindsym $mod+t workspace $mail-workspace; exec thunderbird; mode "default"
     bindsym t workspace $mail-workspace; exec thunderbird; mode "default"
+    bindsym $mod+r exec wofi --show drun; mode "default"
+    bindsym r exec wofi --show drun; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "run"
 
-bindsym $mod+p exec wofi --show drun
-bindsym $mod+Tab focus mode_toggle
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec firefox
-bindsym $mod+c kill
-floating_modifier $mod normal
 
 ## Workspaces
 bindsym $mod+1 workspace --no-auto-back-and-forth number 1
@@ -126,11 +136,6 @@ bindsym $mod+7 workspace --no-auto-back-and-forth number 7
 bindsym $mod+8 workspace --no-auto-back-and-forth number 8
 bindsym $mod+9 workspace --no-auto-back-and-forth number 9
 bindsym $mod+0 workspace --no-auto-back-and-forth number 10
-bindsym $mod+XF86AudioPlay workspace --no-auto-back-and-forth $music-workspace
-bindsym $mod+minus workspace --no-auto-back-and-forth $mail-workspace
-bindsym $mod+equal workspace --no-auto-back-and-forth $signal-workspace
-bindsym $mod+bracketright workspace next_on_output
-bindsym $mod+bracketleft workspace prev_on_output
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
@@ -141,37 +146,38 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
+## Hidden workspaces
+bindsym $mod+XF86AudioPlay workspace --no-auto-back-and-forth $music-workspace
+bindsym $mod+minus workspace --no-auto-back-and-forth $ferdium-workspace
+bindsym $mod+equal workspace --no-auto-back-and-forth $signal-workspace
+bindsym $mod+grave workspace --no-auto-back-and-forth $mail-workspace
 
 ## Layouts & Navigation
 bindsym $mod+y exec [ -n "$(swaymsg -t get_tree -p | grep scratchpad)" ] && swaymsg -t get_tree -p | grep scratchpad | cut -d',' -f2 | cut -d' ' -f3 | xargs kill || alacritty --class scratchpad -e zsh -ic "tmux new-session -As scratchpad" &
 
-bindsym $mod+v splith
-bindsym $mod+s splitv
-bindsym $mod+t layout stacking
-bindsym $mod+w layout toggle split
-bindsym $mod+m fullscreen
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
-bindsym $mod+a focus parent
-bindsym $mod+shift+a focus child
+bindsym $mod+plus splith
+bindsym $mod+underscore splitv
+bindsym $mod+semicolon focus parent
+bindsym $mod+colon focus child
+bindsym $mod+apostrophe layout toggle split stacking
+bindsym $mod+backslash floating toggle
+bindsym $mod+slash fullscreen
+bindsym $mod+bracketright workspace next_on_output
+bindsym $mod+bracketleft workspace prev_on_output
+bindsym $mod+comma focus output $left-display
+bindsym $mod+period focus output $right-display
+bindsym $mod+Tab focus mode_toggle
+bindsym $mod+c kill
+floating_modifier $mod normal
+
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-bindsym $mod+comma focus output $left-display
-bindsym $mod+period focus output $right-display
 
 mode "resize" {
     bindsym $left resize shrink width 10px

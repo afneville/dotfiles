@@ -79,15 +79,23 @@ window#waybar {
 #workspaces button.focused:hover {
     background: @blue;
 }
-#workspaces button.visible:nth-last-child(3),
-#workspaces button.focused:nth-last-child(3),
-#workspaces button:nth-last-child(3),
-#workspaces button.visible:nth-last-child(2),
-#workspaces button.focused:nth-last-child(2),
-#workspaces button:nth-last-child(2),
-#workspaces button.visible:nth-last-child(1),
-#workspaces button.focused:nth-last-child(1),
-#workspaces button:nth-last-child(1) {
+
+#workspaces button.visible:nth-child(14),
+#workspaces button.focused:nth-child(14),
+#workspaces button:nth-child(14),
+#workspaces button.visible:nth-child(13),
+#workspaces button.focused:nth-child(13),
+#workspaces button:nth-child(13),
+#workspaces button.visible:nth-child(12),
+#workspaces button.focused:nth-child(12),
+#workspaces button:nth-child(12),
+#workspaces button.visible:nth-child(11),
+#workspaces button.focused:nth-child(11),
+#workspaces button:nth-child(11) {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
   background-color: @bg;
   color: @bg;
 }
@@ -109,6 +117,7 @@ window#waybar {
   padding-left: 5px;
 }
 
+#pulseaudio,
 #clock,
 #disk {
   margin-left: 15px;

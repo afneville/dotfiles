@@ -31,4 +31,5 @@ workspace 9 output $left-display
 workspace 10 output $right-display
 workspace 11 output $left-display
 workspace 12 output $right-display
-workspace 13 output $right-display
+workspace 13 output $left-display
+workspace 14 output $right-display

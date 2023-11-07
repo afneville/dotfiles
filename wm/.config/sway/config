@@ -1,6 +1,5 @@
 include /etc/sway/config.d/*
 
-# Variables
 include colours
 include variables
 include devices

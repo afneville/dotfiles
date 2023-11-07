@@ -9,6 +9,7 @@ set $term alacritty
 set $menu wofi --show=drun --lines=5 --prompt=""
 set $left-display DP-2
 set $right-display HDMI-A-1
-set $signal-workspace 13
 set $mail-workspace 11
 set $music-workspace 12
+set $ferdium-workspace 13
+set $signal-workspace 14

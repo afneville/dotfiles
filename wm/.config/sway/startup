@@ -1,14 +1,16 @@
 # vim: ft=swayconfig
 
 exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec swayidle -w \
          timeout 300 'before-sleep.sh' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'before-sleep.sh'
 exec swaync
-workspace $mail-workspace
 exec thunderbird
-exec bash -c "sleep 5 && /usr/bin/birdtray"
+exec ferdium
+exec spotify
 exec flatpak run org.signal.Signal
-workspace 1
+exec bash -c "sleep 5 && flatpak run org.signal.Signal"
+exec bash -c "sleep 5 && /usr/bin/birdtray"
+workspace number 1

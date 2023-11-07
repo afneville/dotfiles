@@ -1,7 +1,7 @@
 {
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-left": ["sway/workspaces", ],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "network", "disk", "cpu", "memory", "temperature", "clock", "backlight",  "battery", "tray", "custom/notification" ],
+    "modules-right": ["sway/mode", "pulseaudio", "network", "disk", "cpu", "memory", "temperature", "clock", "backlight",  "battery", "tray", "custom/notification" ],
 
     // Modules configuration
     "user": {
@@ -23,13 +23,14 @@
             "8": "8",
             "9": "9",
             "10": "10",
-            "11": "11",
-            "12": "12",
-            "13": "13",
+            "11": "",
+            "12": "",
+            "13": "",
+            "14": "",
             "urgent": "",
             "focused": "",
             "default": "",
-            "high-priority-named": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
+            "high-priority-named": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]
         },
         "persistent_workspaces": {
                 "1": [],
@@ -45,6 +46,7 @@
                 "11": [],
                 "12": [],
                 "13": [],
+                "14": [],
             }
     },
     "sway/mode": {
