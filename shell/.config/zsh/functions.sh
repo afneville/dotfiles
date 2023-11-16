@@ -12,14 +12,9 @@ fd() {
 new_tmux_session() {
     if [ -z "$2" ]; then
         tmux new-session -d -s "$1"
-        # tmux new-window -d -n 'build' -t "$1"
-        # tmux new-window -d -n 'vcs' -t "$1"
     else
         tmux new-session -d -s "$1" -c "$2"
-        # tmux new-window -d -n 'build' -t "$1" -c "$2"
-        # tmux new-window -d -n 'vcs' -t "$1" -c "$2"
     fi
-    tmux rename-window -t "${1}":1 'main'
 }
 
 custom_tmux_attach() {
@@ -31,7 +26,7 @@ custom_tmux_attach() {
 }
 
 pp() {
-    choice="$(find ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev | fzf_select)"
+    choice="$(find -L ~/vcon -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev | fzf_select)"
     if [ -n "$choice" ]; then
         custom_tmux_attach "$choice" ~/vcon/"$choice"
     fi
