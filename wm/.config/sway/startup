@@ -13,4 +13,4 @@ exec spotify
 exec flatpak run org.signal.Signal
 exec bash -c "sleep 5 && flatpak run org.signal.Signal"
 exec bash -c "sleep 5 && /usr/bin/birdtray"
-workspace number 1
+exec swaymsg workspace number 1

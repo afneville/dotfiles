@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name_file() {
-    image_dir="$HOME/media/images/screenshots/"
+    image_dir="$HOME/local/media/images/screenshots/"
     if [ -f "${image_dir}${1}.png" ]; then
         j=1
         while [ -f "${image_dir}${1}(${j}).png" ]; do

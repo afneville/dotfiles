@@ -58,7 +58,7 @@
         "format-icons": ["", ""],
     },
     "clock": {
-        "format": " {:%H:%M  (%a)%d/%m/%Y}"
+        "format": " {:%H:%M  %d/%m}"
     },
     "cpu": {
         "format": " {usage}%",
@@ -94,9 +94,9 @@
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format-wifi": "  {ifname} 󰛳 {ipaddr}/{cidr}",
-        "format-ethernet": "󰈀 {ifname} 󰛳 {ipaddr}/{cidr}",
-        "format-linked": "{ifname} (No IP)",
+        "format-wifi": "  {ipaddr}",
+        "format-ethernet": "󰈀  {ipaddr}",
+        "format-linked": "(No IP)",
         "format-disconnected": " 󰲛 ",
     },
     "pulseaudio": {
@@ -127,7 +127,8 @@
         "format-icons": {
             "notification": "󱅫 ",
             "none": "󰂜 ",
-            "dnd-notification": "󰂛 ",
+            // "dnd-notification": "󰂛 ",
+            "dnd-notification": "󰪑 ",
             "dnd-none": "󰪑 ",
             "inhibited-notification": "  ",
             "inhibited-none": "  ",
