@@ -10,7 +10,7 @@ input "type:touchpad" {
 }
 input "type:keyboard" {
     xkb_layout "uk_mac_remapped"
-    xkb_options "caps:ctrl_modifier"
+    xkb_options "caps:ctrl_modifier,altwin:swap_lalt_lwin"
     repeat_delay 250
     repeat_rate 40
 }

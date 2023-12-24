@@ -25,4 +25,7 @@ for_window {
   [app_id="ferdium"] move workspace $ferdium-workspace
   [app_id="thunderbird"] move workspace $mail-workspace
   [title="Spotify"] move workspace $music-workspace
+  [app_id="qemu"] shortcuts_inhibitor enable
+  [app_id="virt-manager"] shortcuts_inhibitor enable
+  [app_id="drawio"] floating enable
 }

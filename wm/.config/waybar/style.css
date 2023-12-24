@@ -3,7 +3,7 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "VictorMono Nerd Font", FontAwesome, Roboto, Helvetica,
+  font-family: "JetbrainsMono Nerd Font", "Iosevka Nerd Font", FontAwesome, Roboto, Helvetica,
     Arial, sans-serif;
   font-size: 10pt;
   min-height: 0;
@@ -13,6 +13,10 @@
 .modules-right,
 .modules-left {
   border-bottom: 2px solid @border;
+}
+.modules-right *,
+.modules-left *{
+  padding-top: 1px;
 }
 
 window#waybar {
@@ -137,7 +141,7 @@ window#waybar {
 #cpu,
 #memory,
 #temperature {
-  background-color: @blue;
+  background-color: @cyan;
 }
 
 #clock,

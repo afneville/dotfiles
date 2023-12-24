@@ -1,2 +1,2 @@
 #!/bin/sh
-shell_theme="gruvbox-dark-hard"
+shell_theme="kanagawa"

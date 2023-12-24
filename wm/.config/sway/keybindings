@@ -59,6 +59,10 @@ mode "notifications" {
 bindsym $mod+n mode "notifications"
 
 mode "monitor-settings" {
+    bindsym $mod+s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 1" ; mode "default"
+    bindsym $mod+shift+s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 2" ; mode "default"
+    bindsym s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 1" ; mode "default"
+    bindsym shift+s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 2" ; mode "default"
     bindsym $mod+d exec gammastep -PO 6500 ; mode "default"
     bindsym d exec gammastep -PO 6500 ; mode "default"
     bindsym $mod+n exec gammastep -PO 4500 ; mode "default"

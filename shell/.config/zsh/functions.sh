@@ -32,8 +32,22 @@ pp() {
     fi
 }
 
+tmp() {
+    # if 1 arg, ensure dir exists and attach/start session in it
+    if [ -n "$1" ]; then
+        [ -f "${HOME}/local/tmp/${1}" ] && return 1
+        [ ! -d "${HOME}/local/tmp/${1}" ] && mkdir -p "${HOME}/local/tmp/${1}"
+        custom_tmux_attach "$1" ~/local/tmp/"$1"
+    else
+        choice="$(find -L ~/local/tmp -mindepth 1 -maxdepth 1 -type d | xargs -n1 | rev | cut -d/ -f1 | rev | fzf_select)"
+        if [ -n "$choice" ]; then
+            custom_tmux_attach "$choice" ~/local/tmp/"$choice"
+        fi
+    fi
+}
+
 tat() {
-    tmux has-session 2> /dev/null || (echo "No active sessions!" && return 1)
+    tmux has-session 2>/dev/null || (echo "No active sessions!" && return 1)
     if [ -n "$1" ]; then
         tmux has-session -t "$1" 2>/dev/null && choice=$1 || return 1
     else
@@ -47,7 +61,21 @@ tat() {
 tnew() {
     if [ -z "$1" ]; then
         custom_tmux_attach "$(basename "$(pwd)")" "$(pwd)"
-    else
+    elif [ -z "$2" ]; then
         custom_tmux_attach "$1" "$(pwd)"
+    else
+        custom_tmux_attach "$1" "$2"
     fi
+}
+
+notes() {
+    tmux has-session -t "export-docs" 2>/dev/null && return
+    new_tmux_session "export-docs" "${HOME}/vcon/export-docs"
+    tmux send-keys -t export-docs:1.0 "sudo live-server --no-browser --port=80 out" Enter
+    tmux split-window -t export-docs:1.0 -c "${HOME}/vcon/export-docs"
+    tmux send-keys -t export-docs:1.1 "watch-directory.sh src make" Enter
+    tmux split-window -t export-docs:1.1 -c "${HOME}/vcon/export-docs"
+    tmux send-keys -t export-docs:1.2 "watch-directory.sh res make" Enter
+    tmux select-layout -t export-docs:1 even-vertical
+    sleep 1 && echo "" >"${HOME}/vcon/export-docs/src/.update"
 }

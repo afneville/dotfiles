@@ -6,21 +6,27 @@ export GPG_TTY=$(tty)
 # vim mode
 bindkey -v
 export KEYTIMEOUT=1
-
+# 0  -> blinking block.
+# 1  -> blinking block (default).
+# 2  -> steady block.
+# 3  -> blinking underline.
+# 4  -> steady underline.
+# 5  -> blinking bar, xterm.
+# 6  -> steady bar, xterm.
 function zle-keymap-select () {
     case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # 1 = block 4 = beam
-        viins|main) echo -ne '\e[1 q';;
+        vicmd) echo -ne '\e[1 q';;      # 1 = block 4 = underscore 5 = beam
+        viins|main) echo -ne '\e[4 q';;
     esac
 }
 zle -N zle-keymap-select
 zle-line-init() {
     zle -K viins
-    echo -ne '\e[1 q'
+    echo -ne '\e[4 q'
 }
 zle -N zle-line-init
-echo -ne '\e[1 q'
-preexec() { echo -ne '\e[1 q' ;}
+echo -ne '\e[4 q'
+preexec() { echo -ne '\e[4 q' ;}
 
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
@@ -81,7 +87,7 @@ setopt AUTO_PARAM_SLASH
 
 autoload edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd ' ' edit-command-line
+bindkey -M vicmd 'n' edit-command-line
 # bindkey -M vicmd '\r' edit-command-line
 
 function source_file() {
@@ -103,7 +109,7 @@ source_file "$ZDOTDIR/functions.sh"
 source_file "$ZDOTDIR/prompt.sh"
 source_file "$HOME/.aliasrc.sh"
 source_file "$HOME/.sh_theme.sh"
-add_zsh_plugin "zsh-users/zsh-autosuggestions"
+# add_zsh_plugin "zsh-users/zsh-autosuggestions"
 add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
 theme.sh -s -t $shell_theme

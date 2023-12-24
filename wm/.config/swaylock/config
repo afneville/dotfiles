@@ -1,33 +1,33 @@
-color=1d2021
+color=181616
 ignore-empty-password
 hide-keyboard-layout
 disable-caps-lock-text
 indicator-idle-visible
 
-bs-hl-color=fb4934
-caps-lock-bs-hl-color=fb4934
+bs-hl-color=c4746e
+caps-lock-bs-hl-color=c4746e
 
-key-hl-color=b8bb26
-caps-lock-key-hl-color=b8bb26
+key-hl-color=8a9a7b
+caps-lock-key-hl-color=8a9a7b
 
-separator-color=504945
+separator-color=393836
 
-inside-color=3c3836
-inside-clear-color=3c3836
-inside-wrong-color=3c3836
-inside-ver-color=3c3836
+inside-color=282727
+inside-clear-color=282727
+inside-wrong-color=282727
+inside-ver-color=282727
 
-line-color=504945
-line-clear-color=504945
-line-ver-color=504945
-line-caps-lock-color=504945
-line-wrong-color=504945
+line-color=393836
+line-clear-color=393836
+line-ver-color=393836
+line-caps-lock-color=393836
+line-wrong-color=393836
 
-ring-color=3c3836
-ring-clear-color=fabd2f
-ring-ver-color=83a598
-ring-caps-lock-color=3c3836
-ring-wrong-color=fb4934
+ring-color=282727
+ring-clear-color=c4b28a
+ring-ver-color=8ba4b0
+ring-caps-lock-color=282727
+ring-wrong-color=c4746e
 
 text-color=00000000
 text-clear-color=00000000

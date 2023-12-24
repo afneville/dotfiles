@@ -9,7 +9,7 @@ exec swayidle -w \
 exec swaync
 exec thunderbird
 exec ferdium
-exec spotify
+exec my-spotify.sh
 exec flatpak run org.signal.Signal
 exec bash -c "sleep 5 && flatpak run org.signal.Signal"
 exec bash -c "sleep 5 && /usr/bin/birdtray"
