@@ -82,6 +82,8 @@ zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions comm
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*:*files' ignored-patterns '~/mnt/nextcloud/*'
+zstyle ':completion:*:*directories' ignored-patterns '~/mnt/nextcloud/*'
 _comp_options+=(globdots)
 setopt AUTO_PARAM_SLASH
 
@@ -110,7 +112,7 @@ source_file "$ZDOTDIR/prompt.sh"
 source_file "$HOME/.aliasrc.sh"
 source_file "$HOME/.sh_theme.sh"
 # add_zsh_plugin "zsh-users/zsh-autosuggestions"
-add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
+# add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
 theme.sh -s -t $shell_theme
 

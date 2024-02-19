@@ -9,7 +9,7 @@ alias grep='grep --color=auto'
 alias ls='ls --color=auto --group-directories-first'
 alias lsl='ls -l'
 alias lsla='ls -la'
-alias tree='exa --tree --color=always -a --ignore-glob="*.git"'
+# alias tree='exa --tree --color=always -a --ignore-glob="*.git"'
 alias setbg='feh --bg-fill'
 
 alias locate='updatedb && locate'

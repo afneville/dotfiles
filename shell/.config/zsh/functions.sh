@@ -69,13 +69,14 @@ tnew() {
 }
 
 notes() {
-    tmux has-session -t "export-docs" 2>/dev/null && return
-    new_tmux_session "export-docs" "${HOME}/vcon/export-docs"
-    tmux send-keys -t export-docs:1.0 "sudo live-server --no-browser --port=80 out" Enter
-    tmux split-window -t export-docs:1.0 -c "${HOME}/vcon/export-docs"
-    tmux send-keys -t export-docs:1.1 "watch-directory.sh src make" Enter
-    tmux split-window -t export-docs:1.1 -c "${HOME}/vcon/export-docs"
-    tmux send-keys -t export-docs:1.2 "watch-directory.sh res make" Enter
-    tmux select-layout -t export-docs:1 even-vertical
-    sleep 1 && echo "" >"${HOME}/vcon/export-docs/src/.update"
+    session_name="site-generator"
+    tmux has-session -t "${session_name}" 2>/dev/null && return
+    new_tmux_session "${session_name}" "${HOME}/vcon/${session_name}"
+    tmux send-keys -t ${session_name}:1.0 "sudo live-server --no-browser --port=80 out" Enter
+    tmux split-window -t ${session_name}:1.0 -c "${HOME}/vcon/${session_name}"
+    tmux send-keys -t ${session_name}:1.1 "watch-directory.sh src make &" Enter
+    tmux send-keys -t ${session_name}:1.1 "watch-directory.sh res make &" Enter
+    tmux send-keys -t ${session_name}:1.1 "watch-directory.sh templates make &" Enter
+    tmux select-layout -t ${session_name}:1 even-vertical
+    sleep 1 && echo "" >"${HOME}/vcon/${session_name}/src/.update"
 }
