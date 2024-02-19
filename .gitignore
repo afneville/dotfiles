@@ -7,7 +7,7 @@ plugins/
 .zsh_sessions/
 
 X11/.Xresources.conf.d/colours
-apps/.config/alacritty/colours.yml
+apps/.config/alacritty/colours.toml
 apps/.config/kitty/colours.conf
 apps/.config/zathura/zathurarc
 wm/.config/bspwm/bspwmrc

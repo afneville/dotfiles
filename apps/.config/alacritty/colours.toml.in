@@ -1,0 +1,23 @@
+[colors.bright]
+black = "#%col3%"
+blue = "#%col13%"
+cyan = "#%col12%"
+green = "#%col11%"
+magenta = "#%col14%"
+red = "#%col8%"
+white = "#%col5%"
+yellow = "#%col10%"
+
+[colors.normal]
+black = "#%col2%"
+blue = "#%col13%"
+cyan = "#%col12%"
+green = "#%col11%"
+magenta = "#%col14%"
+red = "#%col8%"
+white = "#%col5%"
+yellow = "#%col10%"
+
+[colors.primary]
+background = "#%col0%"
+foreground = "#%col5%"
