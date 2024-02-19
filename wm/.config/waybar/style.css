@@ -3,9 +3,9 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "JetbrainsMono Nerd Font", "Iosevka Nerd Font", FontAwesome, Roboto, Helvetica,
+  font-family: "VictorMono Nerd Font", "JetbrainsMono Nerd Font", "Iosevka Nerd Font", FontAwesome, Roboto, Helvetica,
     Arial, sans-serif;
-  font-size: 10pt;
+  font-size: 11pt;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -14,10 +14,12 @@
 .modules-left {
   border-bottom: 2px solid @border;
 }
-.modules-right *,
-.modules-left *{
-  padding-top: 1px;
-}
+
+/* .modules-right *, */
+/* .modules-left *{ */
+/*   padding-top: 1px; */
+/* } */
+/**/
 
 window#waybar {
   color: @fg;

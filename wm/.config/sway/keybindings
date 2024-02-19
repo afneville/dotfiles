@@ -113,6 +113,8 @@ mode "quit" {
 bindsym $mod+q mode "quit"
 
 mode "run" {
+    bindsym $mod+m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
+    bindsym m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
     bindsym $mod+s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
     bindsym s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
     bindsym $mod+f workspace $ferdium-workspace; exec ferdium; mode "default"
