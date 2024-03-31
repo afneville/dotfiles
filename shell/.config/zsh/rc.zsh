@@ -142,6 +142,12 @@ vi-yank-line-gui-clipboard () { zle vi-yank-whole-line;  print -rn -- $CUTBUFFER
 zle -N vi-yank-line-gui-clipboard
 # bindkey -M vicmd 'Y' vi-yank-line-gui-clipboard
 
+
+bindkey -M vicmd '^k' up-line-or-history
+bindkey -M vicmd '^j' down-line-or-history
+bindkey -M viins '^k' up-line-or-history
+bindkey -M viins '^j' down-line-or-history
+
 typeset -g -A key
 key[Home]="${terminfo[khome]}"
 key[End]="${terminfo[kend]}"

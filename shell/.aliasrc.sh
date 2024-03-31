@@ -26,14 +26,7 @@ alias xmerge="xrdb -merge ~/.Xresources"
 alias getbrightness="ddcutil -t -d 1 getvcp 10 && ddcutil -t -d 2 getvcp 10"
 
 # tmux
-alias tls="tmux ls"
-# alias tat="tmux attach -t"
-# alias tdat="tmux detach"
-# alias tnew="tmux new -s"
-# alias trens="tmux rename-session"
-# alias trenw="tmux rename-window"
-# alias tkill="tmux kill-session -t"
-# alias tend="tmux kill-server"
+alias tls="tmux ls | cut -d':' -f1"
 
 # Directories:
 alias ..='cd ..'
@@ -49,28 +42,9 @@ alias top="htop"
 alias t="htop"
 
 # Git
-alias clone="git clone"
-alias push="git push"
-alias pull="git pull"
-alias add="git add"
-alias commit="git commit -m"
-alias gbak="git add . && git commit -m \"automated backup\" && git push origin main"
-alias gpom="git push origin main"
 alias gs="git status"
 alias ga="git add"
 alias gc="git commit"
-
-# Systemctl
-alias sstat="systemctl status"
-alias sstart="systemctl start"
-alias sstop="systemctl stop"
-alias srestart="systemctl restart"
-alias senable="systemctl enable"
-
-# Gentoo
-alias accept="doas nvim /etc/portage/package.accept_keywords"
-alias package.use="doas nvim /etc/portage/package.use"
-alias make.conf="doas nvim /etc/portage/make.conf"
 
 # Misc
 alias copy_png="xclip -selection clipboard -target image/png -i"
