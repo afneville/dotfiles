@@ -37,6 +37,8 @@ mode "browser" {
     bindsym h exec firefox -P hardened ; mode "default"
     bindsym $mod+p exec firefox -p ; mode "default"
     bindsym p exec firefox -p ; mode "default"
+    bindsym $mod+c exec chromium --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto ; mode "default"
+    bindsym c exec chromium --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto ; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -107,6 +109,8 @@ mode "quit" {
     bindsym q exec sway exit ; mode "default"
     bindsym $mod+r reload ; mode "default"
     bindsym r reload ; mode "default"
+    bindsym $mod+p exec restart-swayidle.sh ; mode "default"
+    bindsym p exec restart-swayidle.sh ; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }

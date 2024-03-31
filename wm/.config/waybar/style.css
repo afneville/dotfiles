@@ -5,7 +5,7 @@
   border-radius: 0;
   font-family: "VictorMono Nerd Font", "JetbrainsMono Nerd Font", "Iosevka Nerd Font", FontAwesome, Roboto, Helvetica,
     Arial, sans-serif;
-  font-size: 11pt;
+  font-size: 18pt;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -41,8 +41,8 @@ window#waybar {
 
 #workspaces button {
   color: @fg;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   font-weight: bold;
 }
 

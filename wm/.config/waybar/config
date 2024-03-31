@@ -118,8 +118,8 @@
         },
     },
     "tray": {
-        "icon-size": 18,
-        "spacing": 5
+        "icon-size": 28,
+        "spacing": 8
     },
     "custom/notification": {
         "tooltip": false,
