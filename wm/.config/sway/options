@@ -13,4 +13,6 @@ mouse_warping container
 seat seat0 hide_cursor when-typing enable
 seat seat0 xcursor_theme default 40
 default_floating_border pixel 2
+smart_gaps on
+gaps inner 15
 # font JetbrainsMono Nerd Font 0

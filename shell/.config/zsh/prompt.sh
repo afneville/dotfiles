@@ -19,5 +19,5 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' formats $'   %F{magenta}%{\x1b[3m%}%b%{\x1b[0m%}%f %F{green}%c%f%F{yellow}%u%f%F{red}%m%f '
 setopt prompt_subst
 
-PS1=$'   %F{green}%{\x1b[3m%}%n%{\x1b[0m%}%f    %F{blue}%{\x1b[3m%}%m%{\x1b[0m%}%f    %F{cyan}%(4~|%-1~/.../%2~|%3~)%f $vcs_info_msg_0_\n %F{yellow} %f '
+PS1=$'   %F{green}%{\x1b[3m%}%n%{\x1b[0m%}%f    %F{blue}%{\x1b[3m%}%m%{\x1b[0m%}%f    %F{cyan}%{\x1b[3m%}%(4~|%-1~/.../%2~|%3~)%{\x1b[0m%}%f $vcs_info_msg_0_\n %F{yellow} %f '
 # PS1=$' %F{cyan}%(4~|%-1~/.../%2~|%3~)%f$vcs_info_msg_0_ %F{yellow}>%f '
