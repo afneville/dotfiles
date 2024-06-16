@@ -1,20 +1,20 @@
 [font]
-size = 18.0
+size = 15.0
 
 [font.bold]
-family = "VictorMono Nerd Font"
+family = "Iosevka"
 style = "Bold"
 
 [font.bold_italic]
-family = "VictorMono Nerd Font"
+family = "Iosevka"
 style = "Bold Italic"
 
 [font.italic]
-family = "VictorMono Nerd Font"
+family = "Iosevka"
 style = "Italic"
 
 [font.normal]
-family = "VictorMono Nerd Font"
+family = "Iosevka"
 style = "Regular"
 
 [font.offset]
