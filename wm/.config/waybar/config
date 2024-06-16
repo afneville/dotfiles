@@ -137,7 +137,7 @@
     },
   },
   "tray": {
-    "icon-size": 28,
+    "icon-size": 20,
     "spacing": 8,
   },
   "custom/notification": {

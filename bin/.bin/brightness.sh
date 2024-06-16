@@ -13,27 +13,11 @@ set_monitor_brightness() {
 }
 
 if [ "$1" = "+" ]; then
-    if [ -n "$(swaymsg -t get_outputs | grep HDMI-A-1)" ]; then
-        increase_monitor_brightness
-    else
-        brightnessctl set 10%+
-    fi
+    increase_monitor_brightness
 elif [ "$1" = "-" ]; then
-    if [ -n "$(swaymsg -t get_outputs | grep HDMI-A-1)" ]; then
-        decrease_monitor_brightness
-    else
-        brightnessctl set 10%-
-    fi
+    decrease_monitor_brightness
 elif [ "$1" = "high" ]; then
-    if [ -n "$(swaymsg -t get_outputs | grep HDMI-A-1)" ]; then
-        set_monitor_brightness "80"
-    else
-        brightnessctl set 80%
-    fi
+    set_monitor_brightness "80"
 elif [ "$1" = "low" ]; then
-    if [ -n "$(swaymsg -t get_outputs | grep HDMI-A-1)" ]; then
-        set_monitor_brightness "40"
-    else
-        brightnessctl set 40%
-    fi
+    set_monitor_brightness "40"
 fi

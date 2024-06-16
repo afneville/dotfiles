@@ -1,4 +1,4 @@
-@define-color bg #%col2%;
+@define-color bg #%col0%;
 @define-color fg #%col5%;
 @define-color border #%col3%;
 @define-color red #%col8%;

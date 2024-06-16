@@ -19,7 +19,6 @@ input "type:pointer" {
     scroll_factor 1.5
     pointer_accel -0.5
 }
-exec_always ~/.config/sway/display-config.sh
 workspace 1 output $left-display
 workspace 2 output $right-display
 workspace 3 output $left-display
