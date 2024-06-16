@@ -14,11 +14,11 @@ export BAT_THEME="base16"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 # export MANPAGER="nvim -c 'set ft=man' -"
-export GTK_THEME=Adwaita
+export GTK_THEME=Adwaita-dark
 # export GDK_DPI_SCALE=1.75
 # export XCURSOR_SIZE=36
-export GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc
-export QT_STYLE_OVERRIDE=Adwaita
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=Adwaita-dark
 export ZDOTDIR="$HOME/.config/zsh"
 export FZF_DEFAULT_OPTS="--ansi --color=16 --border=none --info=hidden"
 export PATH=$PATH:$HOME/.local/bin:$HOME/.bin:$HOME/.emacs.d/bin:$HOME/.npm-global/bin

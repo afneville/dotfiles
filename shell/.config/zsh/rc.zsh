@@ -111,8 +111,6 @@ source_file "$ZDOTDIR/functions.sh"
 source_file "$ZDOTDIR/prompt.sh"
 source_file "$HOME/.aliasrc.sh"
 source_file "$HOME/.sh_theme.sh"
-# add_zsh_plugin "zsh-users/zsh-autosuggestions"
-# add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
 theme.sh -s -t $shell_theme
 

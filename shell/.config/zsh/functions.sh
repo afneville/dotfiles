@@ -1,6 +1,6 @@
 #!/bin/sh
 
-alias fzf_select="fzf --reverse --border=sharp --no-separator --ansi --color=16"
+alias fzf_select="fzf --reverse --no-bold --highlight-line --color='16,current-bg:-1,hl:-1,current-hl:12,current-fg:12,prompt:yellow'"
 
 fd() {
     choice="$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/cloud' \) -prune -false -o -type d | fzf_select)"
@@ -93,10 +93,3 @@ notes() {
     start_site_generator
     pp "docs"
 }
-
-# man() {
-#     local width=$(tput cols)
-#     [ $width -gt $MANWIDTH ] && width=$MANWIDTH
-#     env MANWIDTH=$width \
-#     man "$@"
-# }
