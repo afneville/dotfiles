@@ -11,8 +11,8 @@ export BAT_THEME="base16"
 
 # export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man' -\""
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANPAGER='nvim +Man!'
-export MANWIDTH=999
+# export MANPAGER='nvim +Man!'
+# export MANWIDTH=999
 # export MANPAGER="nvim -c 'set ft=man' -"
 export GTK_THEME=Adwaita-dark
 # export GDK_DPI_SCALE=1.75

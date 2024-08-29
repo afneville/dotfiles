@@ -14,13 +14,13 @@
     "backlight",
     "battery",
     "tray",
-    "custom/notification",
+    "custom/notification"
   ],
 
   // Modules configuration
   "user": {
     "format": "{user}",
-    "icon": true,
+    "icon": true
   },
   "sway/workspaces": {
     "disable-scroll": true,
@@ -58,65 +58,65 @@
         "11",
         "12",
         "13",
-        "14",
-      ],
+        "14"
+      ]
     },
     "persistent-workspaces": {
       "11": [],
       "12": [],
       "13": [],
-      "14": [],
-    },
+      "14": []
+    }
   },
   "sway/mode": {
-    "format": "󱈸",
+    "format": "󱈸"
   },
   "sway/scratchpad": {
     "format": "{icon} {count}",
     "show-empty": false,
-    "format-icons": ["", ""],
+    "format-icons": ["", ""]
   },
   "clock": {
-    "format": " {:%H:%M  %d/%m}",
+    "format": " {:%H:%M  %d/%m}"
   },
   "cpu": {
     "format": " {usage}%",
-    "tooltip": false,
+    "tooltip": false
   },
   "memory": {
-    "format": " {}%",
+    "format": " {}%"
   },
   "disk": {
     "interval": 30,
     "format": "󰋊 {percentage_used}%",
-    "path": "/",
+    "path": "/"
   },
   "temperature": {
     "critical-threshold": 80,
     "format": "{icon} {temperatureC}°C",
-    "format-icons": ["", "", ""],
+    "format-icons": ["", "", ""]
   },
   "backlight": {
     // "device": "acpi_video1",
     "format": "{icon} {percent}%",
-    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
   "battery": {
     "states": {
       "good": 80,
       "warning": 50,
-      "critical": 20,
+      "critical": 20
     },
     "format": "{icon}  {capacity}%",
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": ["", "", "", "", ""]
   },
   "network": {
     "format-wifi": "  {ipaddr}",
     "format-ethernet": "󰈀  {ipaddr}",
     "format-linked": "(No IP)",
-    "format-disconnected": " 󰲛 ",
+    "format-disconnected": " 󰲛 "
   },
   "pulseaudio": {
     "scroll-step": 1,
@@ -133,12 +133,12 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": ["", "", ""],
-    },
+      "default": ["", "", ""]
+    }
   },
   "tray": {
     "icon-size": 20,
-    "spacing": 8,
+    "spacing": 8
   },
   "custom/notification": {
     "tooltip": false,
@@ -152,13 +152,13 @@
       "inhibited-notification": "  ",
       "inhibited-none": "  ",
       "dnd-inhibited-notification": "  ",
-      "dnd-inhibited-none": "  ",
+      "dnd-inhibited-none": "  "
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
-    "escape": true,
-  },
+    "escape": true
+  }
 }
