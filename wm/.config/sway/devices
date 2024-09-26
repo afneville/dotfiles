@@ -8,17 +8,24 @@ input "type:touchpad" {
     middle_emulation enabled
     pointer_accel 0.3
 }
+
 input "type:keyboard" {
     xkb_layout "uk_mac_remapped"
-    # xkb_options "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+    xkb_options "caps:ctrl_modifier,altwin:swap_lalt_lwin"
     xkb_options "caps:ctrl_modifier"
-    repeat_delay 250
-    repeat_rate 40
+    repeat_delay 200
+    repeat_rate 50
 }
+input "13364:53296:Keychron__Keychron_Link__Keyboard" {
+    repeat_delay 200
+    repeat_rate 50
+}
+
 input "type:pointer" {
     scroll_factor 1.5
     pointer_accel -0.5
 }
+
 workspace 1 output $left-display
 workspace 2 output $right-display
 workspace 3 output $left-display
@@ -29,7 +36,8 @@ workspace 7 output $left-display
 workspace 8 output $right-display
 workspace 9 output $left-display
 workspace 10 output $right-display
-workspace 11 output $left-display
-workspace 12 output $right-display
-workspace 13 output $left-display
-workspace 14 output $right-display
+workspace $mail-workspace output $left-display
+workspace $signal-workspace output $right-display
+workspace $slack-workspace output $right-display
+workspace $music-workspace output $right-display
+workspace $ferdium-workspace output $right-display

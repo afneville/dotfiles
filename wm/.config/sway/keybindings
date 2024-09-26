@@ -3,26 +3,29 @@
 ## Media Keys
 bindsym XF86MonBrightnessDown exec brightness.sh -
 bindsym XF86MonBrightnessUp exec brightness.sh +
-bindsym $mod+XF86MonBrightnessDown exec brightness.sh low
-bindsym $mod+XF86MonBrightnessUp exec brightness.sh high
+# bindsym $mod+XF86MonBrightnessDown exec brightness.sh low
+# bindsym $mod+XF86MonBrightnessUp exec brightness.sh high
+# bindsym $mod+XF86MonBrightnessDown workspace $mail-workspace
+# bindsym $mod+XF86MonBrightnessUp workspace $mail-workspace
+# bindsym $mod+XF86MonBrightnessUp exec brightness.sh high
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
-bindsym F8 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym F9 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
-bindsym F10 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
+# bindsym F8 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+# bindsym F9 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
+# bindsym F10 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86Favorites exec systemctl suspend
+# bindsym XF86Favorites exec systemctl suspend
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindsym XF86Fn+space exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindsym Print exec grimshot copy area
+# bindsym XF86Fn+space exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+# bindsym Print exec grimshot copy area
 
 # laptop
-bindsym XF86Messenger exec playerctl play-pause
-bindsym Cancel exec playerctl next
-bindsym XF86Go exec playerctl previous
+# bindsym XF86Messenger exec playerctl play-pause
+# bindsym Cancel exec playerctl next
+# bindsym XF86Go exec playerctl previous
 
 # pseudo media keys
 bindsym $mod+Left exec playerctl previous
@@ -120,10 +123,12 @@ mode "quit" {
 bindsym $mod+q mode "quit"
 
 mode "run" {
-    bindsym $mod+m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
-    bindsym m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
-    bindsym $mod+s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
-    bindsym s workspace $signal-workspace; exec "flatpak run org.signal.Signal"; mode "default"
+    # bindsym $mod+m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
+    # bindsym m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
+    bindsym $mod+w workspace $slack-workspace; exec $slack-command mode "default"
+    bindsym w workspace $slack-workspace; exec $slack-command; mode "default"
+    bindsym $mod+s workspace $signal-workspace; exec $signal-command; mode "default"
+    bindsym s workspace $signal-workspace; exec $signal-command; mode "default"
     bindsym $mod+f workspace $ferdium-workspace; exec ferdium; mode "default"
     bindsym f workspace $ferdium-workspace; exec ferdium; mode "default"
     bindsym $mod+t workspace $mail-workspace; exec thunderbird; mode "default"
@@ -160,10 +165,10 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 ## Hidden workspaces
-bindsym $mod+XF86AudioPlay workspace --no-auto-back-and-forth $music-workspace
-bindsym $mod+minus workspace --no-auto-back-and-forth $ferdium-workspace
-bindsym $mod+equal workspace --no-auto-back-and-forth $signal-workspace
-bindsym $mod+grave workspace --no-auto-back-and-forth $mail-workspace
+# bindsym $mod+XF86AudioPlay workspace --no-auto-back-and-forth $music-workspace
+# bindsym $mod+minus workspace --no-auto-back-and-forth $ferdium-workspace
+# bindsym $mod+equal workspace --no-auto-back-and-forth $signal-workspace
+# bindsym $mod+grave workspace --no-auto-back-and-forth $mail-workspace
 
 ## Layouts & Navigation
 bindsym $mod+y exec [ -n "$(swaymsg -t get_tree -p | grep scratchpad)" ] && swaymsg -t get_tree -p | grep scratchpad | cut -d',' -f2 | cut -d' ' -f3 | xargs kill || alacritty --class scratchpad -e zsh -ic "tmux new-session -As scratchpad" &
