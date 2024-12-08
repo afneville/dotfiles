@@ -1,3 +1,4 @@
+[general]
 import = ["/home/alex/.config/alacritty/fonts.toml", "/home/alex/.config/alacritty/colours.toml"]
 live_config_reload = true
 
