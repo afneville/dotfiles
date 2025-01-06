@@ -1,2 +1,3 @@
-set $left-display DP-6
-set $right-display DP-9
+set $left-display DP-2
+-A-1
+set $right-display HDMI-A-1

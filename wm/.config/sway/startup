@@ -9,6 +9,8 @@ exec swayidle -w \
 
 # exec sway-audio-idle-inhibit
 
+exec ~/.config/sway/display-config.sh
+
 exec swaync
 exec thunderbird
 exec ferdium

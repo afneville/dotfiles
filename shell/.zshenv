@@ -7,6 +7,7 @@ export VISUAL=nvim
 export EDITOR=nvim
 export _JAVA_AWT_WM_NONREPARENTING=1
 export BAT_THEME="base16"
+export GOPATH="${HOME}/.go"
 
 
 # export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man' -\""

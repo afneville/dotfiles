@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name_file() {
-    image_dir="$HOME/local/media/images/screenshots/"
+    image_dir="$(xdg-user-dir PICTURES)"
     if [ -f "${image_dir}${1}.png" ]; then
         j=1
         while [ -f "${image_dir}${1}(${j}).png" ]; do
@@ -63,4 +63,4 @@ else
 fi
 
 eval "grimshot save ${target} - ${to}"
-notify-send "${message}" "${filename}"
+# notify-send "${message}" "${filename}"

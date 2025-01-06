@@ -3,6 +3,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 ZSH_DISABLE_COMPFIX=true
 export GPG_TTY=$(tty)
+PATH="$PATH:$(go env GOBIN):$(go env GOPATH)/bin"
 # vim mode
 bindkey -v
 export KEYTIMEOUT=1

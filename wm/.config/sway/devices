@@ -17,6 +17,13 @@ input "type:keyboard" {
     repeat_rate 50
 }
 input "13364:53296:Keychron__Keychron_Link__Keyboard" {
+    xkb_layout "us"
+    repeat_delay 200
+    repeat_rate 50
+}
+
+input "13364:2208:Keychron_Keychron_Q10_Max" {
+    xkb_layout "us"
     repeat_delay 200
     repeat_rate 50
 }
