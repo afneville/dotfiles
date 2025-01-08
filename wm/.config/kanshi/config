@@ -1,0 +1,36 @@
+output eDP-1 alias $laptop
+output "BNQ BenQ PD2700U ETN4P00759SL0" alias $vert
+output "BNQ BenQ PD2700U ETGAM01835SL0" alias $horiz
+
+profile laptop {
+	output eDP-1 enable
+}
+
+profile home {
+	output $laptop disable
+	output $vert enable transform 90 position 0,0
+        output $horiz enable position 2160,960
+	exec swaymsg workspace 1 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 1, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 3 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 3, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 5 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 5, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 7 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 7, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 9 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 9, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 2 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 2, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 4 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 4, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 6 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 6, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 8 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 8, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 10 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 10, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 2, workspace 1
+}
+
+profile {
+	output $laptop disable
+	output $vert enable transform 90 position 0,0
+}
+
+profile {
+	output $laptop disable
+	output $horiz enable position 0,0
+}
+
+profile vert {
+	output $laptop disable
+	output $horiz disable
+	output $vert enable transform 90 position 0,0
+}
+
+profile horiz {
+	output $laptop disable
+	output $vert disable
+	output $horiz enable position 0,0
+}

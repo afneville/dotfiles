@@ -1,0 +1,10 @@
+[Unit]
+Description=Notification Daemon for Sway
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swaync
+
+[Install]
+WantedBy=sway-session.target

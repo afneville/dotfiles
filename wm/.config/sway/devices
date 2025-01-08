@@ -1,6 +1,5 @@
 # vim: ft=swayconfig
 
-# Hardware & Display Configuration
 input "type:touchpad" {
     dwt enabled
     tap enabled
@@ -32,19 +31,3 @@ input "type:pointer" {
     scroll_factor 1.5
     pointer_accel -0.5
 }
-
-workspace 1 output $left-display
-workspace 2 output $right-display
-workspace 3 output $left-display
-workspace 4 output $right-display
-workspace 5 output $left-display
-workspace 6 output $right-display
-workspace 7 output $left-display
-workspace 8 output $right-display
-workspace 9 output $left-display
-workspace 10 output $right-display
-workspace $mail-workspace output $left-display
-workspace $signal-workspace output $right-display
-workspace $slack-workspace output $right-display
-workspace $music-workspace output $right-display
-workspace $ferdium-workspace output $right-display
