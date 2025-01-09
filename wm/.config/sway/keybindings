@@ -125,6 +125,8 @@ bindsym $mod+q mode "quit"
 mode "run" {
     # bindsym $mod+m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
     # bindsym m workspace $music-workspace; exec "my-spotify.sh"; mode "default"
+    bindsym $mod+x exec xournalpp; mode "default"
+    bindsym x exec xournalpp; mode "default"
     bindsym $mod+w workspace $slack-workspace; exec $slack-command mode "default"
     bindsym w workspace $slack-workspace; exec $slack-command; mode "default"
     bindsym $mod+s workspace $signal-workspace; exec $signal-command; mode "default"

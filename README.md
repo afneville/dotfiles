@@ -62,5 +62,5 @@ configuration.
 git submodule update --init --remote --recursive
 mkdir -p ~/.config/systemd/user
 stow -t ~/ apps shell wm bin X11 submodules
-stow -t ~/ --no-folding systemd
+stow -t ~/ --no-folding nofolding
 ```
