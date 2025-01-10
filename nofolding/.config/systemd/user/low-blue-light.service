@@ -1,0 +1,11 @@
+[Unit]
+Description=Dynamic output configuration for Wayland compositors
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/gammastep -O 4500k
+ExecStop=/usr/bin/pkill gammastep
+
+[Install]
+WantedBy=sway-session.target
