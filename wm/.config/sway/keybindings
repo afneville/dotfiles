@@ -67,26 +67,28 @@ mode "notifications" {
 bindsym $mod+n mode "notifications"
 
 mode "monitor-settings" {
-    bindsym $mod+s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 1" ; mode "default"
-    bindsym $mod+shift+s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 2" ; mode "default"
-    bindsym s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 1" ; mode "default"
-    bindsym shift+s exec bash -c "swaymsg output $(swaymsg -t get_outputs -p | grep focus | cut -d' ' -f2) scale 2" ; mode "default"
     bindsym $mod+d exec systemctl stop --user low-blue-light.service ; mode "default"
     bindsym d exec systemctl stop --user low-blue-light.service ; mode "default"
     bindsym $mod+n exec systemctl start --user low-blue-light.service ; mode "default"
     bindsym n exec systemctl start --user low-blue-light.service ; mode "default"
-    bindsym $mod+h exec set-sink.sh headphones ; mode "default"
-    bindsym h exec set-sink.sh headphones ; mode "default"
-    bindsym $mod+1 exec set-sink.sh 1 ; mode "default"
-    bindsym 1 exec set-sink.sh 1 ; mode "default"
-    bindsym $mod+2 exec set-sink.sh 2 ; mode "default"
-    bindsym 2 exec set-sink.sh 2 ; mode "default"
-    bindsym $mod+3 exec set-sink.sh 3 ; mode "default"
-    bindsym 3 exec set-sink.sh 3 ; mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+m mode "monitor-settings"
+
+mode "tablet-settings" {
+    bindsym $mod+t exec systecmtl --user restart opentabletdriver.service ; mode "default"
+    bindsym t exec systecmtl --user restart opentabletdriver.service ; mode "default"
+    bindsym $mod+l exec otd applypreset home-vert ; mode "default"
+    bindsym l exec otd applypreset home-vert ; mode "default"
+    bindsym $mod+r exec otd applypreset home-horiz ; mode "default"
+    bindsym r exec otd applypreset home-horiz ; mode "default"
+    bindsym $mod+h exec otd applypreset horiz ; mode "default"
+    bindsym h exec otd applypreset horiz ; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+t mode "tablet-settings"
 
 mode "screenshot" {
     bindsym $mod+a exec screenshot.sh -ac ; mode "default"
@@ -113,8 +115,8 @@ mode "quit" {
     bindsym s exec "swaylock -f; systemctl suspend" ; mode "default"
     bindsym $mod+q exec sway exit ; mode "default"
     bindsym q exec sway exit ; mode "default"
-    bindsym $mod+r reload ; mode "default"
-    bindsym r reload ; mode "default"
+    bindsym $mod+r reload ; exec "kanshictl reload" ; exec systemctl restart --user opentabletdriver.service ; mode "default"
+    bindsym r reload ; exec "kanshictl reload" ; exec systemctl restart --user opentabletdriver.service ; mode "default"
     bindsym $mod+p exec restart-swayidle.sh ; mode "default"
     bindsym p exec restart-swayidle.sh ; mode "default"
     bindsym Return mode "default"

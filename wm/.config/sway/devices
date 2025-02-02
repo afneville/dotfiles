@@ -29,5 +29,5 @@ input "13364:2208:Keychron_Keychron_Q10_Max" {
 
 input "type:pointer" {
     scroll_factor 1.5
-    pointer_accel -0.5
+    pointer_accel 1
 }

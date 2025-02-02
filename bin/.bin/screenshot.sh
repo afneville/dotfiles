@@ -63,4 +63,4 @@ else
 fi
 
 eval "grimshot save ${target} - ${to}"
-# notify-send "${message}" "${filename}"
+notify-send "${message}" "${filename}"
