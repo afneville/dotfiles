@@ -50,7 +50,7 @@ while getopts "t:s" opt; do
     esac
 done
 
-#determine theme to set
+# determine theme to set
 if [ $interactive -eq 0 ]; then
     if [ -z "${theme_name}" ]; then
         usage
@@ -80,7 +80,7 @@ for c in base0{0..9} base0{A..F}; do
 done
 
 # shell colours
-put_template 0 "$(add_slashes "${theme[2]}")"
+put_template 0 "$(add_slashes "${theme[0]}")"
 put_template 1 "$(add_slashes "${theme[8]}")"
 put_template 2 "$(add_slashes "${theme[11]}")"
 put_template 3 "$(add_slashes "${theme[10]}")"
@@ -101,13 +101,6 @@ put_template 15 "$(add_slashes "${theme[5]}")"
 put_template_var 10 "$(add_slashes "${theme[5]}")"
 put_template_var 11 "$(add_slashes "${theme[0]}")"
 put_template_custom 12 ";7"
-
-put_template 16 "$(add_slashes "${theme[9]}")"
-put_template 17 "$(add_slashes "${theme[15]}")"
-put_template 18 "$(add_slashes "${theme[1]}")"
-put_template 19 "$(add_slashes "${theme[2]}")"
-put_template 20 "$(add_slashes "${theme[4]}")"
-put_template 21 "$(add_slashes "${theme[6]}")"
 
 if [ $shell_only -eq 1 ]; then
     exit # done

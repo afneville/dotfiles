@@ -9,7 +9,7 @@ white = "#%col5%"
 yellow = "#%col10%"
 
 [colors.normal]
-black = "#%col2%"
+black = "#%col0%"
 blue = "#%col13%"
 cyan = "#%col12%"
 green = "#%col11%"

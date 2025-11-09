@@ -9,12 +9,22 @@ input "type:touchpad" {
 }
 
 input "type:keyboard" {
+    # xkb_layout "uk_mac_remapped"
+    # xkb_options "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+    # xkb_options "caps:ctrl_modifier"
+    repeat_delay 200
+    repeat_rate 50
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_layout "uk_mac_remapped"
     xkb_options "caps:ctrl_modifier,altwin:swap_lalt_lwin"
     xkb_options "caps:ctrl_modifier"
     repeat_delay 200
     repeat_rate 50
 }
+
+
 input "13364:53296:Keychron__Keychron_Link__Keyboard" {
     xkb_layout "us"
     repeat_delay 200

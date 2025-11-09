@@ -77,28 +77,28 @@
     "format-icons": ["", ""]
   },
   "clock": {
-    "format": " {:%H:%M  %d/%m}"
+    "format": "{:%H:%M %d/%m}"
   },
   "cpu": {
-    "format": " {usage}%",
+    "format": "CPU {usage}",
     "tooltip": false
   },
   "memory": {
-    "format": " {}%"
+    "format": "RAM {}"
   },
   "disk": {
     "interval": 30,
-    "format": "󰋊 {percentage_used}%",
+    "format": "SSD {percentage_used}",
     "path": "/"
   },
   "temperature": {
     "critical-threshold": 80,
-    "format": "{icon} {temperatureC}°C",
+    "format": "TEMP {temperatureC}",
     "format-icons": ["", "", ""]
   },
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{icon} {percent}%",
+    "format": "BRIGHT {percent}",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
   "battery": {
@@ -107,33 +107,33 @@
       "warning": 50,
       "critical": 20
     },
-    "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
+    "format": "BATT {capacity}",
+    "format-charging": "BATT {capacity}",
+    "format-plugged": "BATT {capacity}",
     "format-icons": ["", "", "", "", ""]
   },
   "network": {
-    "format-wifi": "  {ipaddr}",
-    "format-ethernet": "󰈀  {ipaddr}",
-    "format-linked": "(No IP)",
-    "format-disconnected": " 󰲛 "
+    "format-wifi": " WIFI {ipaddr}",
+    "format-ethernet": " ETH  {ipaddr}",
+    "format-linked": " NO IP",
+    "format-disconnected": " OFF"
   },
   "pulseaudio": {
     "scroll-step": 1,
-    "format": "󰕾 {volume}% {format_source}",
-    "format-muted": " 󰖁 {format_source}",
-    "format-bluetooth": " {volume}% {format_source}",
-    "format-bluetooth-muted": " 󰖁 {format_source}",
-    "format-source": " ",
-    "format-source-muted": " ",
+    "format": "VOL {volume} {format_source}",
+    "format-muted": "MUTED {format_source}",
+    "format-bluetooth": "VOL {volume} {format_source}",
+    "format-bluetooth-muted": "MUTED {format_source}",
+    "format-source": "MIC ON",
+    "format-source-muted": "MIC OFF",
     "format-icons": {
-      "headphone": "",
+      "headphone": "",
       "hands-free": "",
       "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
     }
   },
   "tray": {
@@ -144,11 +144,11 @@
     "tooltip": false,
     "format": "{icon}",
     "format-icons": {
-      "notification": "󱅫 ",
-      "none": "󰂜 ",
+      "notification": "*",
+      "none": "",
       // "dnd-notification": "󰂛 ",
-      "dnd-notification": "󰪑 ",
-      "dnd-none": "󰪑 ",
+      "dnd-notification": "DND*",
+      "dnd-none": "DND",
       "inhibited-notification": "  ",
       "inhibited-none": "  ",
       "dnd-inhibited-notification": "  ",

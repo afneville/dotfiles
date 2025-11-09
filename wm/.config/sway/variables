@@ -7,11 +7,3 @@ set $up k
 set $right l
 set $term alacritty
 set $menu wofi --show=drun --lines=5 --prompt=""
-
-# set $signal-command signal-desktop --use-tray-icon --enable-features=UseOzonePlatform --ozone-platform=wayland
-# set $slack-command slack --ozone-platform-hint=wayland
-# set $mail-workspace 11
-# set $music-workspace 12
-# set $ferdium-workspace 13
-# set $signal-workspace 14
-# set $slack-workspace 15

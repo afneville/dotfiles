@@ -11,7 +11,7 @@ smart_borders on
 focus_wrapping no
 mouse_warping container
 seat seat0 hide_cursor when-typing enable
-seat seat0 xcursor_theme default 40
+# seat seat0 xcursor_theme default 40
 default_floating_border pixel 2
 smart_gaps on
 # hide_edge_borders both

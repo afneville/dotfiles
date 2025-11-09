@@ -1,8 +1,6 @@
 include /etc/sway/config.d/*
-exec_always ~/.config/sway/display-config.sh
 include colours
 include variables
-include monitor-variables
 include devices
 include keybindings
 include rules

@@ -1,6 +1,7 @@
 output eDP-1 alias $laptop
-output "BNQ BenQ PD2700U ETN4P00759SL0" alias $vert
-output "BNQ BenQ PD2700U ETGAM01835SL0" alias $horiz
+output "BNQ BenQ PD2700U ETN4P00759SL0" alias $bottom
+output "BNQ BenQ PD2700U ETGAM01835SL0" alias $top
+output "BNQ BenQ PD2705U C4S03694019" alias $vert
 
 profile laptop {
 	output eDP-1 enable
@@ -9,42 +10,43 @@ profile laptop {
 
 profile home {
 	output $laptop disable
-	output $vert enable transform 90 position 0,0
-        output $horiz enable position 2160,960
-	exec swaymsg workspace 1 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 1, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 3 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 3, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 5 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 5, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 7 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 7, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 9 output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 9, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 2 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 2, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 4 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 4, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 6 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 6, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 8 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 8, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 10 output '"BNQ BenQ PD2700U ETGAM01835SL0"' workspace 10, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 2, workspace 1
+	output $top position 0,0 mode 3840x2160@60Hz
+  output $bottom enable position 0,2160 mode 3840x2160@60Hz
+  output $vert enable transform 270 position 3840,0
+	exec swaymsg workspace 1 output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 1, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 2 output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 2, move workspace to output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 3 output '"BNQ BenQ PD2700U ETGAM01835SL0"', workspace 3,  move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 4 output '"BNQ BenQ PD2700U ETN4P00759SL0"' workspace 4, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 5 output '"BNQ BenQ PD2700U ETN4P00759SL0"' workspace 5, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 5 output '"BNQ BenQ PD2700U ETN4P00759SL0"' workspace 6, move workspace to output '"BNQ BenQ PD2700U ETN4P00759SL0"', workspace 7 output '"BNQ BenQ PD2705U C4S03694019"' workspace 7, move workspace to output '"BNQ BenQ PD2705U C4S03694019"', workspace 8 output '"BNQ BenQ PD2705U C4S03694019"' workspace 8, move workspace to output '"BNQ BenQ PD2705U C4S03694019"', workspace 9 output '"BNQ BenQ PD2705U C4S03694019"' workspace 9, move workspace to output '"BNQ BenQ PD2705U C4S03694019"', workspace 1, workspace 4, workspace 7
 }
 
 profile {
 	output $laptop disable
-	output $vert enable transform 90 position 0,0
+	output $bottom enable transform 90 position 0,0 mode 3840x2160@60Hz
 	exec swaymsg workspace 1
 }
 
 profile {
 	output $laptop disable
-	output $horiz enable position 0,0
+	output $top enable position 0,0 mode 3840x2160@60Hz
 	exec swaymsg workspace 1
 }
 
-profile vert {
+profile bottom {
 	output $laptop disable
-	output $horiz disable
-	output $vert enable transform 90 position 0,0
+	output $top disable
+	output $bottom enable transform 90 position 0,0 mode 3840x2160@60Hz
 	exec swaymsg workspace 1
 }
 
-profile horiz {
+profile top {
 	output $laptop disable
-	output $vert disable
-	output $horiz enable position 0,0
+	output $bottom disable
+	output $top enable position 0,0 mode 3840x2160@60Hz
 	exec swaymsg workspace 1
 }
 
-profile default {
-	output * disable
-	output eDP-1 enable
-	exec swaymsg workspace 1
-}
+# profile default {
+# 	output * disable
+# 	output eDP-1 enable
+# 	exec swaymsg workspace 1
+# }
 
 profile all {
 	output * enable

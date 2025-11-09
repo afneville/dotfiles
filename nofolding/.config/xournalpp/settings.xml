@@ -15,9 +15,9 @@
   <property name="zoomStepScroll" value="2"/>
   <property name="displayDpi" value="72"/>
   <property name="mainWndWidth" value="2160"/>
-  <property name="mainWndHeight" value="3814"/>
+  <property name="mainWndHeight" value="3811"/>
   <property name="maximized" value="false"/>
-  <property name="showToolbar" value="true"/>
+  <property name="showToolbar" value="false"/>
   <property name="showSidebar" value="false"/>
   <property name="sidebarWidth" value="50"/>
   <property name="sidebarNumberingStyle" value="1"/>
@@ -82,7 +82,7 @@
   <property name="gtkTouchInertialScrolling" value="true"/>
   <property name="pressureGuessing" value="false"/>
   <property name="selectionBorderColor" value="4288266737"/>
-  <property name="backgroundColor" value="4292664021"/>
+  <property name="backgroundColor" value="4279768598"/>
   <property name="selectionMarkerColor" value="4285702095"/>
   <property name="touchZoomStartThreshold" value="0"/>
   <property name="pageRerenderThreshold" value="5"/>
@@ -193,6 +193,18 @@
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
   </data>
+  <data name="lastUsedPageBgColor">
+    <attribute name="color00" type="hex" value="ff1e1e2e"/>
+    <attribute name="color01" type="hex" value="ffffffff"/>
+    <attribute name="color02" type="hex" value="ffffffff"/>
+    <attribute name="color03" type="hex" value="ffffffff"/>
+    <attribute name="color04" type="hex" value="ffffffff"/>
+    <attribute name="color05" type="hex" value="ffffffff"/>
+    <attribute name="color06" type="hex" value="ffffffff"/>
+    <attribute name="color07" type="hex" value="ffffffff"/>
+    <attribute name="color08" type="hex" value="ffffffff"/>
+    <attribute name="count" type="int" value="9"/>
+  </data>
   <data name="tools">
     <attribute name="current" type="string" value="pen"/>
     <data name="drawArrow">
@@ -232,7 +244,7 @@
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="pen">
-      <attribute name="color" type="hex" value="ff0000"/>
+      <attribute name="color" type="hex" value="00c0ff"/>
       <attribute name="drawingType" type="string" value="default"/>
       <attribute name="fill" type="int" value="0"/>
       <attribute name="fillAlpha" type="int" value="128"/>
