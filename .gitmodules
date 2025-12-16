@@ -1,9 +1,12 @@
 [submodule "submodules/.config/nvim"]
-	path = submodules/.config/nvim
-	url = git@github.com:afneville/nvim-config.git
+path = submodules/.config/nvim
+branch = main
+url = ../nvim-config.git
 [submodule "submodules/.config/emacs"]
-	path = submodules/.config/emacs
-	url = git@github.com:afneville/emacs-config.git
+path = submodules/.config/emacs
+branch = main
+url = ../emacs-config.git
 [submodule "submodules/.themes"]
-	path = submodules/.themes
-	url = git@github.com:afneville/b16-themes.git
+path = submodules/.themes
+branch = main
+url = ../b16-themes.git
