@@ -113,7 +113,7 @@ source_file "$ZDOTDIR/prompt.sh"
 source_file "$HOME/.aliasrc.sh"
 source_file "$HOME/.sh_theme.sh"
 
-theme.sh -s -t $shell_theme
+[ -n "$shell_theme" ] && theme.sh -s -t $shell_theme
 
 # paste before
 vi-prepend-gui-clipboard () { LBUFFER=$LBUFFER$(wl-paste </dev/null); }

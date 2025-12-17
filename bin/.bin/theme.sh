@@ -50,13 +50,11 @@ while getopts "t:s" opt; do
     esac
 done
 
-# determine theme to set
 if [ $interactive -eq 0 ]; then
     if [ -z "${theme_name}" ]; then
         usage
     fi
     if [ ! -f "${theme_dir}/${theme_name}.yaml" ]; then
-        # echo "theme \"${theme_name}\" not found"
         exit 1
     else
         choice=$theme_name
@@ -75,7 +73,6 @@ fi
 
 theme_path="${theme_dir}/${choice}.yaml"
 
-# Parse YAML and export as environment variables
 for i in {0..9}; do
     val=$(sed -ne 's/base0'"${i}"': "\(.*\)".*/\1/p' "$theme_path")
     export "COL${i}=${val}"
@@ -87,7 +84,6 @@ for i in {10..15}; do
     export "COL${i}=${val}"
 done
 
-# shell colours
 set_palette_color 0 "$(add_slashes "$COL0")"  # black
 set_palette_color 1 "$(add_slashes "$COL8")"  # red
 set_palette_color 2 "$(add_slashes "$COL11")" # green
@@ -116,7 +112,6 @@ fi
 
 printf "#!/bin/sh\nshell_theme=\"%s\"" "$choice" >~/.sh_theme.sh
 
-# Define template files
 template_files=(
     "$HOME/.Xresources.conf.d/colours.in"
     "$HOME/.config/alacritty/colours.toml.in"
@@ -131,10 +126,9 @@ template_files=(
     "$HOME/.config/nvim/colors/b16-inherit-from-shell.vim.in"
 )
 
-# Process each template file using envsubst
 for template in "${template_files[@]}"; do
     if [ -f "$template" ]; then
-        output="${template%.in}"  # Remove .in suffix
+        output="${template%.in}"
         envsubst < "$template" > "$output"
     fi
 done
