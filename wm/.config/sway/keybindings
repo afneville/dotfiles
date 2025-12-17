@@ -145,7 +145,7 @@ mode "run" {
 bindsym $mod+r mode "run"
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec firefox
+bindsym $mod+Shift+Return exec flatpak run org.mozilla.firefox
 
 ## Workspaces
 bindsym $mod+1 workspace --no-auto-back-and-forth number 1
