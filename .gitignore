@@ -18,6 +18,7 @@ wm/.config/sway/display-config.sh
 wm/.config/waybar/colours.css
 wm/.config/swaync/colours.css
 wm/.config/swaylock/config
+shell/.sh_theme.sh
 vifminfo.json
 vifminfo*
 vifm-help.txt

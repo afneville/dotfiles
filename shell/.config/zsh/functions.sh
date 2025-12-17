@@ -1,6 +1,7 @@
 #!/bin/sh
 
-alias fzf_select="fzf --reverse --no-bold --highlight-line --color='16,current-bg:-1,hl:-1,current-hl:12,current-fg:12,prompt:yellow'"
+# alias fzf_select="fzf --reverse --no-bold --highlight-line --color='16,current-bg:-1,hl:-1,current-hl:12,current-fg:12,prompt:yellow'"
+alias fzf_select="fzf --height=20 --border=none --reverse --no-separator --ansi --color=16"
 
 fd() {
     choice="$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/cloud' \) -prune -false -o -type d | fzf_select)"
