@@ -1,8 +1,8 @@
 # vim: ft=swayconfig
 # target                title      bg     text   indicator  border
-client.focused          #%col13%  #%col2%  #%col5% #%col13% #%col13%
-client.focused_inactive #%col13%  #%col2%  #%col5% #%col3% #%col3%
-client.unfocused        #%col13%  #%col2%  #%col5% #%col3% #%col3%
-client.urgent           #%col13%  #%col2%  #%col5% #%col3% #%col3%
+client.focused          #${COL13}  #${COL2}  #${COL5} #${COL13} #${COL13}
+client.focused_inactive #${COL13}  #${COL2}  #${COL5} #${COL3} #${COL3}
+client.unfocused        #${COL13}  #${COL2}  #${COL5} #${COL3} #${COL3}
+client.urgent           #${COL13}  #${COL2}  #${COL5} #${COL3} #${COL3}
 
-output * bg #%col0% solid_color
+output * bg #${COL0} solid_color

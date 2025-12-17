@@ -1,19 +1,19 @@
-#define base00 #%col0%
-#define base01 #%col1%
-#define base02 #%col2%
-#define base03 #%col3%
-#define base04 #%col4%
-#define base05 #%col5%
-#define base06 #%col6%
-#define base07 #%col7%
-#define base08 #%col8%
-#define base09 #%col9%
-#define base0A #%col10%
-#define base0B #%col11%
-#define base0C #%col12%
-#define base0D #%col13%
-#define base0E #%col14%
-#define base0F #%col15%
+#define base00 #${COL0}
+#define base01 #${COL1}
+#define base02 #${COL2}
+#define base03 #${COL3}
+#define base04 #${COL4}
+#define base05 #${COL5}
+#define base06 #${COL6}
+#define base07 #${COL7}
+#define base08 #${COL8}
+#define base09 #${COL9}
+#define base0A #${COL10}
+#define base0B #${COL11}
+#define base0C #${COL12}
+#define base0D #${COL13}
+#define base0E #${COL14}
+#define base0F #${COL15}
 *foreground:   base05
 *background:   base00
 *cursorColor:  base05

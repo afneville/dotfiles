@@ -1,10 +1,10 @@
 [color]
-fg = #%col5%
-bg = #%col1%
-border = #%col3%
-red = #%col8%
-green = #%col11%
-yellow = #%col10%
-blue = #%col13%
-magenta = #%col14%
-cyan = #%col12%
+fg = #${COL5}
+bg = #${COL1}
+border = #${COL3}
+red = #${COL8}
+green = #${COL11}
+yellow = #${COL10}
+blue = #${COL13}
+magenta = #${COL14}
+cyan = #${COL12}
