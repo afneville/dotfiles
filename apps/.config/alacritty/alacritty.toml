@@ -78,3 +78,6 @@ lines = 40
 [window.padding]
 x = 0
 y = 0
+
+[terminal]
+shell = { program = "/bin/sh", args = ["-c", "exec tmux new-session -s \"tmp_$$\""] }

@@ -18,6 +18,10 @@ red = "#${COL8}"
 white = "#${COL5}"
 yellow = "#${COL10}"
 
+[colors.cursor]
+cursor = "#${COL5}"
+text = "#${COL0}"
+
 [colors.primary]
 background = "#${COL0}"
 foreground = "#${COL5}"
