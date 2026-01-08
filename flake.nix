@@ -1,14 +1,15 @@
 {
   description = "Development Environment Packages";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
-
   outputs = { self, nixpkgs }: let
     supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-    forAllSystems = function: nixpkgs.lib.genAttrs supportedSystems (system:
-      function nixpkgs.legacyPackages.${system}
+    forAllSystems = packageBuilder: nixpkgs.lib.genAttrs supportedSystems (system:
+      packageBuilder (import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      })
     );
   in {
     packages = forAllSystems (pkgs: let
@@ -19,8 +20,7 @@
               lazy-nvim
               nvim-treesitter.withAllGrammars
             ];
-          };
-          customRC = ''
+          }; customRC = ''
             lua << EOF
               vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site")
               vim.opt.rtp:prepend(vim.fn.stdpath("config"))
@@ -37,6 +37,7 @@
         name = "dev-env-packages";
         paths = with pkgs; [
           nvim
+          stow
           lua
           lua-language-server
           stylua
@@ -60,6 +61,8 @@
           htop
           openssh
           tmux
+          terraform
+          awscli2
         ];
       };
     });

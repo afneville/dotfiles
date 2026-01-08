@@ -1,0 +1,201 @@
+- name: Deploy dotfiles
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    dotfiles_dir: "{{ ansible_env.HOME }}/vcon/personal/dotfiles"
+    stow_target: "{{ ansible_env.HOME }}"
+    nix_profile_bin: "{{ ansible_env.HOME }}/.nix-profile/bin"
+
+    stow_packages:
+      - shell
+      - apps
+      - submodules
+
+    stow_packages_no_folding:
+      - nofolding
+
+    directories:
+      - "{{ ansible_env.HOME }}/vcon/personal"
+      - "{{ ansible_env.HOME }}/vcon/university"
+      - "{{ ansible_env.HOME }}/.config"
+      - "{{ ansible_env.HOME }}/.local/bin"
+      - "{{ ansible_env.HOME }}/.local/share"
+      - "{{ ansible_env.HOME }}/.config/systemd/user"
+
+    additional_repos: []
+
+  tasks:
+
+    - name: Create directory structure
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ directories }}"
+
+    - name: Sync git submodule URLs
+      ansible.builtin.command:
+        cmd: git submodule sync --recursive
+        chdir: "{{ dotfiles_dir }}"
+      changed_when: false
+
+    - name: Initialise git submodules
+      ansible.builtin.command:
+        cmd: git submodule update --init --remote --recursive
+        chdir: "{{ dotfiles_dir }}"
+      register: submodule_result
+      changed_when: submodule_result.stdout | length > 0
+
+    - name: Clone additional repositories
+      ansible.builtin.git:
+        repo: "{{ item.url }}"
+        dest: "{{ item.dest }}"
+        version: "{{ item.version | default('main') }}"
+        update: true
+      loop: "{{ additional_repos }}"
+      when: additional_repos | length > 0
+
+    - name: Check if Nix is available
+      ansible.builtin.stat:
+        path: /nix
+      register: nix_installed
+
+    - name: Fetch Nix install script
+      ansible.builtin.get_url:
+        url: https://nixos.org/nix/install
+        dest: /tmp/nix-install.sh
+        mode: '0755'
+      when: not nix_installed.stat.exists
+
+    - name: Install Nix
+      ansible.builtin.command:
+        cmd: /tmp/nix-install.sh --daemon --yes
+      become: true
+      when: not nix_installed.stat.exists
+      register: nix_install_result
+      changed_when: nix_install_result.rc == 0
+
+    - name: Clean up Nix install script
+      ansible.builtin.file:
+        path: /tmp/nix-install.sh
+        state: absent
+
+    - name: Ensure Nix config directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/nix"
+        state: directory
+        mode: '0755'
+
+    - name: Enable flakes and nix-command
+      ansible.builtin.copy:
+        dest: "{{ ansible_env.HOME }}/.config/nix/nix.conf"
+        content: |
+          experimental-features = nix-command flakes
+        mode: '0644'
+
+    - name: Configure nixpkgs to allow unfree packages
+      ansible.builtin.copy:
+        dest: "{{ ansible_env.HOME }}/.config/nix/config.nix"
+        content: |
+          { allowUnfree = true; }
+        mode: '0644'
+
+    - name: Check if flake.nix exists
+      ansible.builtin.stat:
+        path: "{{ dotfiles_dir }}/flake.nix"
+      register: flake_exists
+
+    - name: Check if profile is installed
+      ansible.builtin.shell:
+        cmd: bash -lc 'nix profile list | grep -q dotfiles'
+      register: profile_installed
+      changed_when: false
+      failed_when: false
+      when: flake_exists.stat.exists
+
+    - name: Install Nix profile from flake
+      ansible.builtin.shell:
+        cmd: bash -lc 'nix profile install {{ dotfiles_dir }}#default'
+      environment:
+        NIXPKGS_ALLOW_UNFREE: "1"
+      when:
+        - flake_exists.stat.exists
+        - profile_installed.rc != 0
+      register: nix_profile_install
+      changed_when: nix_profile_install.rc == 0
+
+    - name: Upgrade Nix profile
+      ansible.builtin.shell:
+        cmd: bash -lc 'nix profile upgrade dotfiles'
+      environment:
+        NIXPKGS_ALLOW_UNFREE: "1"
+      when:
+        - flake_exists.stat.exists
+        - profile_installed.rc == 0
+      register: nix_profile_upgrade
+      changed_when: "'upgraded' in nix_profile_upgrade.stdout"
+
+    - name: Check for existing shell config files
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/{{ item }}"
+      loop:
+        - .bashrc
+        - .bash_profile
+        - .bash_login
+        - .profile
+        - .zshrc
+        - .zshenv
+        - .zprofile
+        - .zlogin
+      register: shell_configs
+
+    - name: Backup existing shell config files
+      ansible.builtin.command:
+        cmd: mv {{ ansible_env.HOME }}/{{ item.item }} {{ ansible_env.HOME }}/{{ item.item }}.bak
+      loop: "{{ shell_configs.results }}"
+      when:
+        - item.stat.exists
+        - not item.stat.islnk
+      register: backup_result
+      changed_when: backup_result.rc == 0
+
+    - name: Deploy stow packages
+      ansible.builtin.command:
+        cmd: "{{ nix_profile_bin }}/stow -t {{ stow_target }} {{ item }}"
+        chdir: "{{ dotfiles_dir }}"
+      loop: "{{ stow_packages }}"
+      register: stow_result
+      changed_when: stow_result.rc == 0
+      failed_when: false
+      when: stow_packages | length > 0
+
+    - name: Deploy stow packages without folding
+      ansible.builtin.command:
+        cmd: "{{ nix_profile_bin }}/stow -t {{ stow_target }} --no-folding {{ item }}"
+        chdir: "{{ dotfiles_dir }}"
+      loop: "{{ stow_packages_no_folding }}"
+      register: stow_no_folding_result
+      changed_when: stow_no_folding_result.rc == 0
+      failed_when: false
+      when: stow_packages_no_folding | length > 0
+
+    - name: Report stow conflicts
+      ansible.builtin.debug:
+        msg: "Stow conflict for {{ item.item }}: {{ item.stderr }}"
+      loop: "{{ (stow_result.results | default([])) + (stow_no_folding_result.results | default([])) }}"
+      when: item.rc is defined and item.rc != 0
+
+    - name: Set remote URLs to SSH
+      ansible.builtin.command:
+        cmd: git remote set-url origin git@github.com:afneville/dotfiles.git
+        chdir: "{{ dotfiles_dir }}"
+      changed_when: false
+      failed_when: false
+
+    - name: Sync git submodule URLs
+      ansible.builtin.command:
+        cmd: git submodule sync --recursive
+        chdir: "{{ dotfiles_dir }}"
+      changed_when: false
