@@ -34,6 +34,8 @@
     additional_repos:
       - url: git@github.com:afneville/website.git
         dest: "{{ ansible_facts.env.HOME }}/vcon/personal/website"
+      - url: git@github.com:afneville/photos.git
+        dest: "{{ ansible_facts.env.HOME }}/vcon/personal/photos"
 
     system_packages:
       apt:
@@ -90,13 +92,6 @@
         - full_install | bool
         - systemd_running.stat.exists
 
-    - name: Discover GPG SSH socket path
-      ansible.builtin.command:
-        cmd: gpgconf --list-dirs agent-ssh-socket
-      register: gpg_ssh_socket
-      changed_when: false
-      failed_when: false
-
     - name: Sync git submodule URLs
       ansible.builtin.command:
         cmd: git submodule sync --recursive
@@ -107,23 +102,12 @@
       ansible.builtin.command:
         cmd: git submodule update --init --remote --recursive
         chdir: "{{ dotfiles_dir }}"
-      environment: "{{ {'SSH_AUTH_SOCK': ansible_facts.env.SSH_AUTH_SOCK} if 'SSH_AUTH_SOCK' in ansible_facts.env else ({'SSH_AUTH_SOCK': gpg_ssh_socket.stdout} if gpg_ssh_socket.rc == 0 and gpg_ssh_socket.stdout | length > 0 else {}) }}"
       register: submodule_result
       changed_when: submodule_result.stdout | length > 0
 
-    - name: Clone additional repositories
-      ansible.builtin.command:
-        cmd: git clone {{ item.url }} {{ item.dest }}
-        creates: "{{ item.dest }}"
-      environment: "{{ {'SSH_AUTH_SOCK': ansible_facts.env.SSH_AUTH_SOCK} if 'SSH_AUTH_SOCK' in ansible_facts.env else ({'SSH_AUTH_SOCK': gpg_ssh_socket.stdout} if gpg_ssh_socket.rc == 0 and gpg_ssh_socket.stdout | length > 0 else {}) }}"
-      loop: "{{ additional_repos }}"
-      when:
-        - full_install | bool
-        - additional_repos | length > 0
-
     - name: Check if Nix is available
       ansible.builtin.stat:
-        path: /nix
+        path: /nix/var/nix/profiles/default/bin/nix
       register: nix_installed
 
     - name: Fetch Nix install script
@@ -255,6 +239,34 @@
         msg: "Stow conflict for {{ item.item }}: {{ item.stderr }}"
       loop: "{{ (stow_result.results | default([])) + (stow_no_folding_result.results | default([])) }}"
       when: item.rc is defined and item.rc != 0
+
+    - name: Set GPG home directory permissions
+      ansible.builtin.file:
+        path: "{{ ansible_facts.env.HOME }}/.config/gpg"
+        mode: '0700'
+
+    - name: Restart gpg-agent
+      ansible.builtin.command:
+        cmd: gpgconf --kill gpg-agent
+      changed_when: false
+
+    - name: Discover GPG SSH socket path
+      ansible.builtin.command:
+        cmd: gpgconf --list-dirs agent-ssh-socket
+      register: gpg_ssh_socket
+      changed_when: false
+      failed_when: false
+
+    - name: Clone additional repositories
+      ansible.builtin.git:
+        repo: "{{ item.url }}"
+        dest: "{{ item.dest }}"
+        update: no
+      environment: "{{ {'SSH_AUTH_SOCK': ansible_facts.env.SSH_AUTH_SOCK} if 'SSH_AUTH_SOCK' in ansible_facts.env else ({'SSH_AUTH_SOCK': gpg_ssh_socket.stdout} if gpg_ssh_socket.rc == 0 and gpg_ssh_socket.stdout | length > 0 else {}) }}"
+      loop: "{{ additional_repos }}"
+      when:
+        - full_install | bool
+        - additional_repos | length > 0
 
     - name: Set remote URLs to SSH
       ansible.builtin.command:

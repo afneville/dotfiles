@@ -70,6 +70,8 @@
           terraform
           awscli2
           xdg-user-dirs
+          qemu
+          ansible
         ];
       };
     });
