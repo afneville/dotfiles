@@ -12,10 +12,9 @@ sections to independently versioned submodules:
 - [My Emacs Configuration](https://github.com/afneville/emacs-config)
 - [My Theme Collection](https://github.com/afneville/b16-themes)
 
-## Screenshots
+## Screenshot
 
-- Wayland (Sway)
-  ([main](https://github.com/afneville/dotfiles/tree/main))
+![](./screenshots/sway.png)
 
 ## Installation
 
