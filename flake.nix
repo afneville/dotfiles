@@ -13,15 +13,21 @@
     );
   in {
     packages = forAllSystems (pkgs: let
+      treesitter-parsers = pkgs.symlinkJoin {
+        name = "treesitter-parsers";
+        paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+      };
       nvim = pkgs.neovim.override {
         configure = {
           packages.myPlugins = {
             start = with pkgs.vimPlugins; [
               lazy-nvim
-              nvim-treesitter.withAllGrammars
+              nvim-treesitter
+              treesitter-parsers
             ];
           }; customRC = ''
             lua << EOF
+              vim.opt.rtp:prepend("${pkgs.vimPlugins.nvim-treesitter}/runtime")
               vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site")
               vim.opt.rtp:prepend(vim.fn.stdpath("config"))
               local user_init = vim.fn.stdpath("config") .. "/init.lua"
@@ -63,6 +69,7 @@
           tmux
           terraform
           awscli2
+          xdg-user-dirs
         ];
       };
     });
