@@ -12,6 +12,7 @@
       - shell
       - apps
       - submodules
+      - bin
 
     stow_packages_no_folding:
       - nofolding
@@ -46,6 +47,7 @@
         - pcsclite
         - ccid
         - flatpak
+        - zsh
       dnf:
         - pcsc-lite
         - pcsc-lite-ccid
@@ -244,11 +246,24 @@
       ansible.builtin.file:
         path: "{{ ansible_facts.env.HOME }}/.config/gpg"
         mode: '0700'
+      failed_when: false
 
     - name: Restart gpg-agent
       ansible.builtin.command:
         cmd: gpgconf --kill gpg-agent
       changed_when: false
+
+    - name: Launch gpg-agent
+      ansible.builtin.command:
+        cmd: gpgconf --launch gpg-agent
+      changed_when: false
+      failed_when: false
+
+    - name: Update gpg-agent TTY
+      ansible.builtin.shell:
+        cmd: GPG_TTY=$(tty) gpg-connect-agent updatestartuptty /bye
+      changed_when: false
+      failed_when: false
 
     - name: Discover GPG SSH socket path
       ansible.builtin.command:
@@ -272,6 +287,12 @@
       ansible.builtin.command:
         cmd: git remote set-url origin git@github.com:afneville/dotfiles.git
         chdir: "{{ dotfiles_dir }}"
+      changed_when: false
+      failed_when: false
+
+    - name: Sync Neovim plugins
+      ansible.builtin.command:
+        cmd: "{{ nix_profile_bin }}/nvim --headless '+Lazy! sync' +qa"
       changed_when: false
       failed_when: false
 
