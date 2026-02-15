@@ -66,6 +66,7 @@
           jq
           htop
           openssh
+          gnupg
           tmux
           terraform
           awscli2

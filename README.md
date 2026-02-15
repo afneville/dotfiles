@@ -21,11 +21,11 @@ sections to independently versioned submodules:
 Install on a new machine (sudo required):
 
 ```bash
-ansible-pull -U https://github.com/afneville/dotfiles.git -e "full_install=true" -K
+ansible-pull -U https://github.com/afneville/dotfiles.git -K
 ```
 
 Detect drift (drop `--check` to apply):
 
 ```bash
-ansible-playbook local.yml --check -e "full_install=true" -K
+ansible-playbook local.yml --check -K
 ```
