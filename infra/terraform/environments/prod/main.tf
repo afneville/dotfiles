@@ -58,7 +58,7 @@ module "wkd" {
 }
 
 module "vps" {
-  source = "./modules/vps"
+  source = "../../modules/vps"
 
   name                  = var.vps_name
   hosted_zone_id        = var.hosted_zone_id
