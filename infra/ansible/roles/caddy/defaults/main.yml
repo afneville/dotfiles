@@ -1,0 +1,3 @@
+---
+caddy_acme_email: ""
+caddy_config_path: /etc/caddy/Caddyfile

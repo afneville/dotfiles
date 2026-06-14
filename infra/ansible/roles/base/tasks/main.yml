@@ -1,0 +1,30 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install base packages
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    state: present
+
+- name: Enable unattended security updates
+  ansible.builtin.service:
+    name: unattended-upgrades
+    state: started
+    enabled: true
+
+- name: Disable SSH password authentication
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication\\s+"
+    line: "PasswordAuthentication {{ 'yes' if base_ssh_password_authentication else 'no' }}"
+  notify: Reload ssh
+
+- name: Ensure SSH public key authentication is enabled
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PubkeyAuthentication\\s+"
+    line: "PubkeyAuthentication yes"
+  notify: Reload ssh

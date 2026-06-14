@@ -1,0 +1,21 @@
+---
+- name: Install Caddy
+  ansible.builtin.apt:
+    name: caddy
+    state: present
+
+- name: Install Caddyfile
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "{{ caddy_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+    validate: caddy validate --config %s --adapter caddyfile
+  notify: Reload caddy
+
+- name: Ensure Caddy is enabled
+  ansible.builtin.service:
+    name: caddy
+    state: started
+    enabled: true

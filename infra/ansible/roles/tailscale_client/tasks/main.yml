@@ -1,0 +1,78 @@
+---
+- name: Install Tailscale apt signing key
+  ansible.builtin.get_url:
+    url: https://pkgs.tailscale.com/stable/ubuntu/{{ ansible_distribution_release }}.noarmor.gpg
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install Tailscale apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/ubuntu {{ ansible_distribution_release }} main"
+    filename: tailscale
+    state: present
+
+- name: Install Tailscale package
+  ansible.builtin.apt:
+    name: tailscale
+    update_cache: true
+    state: present
+
+- name: Enable tailscaled
+  ansible.builtin.service:
+    name: tailscaled
+    state: started
+    enabled: true
+
+- name: Read Tailscale status
+  ansible.builtin.command: tailscale status --json
+  register: tailscale_client_status
+  changed_when: false
+  failed_when: false
+
+- name: Determine whether Tailscale enrollment is required
+  ansible.builtin.set_fact:
+    tailscale_client_enrollment_required: >-
+      {{
+        tailscale_client_status.rc != 0
+        or (tailscale_client_status.stdout | from_json).BackendState
+          | default('') != 'Running'
+      }}
+
+- name: Create one-use tagged Headscale pre-auth key
+  ansible.builtin.command: >-
+    headscale preauthkeys create
+    --expiration 10m
+    --tags {{ tailscale_client_tags | join(',') }}
+    --output json
+  register: tailscale_client_preauth_key
+  changed_when: true
+  no_log: true
+  when: tailscale_client_enrollment_required
+
+- name: Join Headscale mesh
+  ansible.builtin.command: >-
+    timeout 30s
+    tailscale up
+    --login-server={{ tailscale_client_login_server }}
+    --auth-key={{ (tailscale_client_preauth_key.stdout | from_json).key }}
+    --hostname={{ tailscale_client_hostname }}
+  register: tailscale_client_up
+  changed_when: tailscale_client_up.rc in [0, 124]
+  failed_when: tailscale_client_up.rc not in [0, 124]
+  no_log: true
+  when: tailscale_client_enrollment_required
+
+- name: Wait for Tailscale node registration
+  ansible.builtin.command: tailscale status --json
+  register: tailscale_client_registered_status
+  changed_when: false
+  retries: 6
+  delay: 5
+  until:
+    - tailscale_client_registered_status.rc == 0
+    - >-
+      (tailscale_client_registered_status.stdout | from_json).Self.InNetworkMap
+      | default(false)
+  when: tailscale_client_enrollment_required

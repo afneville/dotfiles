@@ -1,0 +1,5 @@
+---
+data_volume_device: /dev/nvme1n1
+data_volume_mount: /srv
+data_volume_fstype: ext4
+data_volume_label: services-data

@@ -1,0 +1,13 @@
+---
+base_packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - htop
+  - jq
+  - lsb-release
+  - python3-apt
+  - unattended-upgrades
+  - vim
+
+base_ssh_password_authentication: false

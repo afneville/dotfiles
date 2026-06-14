@@ -1,0 +1,46 @@
+---
+- name: Check data device filesystem
+  ansible.builtin.command: "blkid -o value -s TYPE {{ data_volume_device }}"
+  register: data_volume_blkid
+  changed_when: false
+  failed_when: false
+
+- name: Create filesystem on empty data device
+  ansible.builtin.command: >-
+    mkfs.{{ data_volume_fstype }}
+    -L {{ data_volume_label }}
+    {{ data_volume_device }}
+  changed_when: true
+  when: data_volume_blkid.rc != 0
+
+- name: Ensure data mountpoint exists
+  ansible.builtin.file:
+    path: "{{ data_volume_mount }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Mount data volume
+  ansible.posix.mount:
+    path: "{{ data_volume_mount }}"
+    src: "LABEL={{ data_volume_label }}"
+    fstype: "{{ data_volume_fstype }}"
+    opts: defaults,nofail
+    state: mounted
+
+- name: Create service data directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - /srv/caddy/config
+    - /srv/caddy/data
+    - /srv/headscale/config
+    - /srv/headscale/data
+    - /srv/syncthing/config
+    - /srv/syncthing/shared
+    - /srv/backup-staging

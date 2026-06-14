@@ -1,0 +1,9 @@
+{
+{% if caddy_acme_email | length > 0 %}
+	email {{ caddy_acme_email }}
+{% endif %}
+}
+
+{{ vps_vpn_hostname }} {
+	reverse_proxy {{ headscale_listen_addr }}
+}

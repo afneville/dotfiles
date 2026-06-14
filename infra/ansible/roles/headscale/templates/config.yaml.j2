@@ -1,0 +1,39 @@
+server_url: https://{{ headscale_server_hostname }}
+listen_addr: {{ headscale_listen_addr }}
+
+noise:
+  private_key_path: {{ headscale_data_dir }}/noise_private.key
+
+database:
+  type: sqlite
+  sqlite:
+    path: {{ headscale_data_dir }}/db.sqlite
+
+policy:
+  mode: file
+  path: /etc/headscale/policy.hujson
+
+prefixes:
+  v4: 100.64.0.0/10
+  v6: fd7a:115c:a1e0::/48
+
+dns:
+  magic_dns: true
+  base_domain: {{ headscale_dns_base_domain }}
+  override_local_dns: false
+
+derp:
+  server:
+    enabled: true
+    region_id: 999
+    region_code: headscale
+    region_name: Headscale Embedded DERP
+    private_key_path: {{ headscale_data_dir }}/derp_server_private.key
+{% if headscale_derp_ipv4 | length > 0 %}
+    ipv4: {{ headscale_derp_ipv4 }}
+{% endif %}
+    stun_listen_addr: {{ headscale_stun_listen_addr }}
+  urls:
+    - https://controlplane.tailscale.com/derpmap/default
+  auto_update_enabled: true
+  update_frequency: 3h

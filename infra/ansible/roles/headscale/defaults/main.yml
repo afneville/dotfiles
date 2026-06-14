@@ -1,0 +1,15 @@
+---
+headscale_version: 0.28.0
+headscale_arch: amd64
+headscale_deb_url: >-
+  https://github.com/juanfont/headscale/releases/download/v{{ headscale_version
+  }}/headscale_{{ headscale_version }}_linux_{{ headscale_arch }}.deb
+headscale_user: alex
+headscale_config_dir: /etc/headscale
+headscale_data_source: /srv/headscale/data
+headscale_data_dir: /var/lib/headscale
+headscale_listen_addr: 127.0.0.1:8080
+headscale_stun_listen_addr: 0.0.0.0:3478
+headscale_derp_ipv4: ""
+headscale_server_hostname: vpn.example.com
+headscale_dns_base_domain: mesh.example.com

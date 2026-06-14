@@ -1,0 +1,5 @@
+---
+tailscale_client_login_server: "https://{{ headscale_server_hostname }}"
+tailscale_client_hostname: node-1
+tailscale_client_tags:
+  - tag:server

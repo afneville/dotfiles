@@ -1,0 +1,27 @@
+---
+vps_vpn_hostname: vpn.afneville.com
+
+data_volume_device: /dev/nvme1n1
+data_volume_mount: /srv
+
+vps_admin_ssh_users:
+  - ubuntu
+
+caddy_acme_email: contact@afneville.com
+
+headscale_version: 0.28.0
+headscale_user: alex
+headscale_listen_addr: 127.0.0.1:8080
+headscale_stun_listen_addr: 0.0.0.0:3478
+headscale_derp_ipv4: ""
+headscale_server_hostname: vpn.afneville.com
+headscale_dns_base_domain: mesh.afneville.com
+
+tailscale_client_hostname: node-1
+tailscale_client_tags:
+  - tag:server
+
+syncthing_image: docker.io/syncthing/syncthing:2.1.1
+syncthing_gui_address: 127.0.0.1:8384
+syncthing_sync_port: 22000
+syncthing_shared_dir: /srv/syncthing/shared
