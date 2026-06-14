@@ -157,11 +157,11 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_instance" "this" {
-  ami                         = data.aws_ami.ubuntu_lts.id
-  instance_type               = var.instance_type
-  subnet_id                   = aws_subnet.public.id
-  vpc_security_group_ids      = [aws_security_group.this.id]
-  key_name                    = aws_key_pair.this.key_name
+  ami                    = data.aws_ami.ubuntu_lts.id
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.public.id
+  vpc_security_group_ids = [aws_security_group.this.id]
+  key_name               = aws_key_pair.this.key_name
 
   root_block_device {
     encrypted   = true
@@ -178,10 +178,14 @@ resource "aws_instance" "this" {
   tags = merge(local.tags, {
     Name = var.name
   })
+
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }
 
 resource "aws_ebs_volume" "data" {
-  availability_zone = aws_instance.this.availability_zone
+  availability_zone = aws_subnet.public.availability_zone
   encrypted         = true
   size              = var.data_volume_size_gb
   type              = "gp3"
@@ -189,6 +193,10 @@ resource "aws_ebs_volume" "data" {
   tags = merge(local.tags, {
     Name = "${var.name}-data"
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_volume_attachment" "data" {
