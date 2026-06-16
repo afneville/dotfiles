@@ -46,6 +46,14 @@
     opts: bind
     state: mounted
 
+- name: Ensure mounted Headscale data is owned by Headscale
+  ansible.builtin.file:
+    path: "{{ headscale_data_dir }}"
+    state: directory
+    owner: headscale
+    group: headscale
+    recurse: true
+
 - name: Install Headscale config
   ansible.builtin.template:
     src: config.yaml.j2

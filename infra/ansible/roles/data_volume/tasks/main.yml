@@ -41,6 +41,3 @@
     - /srv/caddy/data
     - /srv/headscale/config
     - /srv/headscale/data
-    - /srv/syncthing/config
-    - /srv/syncthing/shared
-    - /srv/backup-staging

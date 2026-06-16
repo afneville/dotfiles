@@ -1,4 +1,11 @@
 locals {
+  user_data = <<-EOT
+#cloud-config
+hostname: ${var.name}
+preserve_hostname: false
+manage_etc_hosts: true
+  EOT
+
   tags = merge(var.tags, {
     Name      = var.name
     ManagedBy = "terraform"
@@ -162,6 +169,7 @@ resource "aws_instance" "this" {
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.this.id]
   key_name               = aws_key_pair.this.key_name
+  user_data              = local.user_data
 
   root_block_device {
     encrypted   = true

@@ -1,0 +1,64 @@
+---
+- name: Ensure APT keyring directory exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install Syncthing release key
+  ansible.builtin.get_url:
+    url: "{{ syncthing_apt_key_url }}"
+    dest: "{{ syncthing_apt_key_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install Syncthing APT repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [signed-by={{ syncthing_apt_key_path }}]
+      https://apt.syncthing.net/ syncthing {{ syncthing_apt_channel }}
+    filename: syncthing
+    state: present
+
+- name: Install Syncthing
+  ansible.builtin.apt:
+    name: syncthing
+    state: present
+    update_cache: true
+
+- name: Create Syncthing group
+  ansible.builtin.group:
+    name: "{{ syncthing_group }}"
+    system: true
+    state: present
+
+- name: Create Syncthing user
+  ansible.builtin.user:
+    name: "{{ syncthing_user }}"
+    group: "{{ syncthing_group }}"
+    home: "{{ syncthing_home }}"
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+    state: present
+
+- name: Ensure Syncthing directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ syncthing_user }}"
+    group: "{{ syncthing_group }}"
+    mode: "0750"
+  loop:
+    - "{{ syncthing_home }}"
+    - "{{ syncthing_shared_dir }}"
+
+- name: Enable and start Syncthing
+  ansible.builtin.systemd_service:
+    name: "syncthing@{{ syncthing_user }}.service"
+    state: started
+    enabled: true
+    daemon_reload: true

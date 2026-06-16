@@ -12,10 +12,20 @@
     group: root
     mode: "0644"
     validate: caddy validate --config %s --adapter caddyfile
-  notify: Reload caddy
 
 - name: Ensure Caddy is enabled
   ansible.builtin.service:
     name: caddy
     state: started
     enabled: true
+
+- name: Load Caddy configuration
+  ansible.builtin.service:
+    name: caddy
+    state: reloaded
+
+- name: Wait for Caddy HTTPS listener
+  ansible.builtin.wait_for:
+    host: 127.0.0.1
+    port: 443
+    timeout: 60

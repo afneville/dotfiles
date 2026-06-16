@@ -1,0 +1,8 @@
+---
+syncthing_apt_channel: stable-v2
+syncthing_apt_key_url: https://syncthing.net/release-key.gpg
+syncthing_apt_key_path: /etc/apt/keyrings/syncthing-archive-keyring.gpg
+syncthing_user: syncthing
+syncthing_group: syncthing
+syncthing_home: /srv/syncthing
+syncthing_shared_dir: /srv/syncthing/sync

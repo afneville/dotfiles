@@ -1,6 +1,6 @@
 ---
 - name: Bootstrap VPS host
-  hosts: node-1
+  hosts: server-1
   become: true
   tags:
     - bootstrap
@@ -9,11 +9,12 @@
     - role: data_volume
 
 - name: Deploy mesh VPN and Syncthing services
-  hosts: node-1
+  hosts: server-1
   become: true
   tags:
     - services
   roles:
-    - role: caddy
     - role: headscale
+    - role: caddy
     - role: tailscale_client
+    - role: syncthing

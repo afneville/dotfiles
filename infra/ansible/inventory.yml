@@ -1,5 +1,5 @@
 ---
 vps:
   hosts:
-    node-1:
+    server-1:
       ansible_user: ubuntu
