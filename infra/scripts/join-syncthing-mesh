@@ -1,0 +1,146 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    cat <<'EOF'
+Usage:
+  join-syncthing-mesh \
+    --server-ip SERVER_HEADSCALE_IP \
+    --server-device-id SERVER_SYNCTHING_DEVICE_ID \
+    --client-ip CLIENT_HEADSCALE_IP \
+    --folder-id FOLDER_ID \
+    --local-path LOCAL_PATH \
+    --ssh-user SSH_USER
+EOF
+}
+
+SERVER_IP="100.64.0.4"
+SERVER_DEVICE_ID=""
+CLIENT_IP=""
+FOLDER_ID="sync"
+LOCAL_PATH="~/sync"
+SSH_USER="ubuntu"
+SERVER_SYNCTHING_USER="syncthing"
+SYNCTHING_PORT="22000"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --server-ip)
+            SERVER_IP="${2:-}"
+            shift 2
+            ;;
+        --server-device-id)
+            SERVER_DEVICE_ID="${2:-}"
+            shift 2
+            ;;
+        --client-ip)
+            CLIENT_IP="${2:-}"
+            shift 2
+            ;;
+        --folder-id)
+            FOLDER_ID="${2:-}"
+            shift 2
+            ;;
+        --local-path)
+            LOCAL_PATH="${2:-}"
+            shift 2
+            ;;
+        --ssh-user)
+            SSH_USER="${2:-}"
+            shift 2
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            printf 'Unknown argument: %s\n\n' "$1" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+
+missing=()
+[[ -n "$SERVER_IP" ]] || missing+=(--server-ip)
+[[ -n "$SERVER_DEVICE_ID" ]] || missing+=(--server-device-id)
+[[ -n "$CLIENT_IP" ]] || missing+=(--client-ip)
+[[ -n "$FOLDER_ID" ]] || missing+=(--folder-id)
+[[ -n "$LOCAL_PATH" ]] || missing+=(--local-path)
+[[ -n "$SSH_USER" ]] || missing+=(--ssh-user)
+
+if [[ ${#missing[@]} -gt 0 ]]; then
+    printf 'Missing required arguments: %s\n\n' "${missing[*]}" >&2
+    usage >&2
+    exit 2
+fi
+
+syncthing cli config options raw-listen-addresses list >/dev/null
+
+mkdir -p "$LOCAL_PATH"
+
+CLIENT_ID="$(syncthing device-id)"
+
+printf 'Configuring device %s at %s\n' "$CLIENT_ID" "$CLIENT_IP"
+
+CLIENT_LISTEN_ADDRESS="tcp://${CLIENT_IP}:${SYNCTHING_PORT}"
+
+if ! syncthing cli config options raw-listen-addresses list | grep -Fxq "$CLIENT_LISTEN_ADDRESS"; then
+    syncthing cli config options raw-listen-addresses add "$CLIENT_LISTEN_ADDRESS"
+fi
+syncthing cli config options global-ann-enabled set false
+syncthing cli config options local-ann-enabled set false
+syncthing cli config options relays-enabled set false
+syncthing cli config options natenabled set false
+
+if ! syncthing cli config devices "$SERVER_DEVICE_ID" >/dev/null 2>&1; then
+    syncthing cli config devices add \
+        --device-id "$SERVER_DEVICE_ID" \
+        --addresses "tcp://${SERVER_IP}:${SYNCTHING_PORT}" \
+        --introducer
+fi
+syncthing cli config devices "$SERVER_DEVICE_ID" addresses add "tcp://${SERVER_IP}:${SYNCTHING_PORT}"
+syncthing cli config devices "$SERVER_DEVICE_ID" introducer set true
+
+if ! syncthing cli config folders "$FOLDER_ID" >/dev/null 2>&1; then
+    syncthing cli config folders add --id "$FOLDER_ID" --path "$LOCAL_PATH"
+fi
+syncthing cli config folders "$FOLDER_ID" path set "$LOCAL_PATH"
+
+if ! syncthing cli config folders "$FOLDER_ID" devices "$SERVER_DEVICE_ID" >/dev/null 2>&1; then
+    syncthing cli config folders "$FOLDER_ID" devices add --device-id "$SERVER_DEVICE_ID"
+fi
+
+printf 'Adding identity to remote %s at %s\n' "$SERVER_DEVICE_ID" "$SERVER_IP"
+
+ssh "${SSH_USER}@${SERVER_IP}" bash -s -- \
+    "$SERVER_SYNCTHING_USER" \
+    "$CLIENT_ID" \
+    "$CLIENT_IP" \
+    "$FOLDER_ID" \
+    "$SYNCTHING_PORT" <<'EOF'
+set -euo pipefail
+
+SERVER_SYNCTHING_USER="$1"
+CLIENT_ID="$2"
+CLIENT_IP="$3"
+FOLDER_ID="$4"
+SYNCTHING_PORT="$5"
+
+server_syncthing() {
+    sudo -u "$SERVER_SYNCTHING_USER" syncthing "$@"
+}
+
+if ! server_syncthing cli config devices "$CLIENT_ID" >/dev/null 2>&1; then
+    server_syncthing cli config devices add \
+        --device-id "$CLIENT_ID" \
+        --addresses "tcp://${CLIENT_IP}:${SYNCTHING_PORT}"
+fi
+server_syncthing cli config devices "$CLIENT_ID" addresses add "tcp://${CLIENT_IP}:${SYNCTHING_PORT}"
+
+if ! server_syncthing cli config folders "$FOLDER_ID" devices "$CLIENT_ID" >/dev/null 2>&1; then
+    server_syncthing cli config folders "$FOLDER_ID" devices add --device-id "$CLIENT_ID"
+fi
+EOF
+
+printf "Syncing ${LOCAL_PATH} with mesh.\n"

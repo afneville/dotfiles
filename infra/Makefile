@@ -24,7 +24,7 @@ tf-apply: ssh-key tf-init
 	$(TF) apply
 
 wkd:
-	"$(INFRA_DIR)/upload-wkd.sh"
+	"$(INFRA_DIR)/scripts/upload-wkd"
 
 ansible-bootstrap:
 	cd "$(ANSIBLE_DIR)" && \

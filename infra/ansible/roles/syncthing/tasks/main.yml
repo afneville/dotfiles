@@ -62,3 +62,107 @@
     state: started
     enabled: true
     daemon_reload: true
+
+- name: Wait for Syncthing API
+  ansible.builtin.wait_for:
+    host: 127.0.0.1
+    port: 8384
+    timeout: 60
+
+- name: Discover server overlay IP
+  ansible.builtin.command: tailscale ip -4
+  register: syncthing_overlay_ip_result
+  changed_when: false
+
+- name: Set server overlay IP fact
+  ansible.builtin.set_fact:
+    syncthing_overlay_ip: "{{ syncthing_overlay_ip_result.stdout_lines[0] | trim }}"
+
+- name: Read Syncthing listen addresses
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config options raw-listen-addresses list
+  register: syncthing_listen_addresses
+  changed_when: false
+
+- name: Configure Syncthing overlay listen address
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config options raw-listen-addresses add
+    tcp://{{ syncthing_overlay_ip }}:{{ syncthing_listen_port }}
+  when: "'tcp://' ~ syncthing_overlay_ip ~ ':' ~ syncthing_listen_port not in syncthing_listen_addresses.stdout_lines"
+
+- name: Read Syncthing boolean option values
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config options {{ item.key }} get
+  loop:
+    - key: global-ann-enabled
+      value: "false"
+    - key: local-ann-enabled
+      value: "false"
+    - key: relays-enabled
+      value: "false"
+    - key: natenabled
+      value: "false"
+  register: syncthing_option_values
+  changed_when: false
+
+- name: Configure Syncthing overlay-only boolean options
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config options {{ item.key }} set {{ item.value }}
+  loop: "{{ syncthing_option_values.results | map(attribute='item') | list }}"
+  vars:
+    syncthing_current_value: >-
+      {{
+        syncthing_option_values.results
+        | selectattr('item.key', 'equalto', item.key)
+        | map(attribute='stdout')
+        | first
+        | trim
+      }}
+  when: syncthing_current_value != item.value
+
+- name: Check whether Syncthing folder exists
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config folders {{ syncthing_folder_id }}
+  register: syncthing_folder
+  changed_when: false
+  failed_when: false
+
+- name: Create Syncthing folder
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config folders add
+    --id {{ syncthing_folder_id }}
+    --path {{ syncthing_shared_dir }}
+  when: syncthing_folder.rc != 0
+
+- name: Read Syncthing folder path
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config folders {{ syncthing_folder_id }} path get
+  register: syncthing_folder_path
+  changed_when: false
+
+- name: Configure Syncthing folder path
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing cli config folders {{ syncthing_folder_id }} path set {{ syncthing_shared_dir }}
+  when: (syncthing_folder_path.stdout | trim) != syncthing_shared_dir
+
+- name: Read Syncthing server device ID
+  ansible.builtin.command: >-
+    runuser --user {{ syncthing_user }} --
+    syncthing device-id
+  register: syncthing_server_device_id
+  changed_when: false
+
+- name: Show Syncthing server device ID
+  ansible.builtin.debug:
+    msg:
+      - "Syncthing server device ID: {{ syncthing_server_device_id.stdout }}"
+      - "Syncthing folder ID: {{ syncthing_folder_id }}"
+      - "Syncthing server IP: {{ syncthing_overlay_ip_result }}"

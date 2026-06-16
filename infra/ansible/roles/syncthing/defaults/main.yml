@@ -6,3 +6,5 @@ syncthing_user: syncthing
 syncthing_group: syncthing
 syncthing_home: /srv/syncthing
 syncthing_shared_dir: /srv/syncthing/sync
+syncthing_folder_id: sync
+syncthing_listen_port: 22000
