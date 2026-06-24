@@ -14,7 +14,7 @@ sections to independently versioned submodules:
 
 ## Screenshot
 
-![](./screenshots/sway.png)
+![](./.screenshots/sway.png)
 
 ## Installation
 

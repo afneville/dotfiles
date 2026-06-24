@@ -39,5 +39,6 @@ input "13364:2208:Keychron_Keychron_Q10_Max" {
 
 input "type:pointer" {
     scroll_factor 1.5
+    accel_profile "flat"
     pointer_accel 1
 }

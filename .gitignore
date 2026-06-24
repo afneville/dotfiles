@@ -72,3 +72,5 @@ serverless/env.json
 dist
 
 terraform.tfvars
+key.pub
+instructions.md
