@@ -1,0 +1,15 @@
+---
+- name: Create directory structure
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ directories }}"
+
+- name: Install system packages
+  ansible.builtin.package:
+    name: "{{ system_packages[ansible_facts.pkg_mgr] }}"
+    state: present
+  become: true
+  when:
+    - ansible_facts.pkg_mgr in system_packages

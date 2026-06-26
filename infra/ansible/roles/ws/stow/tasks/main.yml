@@ -1,0 +1,58 @@
+---
+- name: Check for existing shell config files
+  ansible.builtin.stat:
+    path: "{{ ansible_facts.env.HOME }}/{{ item }}"
+  loop:
+    - .bashrc
+    - .bash_profile
+    - .bash_login
+    - .profile
+    - .zshrc
+    - .zshenv
+    - .zprofile
+    - .zlogin
+  register: shell_configs
+
+- name: Backup existing shell config files
+  ansible.builtin.command:
+    cmd: mv {{ ansible_facts.env.HOME }}/{{ item.item }} {{ ansible_facts.env.HOME }}/{{ item.item }}.bak
+  loop: "{{ shell_configs.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+    - item.stat.exists
+    - not item.stat.islnk
+  register: backup_result
+  changed_when: backup_result.rc == 0
+
+- name: Deploy stow packages
+  ansible.builtin.command:
+    cmd: "{{ nix_profile_bin }}/stow -t {{ stow_target }} {{ item }}"
+    chdir: "{{ dotfiles_dir }}"
+  loop: "{{ stow_packages }}"
+  loop_control:
+    label: "{{ item }}"
+  register: stow_result
+  changed_when: stow_result.rc == 0
+  failed_when: false
+  when: stow_packages | length > 0
+
+- name: Deploy stow packages without folding
+  ansible.builtin.command:
+    cmd: "{{ nix_profile_bin }}/stow -t {{ stow_target }} --no-folding {{ item }}"
+    chdir: "{{ dotfiles_dir }}"
+  loop: "{{ stow_packages_no_folding }}"
+  loop_control:
+    label: "{{ item }}"
+  register: stow_no_folding_result
+  changed_when: stow_no_folding_result.rc == 0
+  failed_when: false
+  when: stow_packages_no_folding | length > 0
+
+- name: Report stow conflicts
+  ansible.builtin.debug:
+    msg: "Stow conflict for {{ item.item }}: {{ item.stderr }}"
+  loop: "{{ (stow_result.results | default([])) + (stow_no_folding_result.results | default([])) }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: item.rc is defined and item.rc != 0

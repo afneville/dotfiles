@@ -1,0 +1,18 @@
+---
+- name: Update XDG user directories
+  ansible.builtin.command:
+    cmd: "{{ nix_profile_bin }}/xdg-user-dirs-update"
+  changed_when: false
+
+- name: Initialise git submodules
+  ansible.builtin.command:
+    cmd: git submodule update --init --remote --recursive
+    chdir: "{{ dotfiles_dir }}"
+  register: submodule_result
+  changed_when: submodule_result.stdout | length > 0
+
+- name: Sync Neovim plugins
+  ansible.builtin.command:
+    cmd: "{{ nix_profile_bin }}/nvim --headless '+Lazy! sync' +qa"
+  changed_when: false
+  failed_when: false

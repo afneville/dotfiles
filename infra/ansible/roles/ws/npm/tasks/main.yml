@@ -1,0 +1,22 @@
+---
+- name: Ensure global npm CLI tools are installed
+  block:
+    - name: Check global npm package
+      ansible.builtin.command:
+        cmd: "{{ nix_profile_bin }}/npm list -g --depth=0 {{ item }}"
+      register: npm_global_package_checks
+      changed_when: false
+      failed_when: false
+      loop: "{{ npm_global_packages }}"
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Install missing global npm package
+      ansible.builtin.command:
+        cmd: "{{ nix_profile_bin }}/npm install -g {{ item.item }}"
+      loop: "{{ npm_global_package_checks.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      when: item.rc != 0
+      register: npm_global_package_install
+      changed_when: npm_global_package_install.rc == 0

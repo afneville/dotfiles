@@ -1,0 +1,22 @@
+---
+- name: Clone additional repositories
+  ansible.builtin.git:
+    repo: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    update: no
+  loop: "{{ additional_repos }}"
+  when:
+    - additional_repos | length > 0
+
+- name: Set remote URLs to SSH
+  ansible.builtin.command:
+    cmd: git remote set-url origin git@github.com:afneville/dotfiles.git
+    chdir: "{{ dotfiles_dir }}"
+  changed_when: false
+  failed_when: false
+
+- name: Sync git submodule URLs
+  ansible.builtin.command:
+    cmd: git submodule sync --recursive
+    chdir: "{{ dotfiles_dir }}"
+  changed_when: false

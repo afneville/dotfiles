@@ -1,14 +1,14 @@
 ---
-- name: Bootstrap VPS host
+- name: Bootstrap Server
   hosts: server-1
   become: true
   tags:
     - bootstrap
   roles:
     - role: base
-    - role: data_volume
+    - role: data
 
-- name: Deploy mesh VPN and Syncthing services
+- name: Deploy Services
   hosts: server-1
   become: true
   tags:
@@ -16,5 +16,22 @@
   roles:
     - role: headscale
     - role: caddy
-    - role: tailscale_client
+    - role: tailscale
     - role: syncthing
+
+- name: Configure Workstation
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+
+  tags:
+    - workstation
+  roles:
+    - init
+    - nix
+    - stow
+    - gnupg
+    - npm
+    - git
+    - post

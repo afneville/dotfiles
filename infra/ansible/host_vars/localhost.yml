@@ -1,0 +1,57 @@
+---
+user_home: /home/alex
+
+dotfiles_dir: "{{ ansible_facts.env.HOME }}/vcon/personal/dotfiles"
+stow_target: "{{ ansible_facts.env.HOME }}"
+nix_profile_bin: "{{ ansible_facts.env.HOME }}/.nix-profile/bin"
+
+stow_packages:
+  - shell
+  - apps
+  - submodules
+  - bin
+  - wm
+  - X11
+
+stow_packages_no_folding:
+  - nofolding
+
+directories:
+  - "{{ ansible_facts.env.HOME }}/local/documents"
+  - "{{ ansible_facts.env.HOME }}/local/images/screenshots"
+  - "{{ ansible_facts.env.HOME }}/local/audio"
+  - "{{ ansible_facts.env.HOME }}/local/video"
+  - "{{ ansible_facts.env.HOME }}/vcon/personal"
+  - "{{ ansible_facts.env.HOME }}/vcon/university"
+  - "{{ ansible_facts.env.HOME }}/vcon/thirdparty"
+
+additional_repos:
+  - url: git@github.com:afneville/website.git
+    dest: "{{ ansible_facts.env.HOME }}/vcon/personal/website"
+  - url: git@github.com:afneville/photos.git
+    dest: "{{ ansible_facts.env.HOME }}/vcon/personal/photos"
+
+npm_global_packages: []
+
+system_packages:
+  apt:
+    - scdaemon
+    - pcscd
+    - flatpak
+  pacman:
+    - pcsclite
+    - ccid
+    - flatpak
+    - zsh
+  dnf:
+    - pcsc-lite
+    - pcsc-lite-ccid
+    - flatpak
+  dnf5:
+    - pcsc-lite
+    - pcsc-lite-ccid
+    - flatpak
+  yum:
+    - pcsc-lite
+    - pcsc-lite-ccid
+    - flatpak

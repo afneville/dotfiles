@@ -1,0 +1,39 @@
+---
+- name: Enable and start pcscd socket for smartcard GPG
+  ansible.builtin.systemd:
+    name: pcscd.socket
+    state: started
+    enabled: true
+  become: true
+  when:
+    - ansible_facts.service_mgr == 'systemd'
+
+- name: Set GPG home directory permissions
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/.config/gpg"
+    mode: "0700"
+  failed_when: false
+
+- name: Restart gpg-agent
+  ansible.builtin.command:
+    cmd: gpgconf --kill gpg-agent
+  changed_when: false
+
+- name: Launch gpg-agent
+  ansible.builtin.command:
+    cmd: gpgconf --launch gpg-agent
+  changed_when: false
+  failed_when: false
+
+- name: Update gpg-agent TTY
+  ansible.builtin.shell:
+    cmd: GPG_TTY=$(tty) gpg-connect-agent updatestartuptty /bye
+  changed_when: false
+  failed_when: false
+
+- name: Discover GPG SSH socket path
+  ansible.builtin.command:
+    cmd: gpgconf --list-dirs agent-ssh-socket
+  register: gpg_ssh_socket
+  changed_when: false
+  failed_when: false
